@@ -1,0 +1,44 @@
+<div class="sidebar">
+    <app-sidebar-header></app-sidebar-header>
+    <app-sidebar-form></app-sidebar-form>
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-speedometer"></i> Dashboard </a>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-title">
+                Project Functions
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"><i class="icon-plus"></i> Add Project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"><i class="icon-check"></i> Approved Project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"><i class="icon-eye"></i> Reviewing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"><i class="icon-book-open"></i> Draft</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"><i class="icon-ghost"></i> Disapproved</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"><i class="icon-shield"></i> On Hold</a>
+            </li>
+            <li class="nav-title">
+                Users
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"><i class="icon-user-following"></i> Freelancers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"><i class="icon-people"></i> Customers</a>
+            </li>
+        </ul>
+    </nav>
+    <app-sidebar-footer></app-sidebar-footer>
+    <app-sidebar-minimizer></app-sidebar-minimizer>
+</div>
