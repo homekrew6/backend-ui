@@ -45,6 +45,45 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'customers',
+    component: FullLayout,
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/customers/customers.module#CustomersModule'        
+      }
+    ]
+  },
+  {
+    path: 'cms',
+    component: FullLayout,
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/cms/cms.module#CmsModule'        
+      }
+    ]
+  },
+  {
+    path: 'faq',
+    component: FullLayout,
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/faq/faq.module#FaqModule'        
+      }
+    ]
+  },
+  {
     path: 'pages',
     component: SimpleLayout,
     data: {

@@ -1,10 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { HttpModule } from '@angular/http';
+import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { environment } from '../environments/environment';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
@@ -75,9 +73,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    HttpModule,
+    CommonModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,

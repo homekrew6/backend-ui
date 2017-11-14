@@ -7,7 +7,7 @@
                 <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-speedometer"></i> Dashboard </a>
             </li>
             <li class="divider"></li>
-            <li class="nav-title">
+            <!--<li class="nav-title">
                 Project Functions
             </li>
             <li class="nav-item">
@@ -33,9 +33,15 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"><i class="icon-user-following"></i> Freelancers</a>
+            </li>-->
+            <li class="nav-item">
+                <a [routerLink]="['/customers']" routerLinkActive="active"  class="nav-link"><i class="icon-people"></i> Customers</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"><i class="icon-people"></i> Customers</a>
+                <a [routerLink]="['/cms']" routerLinkActive="active"  class="nav-link"><i class="icon-book-open"></i> CMS</a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="['/faq']" routerLinkActive="active"  class="nav-link"><i class="icon-eye"></i> FAQ</a>
             </li>
         </ul>
     </nav>

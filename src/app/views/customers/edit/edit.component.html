@@ -1,0 +1,44 @@
+<div class="animated fadeIn">
+    <div class="row">
+      
+      <div class="col-sm-12">
+        <div class="card">
+            <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="editCustomer(rForm.value)">
+          <div class="card-header">
+            <strong>Customer</strong>
+            
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="company">Name</label>
+              <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter customer name">
+              <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter name</div>
+            </div>
+            <div class="form-group">
+              <label for="vat">Email</label>
+              <input type="email" formControlName="email" [readonly]="true" class="form-control" id="email" placeholder="Enter customer email">
+              <div class="text-danger" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">Please enter email</div>
+            </div>
+            <div class="form-group">
+              <label for="street">Username</label>
+              <input type="text" formControlName="username" [readonly]="true" class="form-control" id="username" placeholder="Enter Username">
+              <div class="text-danger" *ngIf="!rForm.controls['username'].valid && rForm.controls['username'].touched">Please enter username</div>
+            </div>
+            
+            <div class="form-group">
+              <label for="street">Phone</label>
+              <input type="number" formControlName="phone" class="form-control" id="phone" placeholder="Enter customer phone">
+              <div class="text-danger" *ngIf="!rForm.controls['phone'].valid && rForm.controls['phone'].touched">Please enter phone</div>
+            </div>                        
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+            <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
+          </div>
+          </form>
+        </div>
+      </div><!--/.col-->
+    </div><!--/.row-->   
+    
+  </div>
+  

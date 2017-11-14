@@ -1,0 +1,39 @@
+<div class="animated fadeIn">  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i> Customer List            
+           <span style="float:right"><a [routerLink]="['/customers/add']" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; ADD</a></span>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>                  
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let customer of customerList">
+                  
+                  <td>{{customer.name}}</td>
+                  <td>{{customer.email}}</td>
+                  <td>{{customer.phone}}</td>                  
+                  <td>
+            <a [routerLink]="['/customers/edit',customer.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
+            <button type="button" class="btn btn-danger" (click)="deleteCustomer(customer.id)"><i class="fa fa-rss"></i>&nbsp; Delete</button>
+                  </td>
+                </tr>               
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--/.col-->
+    </div>
+    <!--/.row-->
+  </div>
+  

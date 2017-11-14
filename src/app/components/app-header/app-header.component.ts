@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   templateUrl: './app-header.component.html'
 })
 export class AppHeader {
-
+  logName = '';
   constructor(private el: ElementRef, private router: Router) { }
 
   //wait for the component to render completely
@@ -18,10 +18,12 @@ export class AppHeader {
     }
     // remove the empty element(the host)
     parentElement.removeChild(nativeElement);
+    this.logName = localStorage.getItem("loginName");
+    //console.log(this.logName);
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
     this.router.navigate(['pages/login']);
   }
 }
