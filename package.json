@@ -25,6 +25,8 @@
     "@angular/platform-browser-dynamic": "4.4.2",
     "@angular/router": "4.4.2",
     "@angular/upgrade": "4.4.2",
+    "@ngui/map": "^0.20.0",
+    "@types/googlemaps": "^3.29.2",
     "angularfire2": "^5.0.0-rc.3",
     "chart.js": "2.7.0",
     "core-js": "2.5.1",

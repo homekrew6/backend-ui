@@ -71,6 +71,19 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'zone',
+    component: FullLayout,
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/zone/zone.module#ZoneModule'        
+      }
+    ]
+  },
+  {
     path: 'faq',
     component: FullLayout,
     data: {
