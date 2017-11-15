@@ -15,6 +15,7 @@ export class AddComponent implements OnInit {
   rForm: FormGroup;
   error: string;
   selectedOverlay : any;
+  currentCord: any;
   constructor(private fb: FormBuilder,private router: Router, private zoneService: ZoneService) { 
     this.rForm = fb.group({      
       'name': [null, Validators.required],
@@ -25,6 +26,13 @@ export class AddComponent implements OnInit {
   }
 
   ngOnInit() {
+    navigator.geolocation.getCurrentPosition((position)=> {
+      //console.log(position)
+      
+      //console.log(position.coords.latitude);
+      this.currentCord = position.coords.latitude +', '+position.coords.longitude;      
+      //console.log(this.currentCord);      
+    })
     this.drawingManager['initialized$'].subscribe(dm => {
       google.maps.event.addListener(dm, 'overlaycomplete', event => {
         this.deleteSelectedOverlay();

@@ -47,6 +47,7 @@ export const routes: Routes = [
   {
     path: 'customers',
     component: FullLayout,
+    canActivate: [AuthGuard],
     data: {
       title: ''
     },
@@ -60,6 +61,7 @@ export const routes: Routes = [
   {
     path: 'cms',
     component: FullLayout,
+    canActivate: [AuthGuard],
     data: {
       title: ''
     },
@@ -73,6 +75,7 @@ export const routes: Routes = [
   {
     path: 'zone',
     component: FullLayout,
+    canActivate: [AuthGuard],
     data: {
       title: ''
     },
@@ -86,6 +89,7 @@ export const routes: Routes = [
   {
     path: 'faq',
     component: FullLayout,
+    canActivate: [AuthGuard],
     data: {
       title: ''
     },
@@ -93,6 +97,34 @@ export const routes: Routes = [
       {
         path: '',
         loadChildren: './views/faq/faq.module#FaqModule'        
+      }
+    ]
+  },
+  {
+    path: 'vertical',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/vertical/vertical.module#VerticalModule'        
+      }
+    ]
+  },
+  {
+    path: 'worker',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/worker/worker.module#WorkerModule'        
       }
     ]
   },

@@ -36,11 +36,11 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     navigator.geolocation.getCurrentPosition((position)=> {
-      console.log(position)
+      //console.log(position)
       
-      console.log(position.coords.latitude);
+      //console.log(position.coords.latitude);
       this.currentCord = position.coords.latitude +', '+position.coords.longitude;      
-      console.log(this.currentCord);      
+      //console.log(this.currentCord);      
     })
     this.activatedRoute.params.subscribe((params: Params) => {
       this.zoneId = params['id'];        
