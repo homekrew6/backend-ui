@@ -129,6 +129,20 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'service',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/service/service.module#ServiceModule',
+      }
+    ]
+  },
+  {
     path: 'pages',
     component: SimpleLayout,
     data: {

@@ -67,8 +67,7 @@ export class EditComponent implements OnInit {
   }
   public editZone(zone){  
     
-    console.log(zone);
-    console.log(this.zoneId)
+    
     this.zoneService.editZone(zone,this.zoneId).subscribe(res=>{ 
       console.log(res)     
       this.router.navigate(['/zone']);

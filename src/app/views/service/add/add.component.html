@@ -1,0 +1,72 @@
+<div class="animated fadeIn">
+  <div class="row">
+    
+    <div class="col-sm-12">
+      <div class="card">
+          <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="addService(rForm.value)">
+        <div class="card-header">
+          <strong>Service</strong>
+          
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="company">Name</label>
+            <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter service name">
+            <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter service name</div>
+          </div>
+
+          <div class="form-group">
+            <label for="verticalId">Vertical</label>
+            <select id="verticalId" formControlName="verticalId" class="form-control">
+              <option value="">Please select</option>
+              <option *ngFor="let vertical of verticalList" value="{{vertical.id}}">{{vertical.name}}</option>              
+            </select>
+            <div class="text-danger" *ngIf="!rForm.controls['verticalId'].valid && rForm.controls['verticalId'].touched">Please select vertical</div>
+            </div>
+              
+            <div class="form-group">
+              <label for="company">Zone</label>
+              <div class="checkbox" *ngFor="let zone of rForm.value.zones">
+                <label for="checkbox{{zone.id}}">
+                  <input type="checkbox" id="checkbox{{zone.id}}" [checked]="zone.selected" (change)="zone.selected = !zone.selected" name="checkbox{{zone.id}}" value="{{zone.id}}"> {{zone.name}}
+                </label>
+                <a href="javascript:;" data-toggle="modal" (click)="showMap(zone,primaryModal)">Map View </a>
+              </div>
+               
+            </div>
+          
+                                
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
+        </div>
+        </form>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->   
+  
+</div>
+
+<div bsModal #primaryModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Map View</h4>
+        <button type="button" class="close" (click)="primaryModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ngui-map zoom="8" [center]="firstCord">
+          <polygon [editable]="false"
+          [paths]="selectedMapZone"
+          ></polygon>
+        </ngui-map>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="primaryModal.hide()">Close</button>        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
