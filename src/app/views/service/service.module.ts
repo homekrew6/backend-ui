@@ -8,6 +8,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NguiMapModule} from '@ngui/map';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { NguiMapModule} from '@ngui/map';
     NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?libraries=visualization,places,drawing&key=AIzaSyAzwzNzq3irmwjUVU1MhMuwP7qD0CfZijA'})
 
   ],
-  declarations: [ServiceComponent, AddComponent],
+  declarations: [ServiceComponent, AddComponent, EditComponent],
   providers:[
     ServiceService
   ]

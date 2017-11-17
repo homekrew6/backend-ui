@@ -12,7 +12,8 @@ export class ServiceService {
     }
     
     public getService(){
-        return this.http.get(environment.baseurl+'services?access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
+        let serviceChild = '{"include":["vertical"]}';
+        return this.http.get(environment.baseurl+'services?filter='+serviceChild+'&access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
             return res.json();
         });
     }
@@ -31,8 +32,14 @@ export class ServiceService {
             return res.json();
         });
     }
+    public deleteServiceRelatedZone(id){
+        return this.http.delete(environment.baseurl+'services/'+id+'/serviceZones?access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
+            return res.json();
+        });
+    }
     public getIndividualService(id){
-        return this.http.get(environment.baseurl+'services/'+id+'/?access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
+        let serviceChild = '{"include":["serviceZones","vertical"]}';
+        return this.http.get(environment.baseurl+'services/'+id+'/?filter='+serviceChild+'&access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
             return res.json();
         });
     }

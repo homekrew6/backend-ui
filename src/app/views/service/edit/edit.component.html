@@ -3,7 +3,7 @@
     
     <div class="col-sm-12">
       <div class="card">
-          <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="addService(rForm.value)">
+          <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="editService(rForm.value)">
         <div class="card-header">
           <strong>Service</strong>
           
@@ -34,7 +34,6 @@
               </div>
                
             </div> -->
-
             <div class="form-group">
                 <label for="company">Zone</label>
                 <div class="col-lg-3">                
@@ -55,6 +54,9 @@
                     </table>
                   </div>                 
             </div>
+           
+
+                  
           
                                 
         </div>

@@ -18,7 +18,7 @@ export class ServiceComponent implements OnInit {
 
   public getAllServices(){
     this.serviceService.getService().subscribe(res=>{
-      //console.log(res);
+      console.log(res);
       this.serviceList=res;
     })
   }
