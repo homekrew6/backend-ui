@@ -1,0 +1,43 @@
+<div class="animated fadeIn">  
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Question List            
+         <span style="float:right"><a [routerLink]="['/question/add']" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; ADD</a></span>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Question</th>                                                
+                <th>Type</th>
+                <th>Service</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let question of questionList">
+                
+                <td>{{question.name}}</td>
+                <td *ngIf="question.type == 1">Number</td>
+                <td *ngIf="question.type == 2">Boolean</td>
+                <td *ngIf="question.type == 3">Radio</td>
+                <td *ngIf="question.type == 4">Range</td>
+                <td *ngIf="question.type == 5">Photo</td>
+               
+                <td>{{question.service.name}}</td>                            
+                <td>
+          <a [routerLink]="['/question/edit',question.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
+          <button type="button" class="btn btn-danger" (click)="deleteQuestion(question.id)"><i class="fa fa-rss"></i>&nbsp; Delete</button>
+                </td>
+              </tr>               
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

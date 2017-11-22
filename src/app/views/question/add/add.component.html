@@ -1,0 +1,275 @@
+<div class="animated fadeIn">
+    <div class="row">
+      
+      <div class="col-sm-12">
+        <div class="card">
+            <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="addQuestion(rForm.value)">
+          <div class="card-header">
+            <strong>Question</strong>
+            
+          </div>
+          <div class="card-body">
+            
+              <!-- <div *ngFor="let prop of objectProps">
+                  <label [attr.for]="prop">{{prop.label}}</label>
+          
+                  <div [ngSwitch]="prop.type">
+                    <input *ngSwitchCase="'text'" 
+                      [formControlName]="prop.key"
+                      [id]="prop.key" [type]="prop.type">
+          
+                  </div>
+                   <div class="error" *ngIf="rform.get(prop.key).invalid && (rform.get(prop.key).dirty || rform.get(prop.key).touched)">
+                    <div *ngIf="rform.get(prop.key).errors.required">
+                      {{ prop.label }} is required.
+                    </div>
+                  </div>
+                </div>
+                  <div class="form-group" *ngFor="let prop of objectProps">
+                      {{prop.label}}
+                      <label for="questiontype">{{prop.label}}</label>
+                      <input [type]="prop.type" [formControlName]="prop.key" class="form-control" [id]="prop.key" placeholder="Enter question">
+                      <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter question</div> 
+                    </div> -->
+          
+                  
+                
+            <div class="form-group">
+              <label for="serviceId">Service</label>
+              <select id="serviceId" formControlName="serviceId" class="form-control">
+                <option value="">Please select</option>
+                <option *ngFor="let service of serviceList" value="{{service.id}}">{{service.name}}</option>              
+              </select>
+              <div class="text-danger" *ngIf="!rForm.controls['serviceId'].valid && rForm.controls['serviceId'].touched">Please select service</div>              
+            </div>
+            <div class="form-group">
+              <label for="questiontype">Question Type</label>
+              <select id="questiontype" formControlName="type" class="form-control" (change)="changeQuestionType(rForm.value.type)">
+                <option value="">Please select</option>
+                <option *ngFor="let questionType of questionTypeList" value="{{questionType.id}}">{{questionType.name}}</option>              
+              </select>
+              <div class="text-danger" *ngIf="!rForm.controls['type'].valid && rForm.controls['type'].touched">Please select question type</div>              
+            </div>
+            <div class="form-group">
+              <label for="questiontype">Question</label>
+              <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter question">
+              <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter question</div>
+            </div>
+            <div *ngIf="typeSelected == 4">
+                <div class="form-group">
+                  <label for="questiontype">Enter Range Name</label>
+                  <input type="text" formControlName="range_name" class="form-control" id="range_name" placeholder="Enter range name">
+                  <div class="text-danger" *ngIf="!rForm.controls['range_name'].valid && rForm.controls['range_name'].touched">Please enter range name</div>
+                </div>
+                <div class="form-group">
+                  <label for="questiontype">Start Range</label>
+                  <input type="number" formControlName="start_range" class="form-control" id="start_range" placeholder="Enter start range">
+                  <div class="text-danger" *ngIf="!rForm.controls['start_range'].valid && rForm.controls['start_range'].touched">Please enter start range</div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="questiontype">End Range</label>
+                  <input type="number" formControlName="end_range" class="form-control" id="end_range" placeholder="Enter end range">
+                  <div class="text-danger" *ngIf="!rForm.controls['end_range'].valid && rForm.controls['end_range'].touched">Please enter end range</div>
+                  <div class="text-danger" *ngIf="rForm.controls['end_range'].valid && rForm.controls['start_range'].valid && rForm.value.end_range <= rForm.value.start_range">End range should be greater than start range</div>
+                </div>
+
+            </div>
+            <div *ngIf="typeSelected == 3">
+                <div class="form-group">
+                  <label for="no_of_option">No of Option</label>
+                  <select id="no_of_option" formControlName="no_of_option" class="form-control" (change)="changeRadioOption(rForm.value.no_of_option)">
+                    <option value="">Please select</option>
+                    <option *ngFor="let radioOption of radioOptionList" value="{{radioOption.value}}">{{radioOption.value}}</option>              
+                  </select>
+                  <div class="text-danger" *ngIf="!rForm.controls['no_of_option'].valid && rForm.controls['no_of_option'].touched">Please select no of options</div>              
+                </div>
+
+                <div class="form-group" *ngIf="radioOptionSelected >= 2">
+                  <label for="questiontype">Option 1</label>
+                  <input type="text" formControlName="option1" class="form-control" id="option1" placeholder="Option1">
+                  <div class="text-danger" *ngIf="!rForm.controls['option1'].valid && rForm.controls['option1'].touched">Please enter option1</div>
+                  
+                </div>
+                <div class="form-group" *ngIf="radioOptionSelected >= 2">
+                  <label for="questiontype">Option 2</label>
+                  <input type="text" formControlName="option2" class="form-control" id="option2" placeholder="Option2">
+                  <div class="text-danger" *ngIf="!rForm.controls['option2'].valid && rForm.controls['option2'].touched">Please enter option2</div>
+                  
+                </div>
+                  <div class="form-group" *ngIf="radioOptionSelected >= 3">
+                    <label for="questiontype">Option 3</label>
+                    <input type="text" formControlName="option3" class="form-control" id="option3" placeholder="Option3">
+                    <div class="text-danger" *ngIf="!rForm.controls['option3'].valid && rForm.controls['option3'].touched">Please enter option3</div>
+                    
+                  </div>
+                  <div class="form-group" *ngIf="radioOptionSelected >= 4">
+                    <label for="questiontype">Option 4</label>
+                    <input type="text" formControlName="option4" class="form-control" id="option4" placeholder="Option4">
+                    <div class="text-danger" *ngIf="!rForm.controls['option4'].valid && rForm.controls['option4'].touched">Please enter option4</div>
+                    
+                  </div>
+                  <div class="form-group" *ngIf="radioOptionSelected >= 5">
+                      <label for="questiontype">Option 5</label>
+                      <input type="text" formControlName="option5" class="form-control" id="option5" placeholder="Option5">
+                      <div class="text-danger" *ngIf="!rForm.controls['option5'].valid && rForm.controls['option5'].touched">Please enter option5</div>
+                      
+                    </div>
+
+            </div>
+            <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" (click)="largeModal.show()">
+              Launch large modal
+            </button> -->
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" (click)="showPopupQuestion(largeModal)"><i class="fa fa-dot-circle-o"></i> Add Question</button>
+
+            <table class="table table-bordered table-striped table-sm" *ngIf="subQuestions.length > 0">
+                <thead>
+                  <tr>
+                    <th>Question</th>                                                
+                    <th>Type</th>
+                    
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let question of subQuestions; let idx = index">
+                    
+                    <td>{{question.name}}</td>
+                    <td *ngIf="question.type == 1">Number</td>
+                    <td *ngIf="question.type == 2">Boolean</td>
+                    <td *ngIf="question.type == 3">Radio</td>
+                    <td *ngIf="question.type == 4">Range</td>
+                    <td *ngIf="question.type == 5">Photo</td>
+                   
+                                                
+                    <td>
+              <!--<a href="javascript:;" (click)="editModalQuestion(question)" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>-->
+              <button type="button" class="btn btn-danger" (click)="deleteModalQuestion(idx)"><i class="fa fa-rss"></i>&nbsp; Delete</button>
+                    </td>
+                  </tr>               
+                </tbody>
+              </table>    
+                
+              
+            
+                                  
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+            <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
+          </div>
+          </form>
+        </div>
+      </div><!--/.col-->
+    </div><!--/.row-->   
+    
+  </div>
+
+
+  
+  <div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <form [formGroup]="rModalForm" class="form-horizontal" (ngSubmit)="addModalQuestion(rModalForm.value,largeModal)">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Question</h4>
+        <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+            <!--<div class="form-group">
+              <label for="serviceId">Service</label>
+              <select id="serviceId" formControlName="serviceId" class="form-control">
+                <option value="">Please select</option>
+                <option *ngFor="let service of serviceList" value="{{service.id}}">{{service.name}}</option>              
+              </select>
+              <div class="text-danger" *ngIf="!rModalForm.controls['serviceId'].valid && rModalForm.controls['serviceId'].touched">Please select service</div>              
+            </div>-->
+            <div class="form-group">
+              <label for="questiontype">Question Type</label>
+              <select id="questiontype" formControlName="type" class="form-control" (change)="changeModalQuestionType(rModalForm.value.type)">
+                <option value="">Please select</option>
+                <option *ngFor="let questionType of questionTypeList" value="{{questionType.id}}">{{questionType.name}}</option>              
+              </select>
+              <div class="text-danger" *ngIf="!rModalForm.controls['type'].valid && rModalForm.controls['type'].touched">Please select question type</div>              
+            </div>
+            <div class="form-group">
+              <label for="questiontype">Question</label>
+              <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter question">
+              <div class="text-danger" *ngIf="!rModalForm.controls['name'].valid && rModalForm.controls['name'].touched">Please enter question</div>
+            </div>
+            <div *ngIf="typeModalSelected == 4">
+                <div class="form-group">
+                  <label for="questiontype">Enter Range Name</label>
+                  <input type="text" formControlName="range_name" class="form-control" id="range_name" placeholder="Enter range name">
+                  <div class="text-danger" *ngIf="!rModalForm.controls['range_name'].valid && rModalForm.controls['range_name'].touched">Please enter range name</div>
+                </div>
+                <div class="form-group">
+                  <label for="questiontype">Start Range</label>
+                  <input type="number" formControlName="start_range" class="form-control" id="start_range" placeholder="Enter start range">
+                  <div class="text-danger" *ngIf="!rModalForm.controls['start_range'].valid && rModalForm.controls['start_range'].touched">Please enter start range</div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="questiontype">End Range</label>
+                  <input type="number" formControlName="end_range" class="form-control" id="end_range" placeholder="Enter end range">
+                  <div class="text-danger" *ngIf="!rModalForm.controls['end_range'].valid && rModalForm.controls['end_range'].touched">Please enter end range</div>
+                  <div class="text-danger" *ngIf="rModalForm.controls['end_range'].valid && rModalForm.controls['start_range'].valid && rModalForm.value.end_range <= rModalForm.value.start_range">End range should be greater than start range</div>
+                </div>
+
+            </div>
+            <div *ngIf="typeModalSelected == 3">
+                <div class="form-group">
+                  <label for="no_of_option">No of Option</label>
+                  <select id="no_of_option" formControlName="no_of_option" class="form-control" (change)="changeModalRadioOption(rModalForm.value.no_of_option)">
+                    <option value="">Please select</option>
+                    <option *ngFor="let radioOption of radioOptionList" value="{{radioOption.value}}">{{radioOption.value}}</option>              
+                  </select>
+                  <div class="text-danger" *ngIf="!rModalForm.controls['no_of_option'].valid && rModalForm.controls['no_of_option'].touched">Please select no of options</div>              
+                </div>
+
+                <div class="form-group" *ngIf="radioModalOptionSelected >= 2">
+                  <label for="questiontype">Option 1</label>
+                  <input type="text" formControlName="option1" class="form-control" id="option1" placeholder="Option1">
+                  <div class="text-danger" *ngIf="!rModalForm.controls['option1'].valid && rModalForm.controls['option1'].touched">Please enter option1</div>
+                  
+                </div>
+                <div class="form-group" *ngIf="radioModalOptionSelected >= 2">
+                  <label for="questiontype">Option 2</label>
+                  <input type="text" formControlName="option2" class="form-control" id="option2" placeholder="Option2">
+                  <div class="text-danger" *ngIf="!rModalForm.controls['option2'].valid && rModalForm.controls['option2'].touched">Please enter option2</div>
+                  
+                </div>
+                  <div class="form-group" *ngIf="radioModalOptionSelected >= 3">
+                    <label for="questiontype">Option 3</label>
+                    <input type="text" formControlName="option3" class="form-control" id="option3" placeholder="Option3">
+                    <div class="text-danger" *ngIf="!rModalForm.controls['option3'].valid && rModalForm.controls['option3'].touched">Please enter option3</div>
+                    
+                  </div>
+                  <div class="form-group" *ngIf="radioModalOptionSelected >= 4">
+                    <label for="questiontype">Option 4</label>
+                    <input type="text" formControlName="option4" class="form-control" id="option4" placeholder="Option4">
+                    <div class="text-danger" *ngIf="!rModalForm.controls['option4'].valid && rModalForm.controls['option4'].touched">Please enter option4</div>
+                    
+                  </div>
+                  <div class="form-group" *ngIf="radioModalOptionSelected >= 5">
+                      <label for="questiontype">Option 5</label>
+                      <input type="text" formControlName="option5" class="form-control" id="option5" placeholder="Option5">
+                      <div class="text-danger" *ngIf="!rModalForm.controls['option5'].valid && rModalForm.controls['option5'].touched">Please enter option5</div>
+                      
+                    </div>
+
+            </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!rModalForm.valid">Submit</button>
+      </div>
+    </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+  

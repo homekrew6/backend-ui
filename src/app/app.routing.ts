@@ -143,6 +143,20 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'question',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/question/question.module#QuestionModule',
+      }
+    ]
+  },
+  {
     path: 'pages',
     component: SimpleLayout,
     data: {
