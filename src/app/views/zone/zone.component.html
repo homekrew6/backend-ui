@@ -11,7 +11,8 @@
             <thead>
               <tr>
                 <th>Name</th>
-                                                 
+                <th>Parent</th>
+                <th>Level</th>                                 
                 <th>Action</th>
               </tr>
             </thead>
@@ -19,6 +20,9 @@
               <tr *ngFor="let zone of zoneList">
                 
                 <td>{{zone.name}}</td>
+                <td *ngIf="zone.zoneId == 0"> </td>
+                <td *ngIf="zone.zoneId != 0">{{zone.zone.name}}</td>
+                <td>{{zone.level}}</td>
                                               
                 <td>
           <a [routerLink]="['/zone/edit',zone.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>

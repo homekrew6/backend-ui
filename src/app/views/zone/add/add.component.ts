@@ -16,11 +16,26 @@ export class AddComponent implements OnInit {
   error: string;
   selectedOverlay : any;
   currentCord: any;
+  languageList = [];
+  currencyList = [];
+  parentZoneList = [];
+  is_sec_pass = false;
+  is_active = false;
+  is_job_accept = false;
   constructor(private fb: FormBuilder,private router: Router, private zoneService: ZoneService) { 
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'fencing': [null, Validators.required],
-      'description': ''    
+      'description': '',
+      'languageId': [null, Validators.required],
+      'currencyId': [null, Validators.required],
+      'premium': '', 
+      'is_active': '',
+      'is_sec_pass':'',
+      'security_pasword':'',
+      'is_job_accept':'',
+      'level':[null, Validators.required],
+      'zoneId':''
       
     });
   }
@@ -50,6 +65,16 @@ export class AddComponent implements OnInit {
       
       
     });
+    this.rForm.controls['languageId'].setValue('');
+    this.rForm.controls['currencyId'].setValue('');
+    this.rForm.controls['zoneId'].setValue(0); 
+    this.rForm.controls['is_active'].setValue(false);
+    this.rForm.controls['is_sec_pass'].setValue(false); 
+    this.rForm.controls['is_job_accept'].setValue(false);
+     
+    this.getAllLanguages();
+    this.getAllCurrencies();
+    this.getAllParent();
   }
 
   public extractPath(){      
@@ -76,7 +101,10 @@ export class AddComponent implements OnInit {
   }
 
   public addZone(zone){   
-    console.log(zone)
+    zone.is_active = this.is_active;
+    zone.is_job_accept = this.is_job_accept;
+    zone.is_sec_pass = this.is_sec_pass;
+    //console.log(zone)
     this.zoneService.addZone(zone).subscribe(res=>{
       
       this.router.navigate(['/zone']);
@@ -84,5 +112,42 @@ export class AddComponent implements OnInit {
       this.error = "Error Occured, please try again"
     })
   }
+
+  public getAllLanguages(){
+    this.zoneService.getAllLanguages().subscribe(res=>{      
+      this.languageList=res;
+    })
+  }
+  public getAllCurrencies(){
+    this.zoneService.getAllCurrencies().subscribe(res=>{      
+      this.currencyList=res;
+    })
+  }
+
+  public getAllParent(){
+    this.zoneService.getAllParentZones().subscribe(res=>{   
+      console.log(res);   
+      this.parentZoneList=res;
+    })
+  }
+  public changeIsSecPass($e: any){
+     this.is_sec_pass = !this.is_sec_pass;
+     
+     if(this.is_sec_pass){
+      //this.rForm.get('security_pasword').setValidators([Validators.required]);
+     }else{
+      this.rForm.controls['security_pasword'].setValue('');
+      //console.log(this.is_sec_pass);
+      //this.rForm.get('security_pasword').setValidators([]);
+     }
+  }
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    //console.log(this.is_active);
+ }
+ public changeIsJobAccept($e: any){
+  this.is_job_accept = !this.is_job_accept;
+  //console.log(this.is_job_accept);
+}
 
 }

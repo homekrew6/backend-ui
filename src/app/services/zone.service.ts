@@ -12,7 +12,8 @@ export class ZoneService {
     }
     
     public getZone(){
-        return this.http.get(environment.baseurl+'Zones?access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
+        let zoneParent = '{"include":["zone"]}';
+        return this.http.get(environment.baseurl+'Zones?filter='+zoneParent+'&access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
             return res.json();
         });
     }
@@ -35,6 +36,21 @@ export class ZoneService {
         return this.http.put(environment.baseurl+'Zones/'+id+'?access_token='+localStorage.getItem("authToken"),data).map((res: Response) => {       
            
             return res.json();
+        });
+    }
+    public getAllLanguages(){
+        return this.http.get(environment.baseurl+'Languages?access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
+            return res.json();
+        });
+    }
+    public getAllCurrencies(){
+        return this.http.get(environment.baseurl+'Currencies?access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
+            return res.json();
+        });
+    }
+    public getAllParentZones(){
+        return this.http.get(environment.baseurl+'Zones/getParentZone?access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
+            return res.json().zone;
         });
     }
 }

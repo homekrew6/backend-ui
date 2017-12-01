@@ -22,6 +22,12 @@ export class ServiceService {
             return res.json();
         });
     }
+    public addServiceWithFile(data){
+        return this.http.post(environment.baseurl+'services/uploadFile?access_token='+localStorage.getItem("authToken"),data).map((res: Response) => {  
+            console.log(res);          
+            return res.json();
+        });
+    }
     public addServiceZone(data){
         return this.http.post(environment.baseurl+'services/'+data.serviceId+'/serviceZones?access_token='+localStorage.getItem("authToken"),data).map((res: Response) => {            
             return res.json();
@@ -54,8 +60,19 @@ export class ServiceService {
             return res.json();
         });
     }
+    public getAllExexutionMethod(){
+        return this.http.get(environment.baseurl+'ExexutionMethods?access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
+            return res.json();
+        });
+    }
+    public getAllCurrencies(){
+        return this.http.get(environment.baseurl+'Currencies?access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
+            return res.json();
+        });
+    }
     public getAllZone(){
-        return this.http.get(environment.baseurl+'Zones?access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
+        let zoneParent = '{"include":["zone"]}';
+        return this.http.get(environment.baseurl+'Zones?filter='+zoneParent+'&access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
             return res.json();
         });
     }

@@ -10,10 +10,13 @@ import { ZoneService } from '../../services/zone.service';
 })
 export class ZoneComponent implements OnInit {
   zoneList=[];
+  languageList=[];
+  currencyList=[];
   constructor(private router: Router, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.getAllZones();
+    
   }
 
   public getAllZones(){
@@ -22,6 +25,7 @@ export class ZoneComponent implements OnInit {
       this.zoneList=res;
     })
   }
+  
   public deleteZone(id){
     //console.log(id);
     let confirmMessage = confirm('Do you want to delete?')

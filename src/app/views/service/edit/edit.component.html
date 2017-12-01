@@ -3,16 +3,40 @@
     
     <div class="col-sm-12">
       <div class="card">
-          <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="editService(rForm.value)">
+          
         <div class="card-header">
           <strong>Service</strong>
           
         </div>
         <div class="card-body">
+            <form [formGroup]="rForm" class="form-horizontal" >
           <div class="form-group">
             <label for="company">Name</label>
             <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter service name">
             <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter service name</div>
+          </div>
+
+          <div class="form-group">
+            <label for="color_code">Color Code</label>
+            <input type="text" formControlName="color_code" class="form-control" id="color_code" placeholder="Enter service name">
+            
+          </div>
+
+          <div class="form-group">
+            <label for="icon_class">Icon Class </label>
+            <input type="text" formControlName="icon_class" class="form-control" id="icon_class" placeholder="Enter service name">
+            
+          </div>
+          <div class="form-group" *ngIf="rForm.value.banner_image">
+            
+            <img src="{{rForm.value.banner_image}}" style="width:50px;height:50px;">
+          </div>
+
+          <div class="form-group">
+            <label for="icon_class">Banner</label>
+            <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
+            <input type="file" id="theFileInput" (change)="fileChangeListener($event)" />
+            
           </div>
 
           <div class="form-group">
@@ -23,6 +47,57 @@
             </select>
             <div class="text-danger" *ngIf="!rForm.controls['verticalId'].valid && rForm.controls['verticalId'].touched">Please select vertical</div>
             </div>
+          
+            <div class="form-group">
+              <label for="currencyId">Currency</label>
+              <select id="currencyId" formControlName="currencyId" class="form-control">
+                <option value="">Please select</option>
+                <option *ngFor="let currency of currencyList" value="{{currency.id}}">{{currency.name}}</option>              
+              </select>
+              <div class="text-danger" *ngIf="!rForm.controls['currencyId'].valid && rForm.controls['currencyId'].touched">Please select currency</div>
+            </div>
+            <div class="form-group">
+              <label for="cost_per_hour">Cost Per Hour</label>
+              <input type="number" formControlName="cost_per_hour" class="form-control" id="cost_per_hour" placeholder="Enter Cost">
+              <div class="text-danger" *ngIf="!rForm.controls['cost_per_hour'].valid && rForm.controls['cost_per_hour'].touched">Please enter cost</div>
+            </div>
+            <div class="form-group">
+              <label for="time_interval">Time Interval</label>
+              <input type="number" formControlName="time_interval" class="form-control" id="time_interval" placeholder="Enter Time Interval">
+              <div class="text-danger" *ngIf="!rForm.controls['time_interval'].valid && rForm.controls['time_interval'].touched">Please enter time interval</div>
+            </div>
+            <div class="form-group">
+              <label for="min_charge">Min charge</label>
+              <input type="number" formControlName="min_charge" class="form-control" id="min_charge" placeholder="Enter Min Charge">
+              <div class="text-danger" *ngIf="!rForm.controls['min_charge'].valid && rForm.controls['min_charge'].touched">Please enter min charge</div>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label for="is_reoccur_able">
+                  <input type="checkbox" id="is_reoccur_able"  [checked]="is_reoccur_able" (change)="changeReoccurable($event)"> Is reoccurable
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="execution_method">Execution Method</label>
+              <select id="execution_method" formControlName="execution_method" class="form-control">
+                <option value="0">Please select</option>
+                <option *ngFor="let executionMethod of executionMethodList" value="{{executionMethod.id}}">{{executionMethod.name}}</option>              
+              </select>
+              <div class="text-danger" *ngIf="!rForm.controls['execution_method'].valid && rForm.controls['execution_method'].touched">Please select execution method</div>
+            </div>
+            <div class="form-group">
+              <label for="min_no_workers">Minimum number of workers</label>
+              <input type="number" formControlName="min_no_workers" class="form-control" id="min_no_workers" placeholder="Enter Min Charge">
+              
+            </div>
+            <div class="form-group">
+              <label for="min_no_dedicated_workers">Minimum number of dedicated workers</label>
+              <input type="number" formControlName="min_no_dedicated_workers" class="form-control" id="min_no_dedicated_workers" placeholder="Enter Min Charge">
+              
+            </div>
+
+           </form>
               
             <!-- <div class="form-group">
               <label for="company">Zone</label>
@@ -35,25 +110,55 @@
                
             </div> -->
             <div class="form-group">
-                <label for="company">Zone</label>
-                <div class="col-lg-3">                
-                    <table class="table table-bordered">                
-                      
-                        <tr *ngFor="let zone of rForm.value.zones">
-                          <td >
-                              <div class="checkbox" >
+              <label for="company">Zone</label>
+              <div class="col-lg-12">                
+                  <table class="table table-bordered"> 
+                      <tr>
+                          <th>Zone</th>
+                          <th>Cost per Hour</th>
+                          <th>Time Interval</th>
+                          <th>Min Charge</th>
+                          <th>Reoccurable</th>
+                          <th>Map</th>
+                      </tr>               
+                    
+                      <tr *ngFor="let zone of zoneList">
+                        <td >
+                            <div class="checkbox" *ngIf="zone.zoneId == 0">
+                                <label for="checkbox{{zone.id}}">
+                                  <input type="checkbox" id="checkbox{{zone.id}}" [checked]="zone.selected" (change)="zone.selected = !zone.selected" name="checkbox{{zone.id}}" value="{{zone.id}}"> {{zone.name}}
+                                </label>                                
+                              </div>
+                              <div class="checkbox" *ngIf="zone.zoneId != 0">
                                   <label for="checkbox{{zone.id}}">
-                                    <input type="checkbox" id="checkbox{{zone.id}}" [checked]="zone.selected" (change)="zone.selected = !zone.selected" name="checkbox{{zone.id}}" value="{{zone.id}}"> {{zone.name}}
+                                    <input type="checkbox" id="checkbox{{zone.id}}" [checked]="zone.selected" (change)="zone.selected = !zone.selected" name="checkbox{{zone.id}}" value="{{zone.id}}"> {{zone.name}} ( Parent : {{zone.zone.name}})
                                   </label>                                
                                 </div>
-                          </td>                       
-                          <td>
-                              <a href="javascript:;" data-toggle="modal" (click)="showMap(zone,primaryModal)">Map View </a>
-                          </td>
-                        </tr>
-                    </table>
-                  </div>                 
-            </div>
+                        </td>
+                        <td >
+                          <input type="number"  class="form-control"  [(ngModel)]="zone.cost_per_hour"  placeholder="Cost Per Hour">
+                      </td> 
+                      <td >
+                        <input type="number"  class="form-control"  [(ngModel)]="zone.time_interval"  placeholder="Time Interval">
+                    </td> 
+                    <td >
+                      <input type="number"  class="form-control"  [(ngModel)]="zone.min_charge"  placeholder="Min Charge">
+                  </td>
+                  <td >
+                    <div class="checkbox" >
+                      <label for="checkbox{{zone.id}}">
+                        <input type="checkbox"  [checked]="zone.is_reoccur_able" (change)="zone.is_reoccur_able = !zone.is_reoccur_able" >
+                      </label>                                
+                    </div>
+                  </td> 
+                                            
+                        <td>
+                            <a href="javascript:;" data-toggle="modal" (click)="showMap(zone,primaryModal)">Map View </a>
+                        </td>
+                      </tr>
+                  </table>
+                </div>                 
+          </div>
            
 
                   
@@ -61,10 +166,10 @@
                                 
         </div>
         <div class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button type="button"  (click)="editService(rForm.value)" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
           <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
         </div>
-        </form>
+        
       </div>
     </div><!--/.col-->
   </div><!--/.row-->   

@@ -101,6 +101,34 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'language',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/language/language.module#LanguageModule'        
+      }
+    ]
+  },
+  {
+    path: 'currency',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/currency/currency.module#CurrencyModule'        
+      }
+    ]
+  },
+  {
     path: 'vertical',
     component: FullLayout,
     canActivate: [AuthGuard],

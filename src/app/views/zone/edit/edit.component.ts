@@ -22,12 +22,27 @@ export class EditComponent implements OnInit {
   editClass='hidden';
   currentCord: any;
   firstCord: any;  
+  languageList = [];
+  currencyList = [];
+  parentZoneList = [];
+  is_sec_pass = false;
+  is_active = false;
+  is_job_accept = false;
 
   constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private zoneService: ZoneService) {
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'fencing': [null, Validators.required],
-      'description': '' 
+      'description': '',
+      'languageId': [null, Validators.required],
+      'currencyId': [null, Validators.required],
+      'premium': '', 
+      'is_active': '',
+      'is_sec_pass':'',
+      'security_pasword':'',
+      'is_job_accept':'',
+      'level':[null, Validators.required],
+      'zoneId':''
       
     });
     this.editMode = false;
@@ -64,12 +79,16 @@ export class EditComponent implements OnInit {
     
     
   });
+  this.getAllLanguages();
+  this.getAllCurrencies();
+  this.getAllParent();
   }
   public editZone(zone){  
-    
-    
+    zone.is_active = this.is_active;
+    zone.is_job_accept = this.is_job_accept;
+    zone.is_sec_pass = this.is_sec_pass;    
     this.zoneService.editZone(zone,this.zoneId).subscribe(res=>{ 
-      console.log(res)     
+      //console.log(res)     
       this.router.navigate(['/zone']);
     },err=>{
       this.error = "Error Occured, please try again"
@@ -81,9 +100,22 @@ export class EditComponent implements OnInit {
       //console.log(res);    
       this.rForm.controls['name'].setValue(res.name);
       this.selectedZone = res.fencing;
+      this.firstCord = res.fencing[0].lat +', '+res.fencing[0].lng;
+      this.is_sec_pass = res.is_sec_pass;
+      this.is_active = res.is_active;
+      this.is_job_accept = res.is_job_accept;
       this.rForm.controls['fencing'].setValue(res.fencing); 
       this.rForm.controls['description'].setValue(res.description);
-      this.firstCord = res.fencing[0].lat +', '+res.fencing[0].lng;
+      this.rForm.controls['languageId'].setValue(res.languageId);
+      this.rForm.controls['currencyId'].setValue(res.currencyId);
+      this.rForm.controls['zoneId'].setValue(res.zoneId); 
+      this.rForm.controls['is_active'].setValue(res.is_active);
+      this.rForm.controls['is_sec_pass'].setValue(res.is_sec_pass); 
+      this.rForm.controls['is_job_accept'].setValue(res.is_job_accept);
+      this.rForm.controls['premium'].setValue(res.premium);
+      this.rForm.controls['security_pasword'].setValue(res.security_pasword);
+      this.rForm.controls['level'].setValue(res.level);
+      
       //this.populateMap();        
       
     },err=>{
@@ -103,7 +135,7 @@ export class EditComponent implements OnInit {
         }
         zoneCords.push(individualCord);        
       }
-      console.log(zoneCords);
+      //console.log(zoneCords);
       this.rForm.controls['fencing'].setValue(zoneCords);
   }
 
@@ -119,6 +151,43 @@ public toggleEditMode(){
   this.editMode=true;
   this.editClass = "";
   //this.deleteSelectedOverlay()
+}
+
+public getAllLanguages(){
+  this.zoneService.getAllLanguages().subscribe(res=>{      
+    this.languageList=res;
+  })
+}
+public getAllCurrencies(){
+  this.zoneService.getAllCurrencies().subscribe(res=>{      
+    this.currencyList=res;
+  })
+}
+
+public getAllParent(){
+  this.zoneService.getAllParentZones().subscribe(res=>{   
+    //console.log(res);   
+    this.parentZoneList=res;
+  })
+}
+public changeIsSecPass($e: any){
+   this.is_sec_pass = !this.is_sec_pass;
+   
+   if(this.is_sec_pass){
+    //this.rForm.get('security_pasword').setValidators([Validators.required]);
+   }else{
+    this.rForm.controls['security_pasword'].setValue('');
+    //console.log(this.is_sec_pass);
+    //this.rForm.get('security_pasword').setValidators([]);
+   }
+}
+public changeIsActive($e: any){
+  this.is_active = !this.is_active;
+  //console.log(this.is_active);
+}
+public changeIsJobAccept($e: any){
+this.is_job_accept = !this.is_job_accept;
+//console.log(this.is_job_accept);
 }
 
 }
