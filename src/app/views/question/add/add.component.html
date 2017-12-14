@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
               <label for="questiontype">Question Type</label>
-              <select id="questiontype" formControlName="type" class="form-control" (change)="changeQuestionType(rForm.value.type)">
+              <select id="questiontype" formControlName="type" class="form-control" >
                 <option value="">Please select</option>
                 <option *ngFor="let questionType of questionTypeList" value="{{questionType.id}}">{{questionType.name}}</option>              
               </select>
@@ -189,7 +189,7 @@
             </div>-->
             <div class="form-group">
               <label for="questiontype">Question Type</label>
-              <select id="questiontype" formControlName="type" class="form-control" (change)="changeModalQuestionType(rModalForm.value.type)">
+              <select id="questiontype" formControlName="type" class="form-control" >
                 <option value="">Please select</option>
                 <option *ngFor="let questionType of questionTypeList" value="{{questionType.id}}">{{questionType.name}}</option>              
               </select>

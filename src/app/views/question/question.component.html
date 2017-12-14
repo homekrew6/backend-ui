@@ -30,6 +30,7 @@
                 <td>
           <a [routerLink]="['/question/edit',question.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
           <button type="button" class="btn btn-danger" (click)="deleteQuestion(question.id)"><i class="fa fa-rss"></i>&nbsp; Delete</button>
+          <a [routerLink]="['/answer/list',question.id]" class="btn btn-success">&nbsp; Answers</a>
                 </td>
               </tr>               
             </tbody>
