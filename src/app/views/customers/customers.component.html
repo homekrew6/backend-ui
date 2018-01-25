@@ -24,7 +24,7 @@
                   <td>{{customer.phone}}</td>                  
                   <td>
             <a [routerLink]="['/customers/edit',customer.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
-            <button type="button" class="btn btn-danger" (click)="deleteCustomer(customer.id)"><i class="fa fa-rss"></i>&nbsp; Delete</button>
+            <button type="button" class="btn btn-danger" (click)="deleteCustomer(customer.id)"><i class="fa fa-trash"></i>&nbsp; Delete</button>
                   </td>
                 </tr>               
               </tbody>

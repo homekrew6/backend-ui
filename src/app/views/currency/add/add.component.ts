@@ -12,9 +12,11 @@ import { CurrencyService } from '../../../services/currency.service';
 export class AddComponent implements OnInit {
   rForm: FormGroup;
   error: string;
+  is_active = true;
   constructor(private fb: FormBuilder,private router: Router, private currencyService: CurrencyService) { 
     this.rForm = fb.group({      
-      'name': [null, Validators.required]        
+      'name': [null, Validators.required],
+      'is_active': '', 
       
     });
   }
@@ -22,11 +24,17 @@ export class AddComponent implements OnInit {
   ngOnInit() {
   }
   public addCurrency(currency){    
+    currency.is_active = this.is_active;
     this.currencyService.addCurrency(currency).subscribe(res=>{      
       this.router.navigate(['/currency']);
     },err=>{
       this.error = "Error Occured, please try again"
     })
   }
+
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    //console.log(this.is_active);
+ }
 
 }

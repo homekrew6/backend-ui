@@ -13,9 +13,11 @@ export class EditComponent implements OnInit {
   rForm: FormGroup;
   error: string;
   currencyId: any;
+  is_active = true;
   constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private currencyService: CurrencyService) { 
     this.rForm = fb.group({      
-      'name': [null, Validators.required]   
+      'name': [null, Validators.required],
+      'is_active': ''
          
     });
   }
@@ -28,7 +30,7 @@ export class EditComponent implements OnInit {
   }
 
   public editCurrency(currency){   
-    
+    currency.is_active = this.is_active;
     this.currencyService.editCurrency(currency,this.currencyId).subscribe(res=>{      
       this.router.navigate(['/currency']);
     },err=>{
@@ -39,11 +41,17 @@ export class EditComponent implements OnInit {
   public getIndividualCurrency(Id){
     this.currencyService.getIndividualCurrency(Id).subscribe(res=>{
       
-      this.rForm.controls['name'].setValue(res.name);              
+      this.rForm.controls['name'].setValue(res.name);   
+      this.is_active = res.is_active;
+      this.rForm.controls['is_active'].setValue(res.is_active);           
       
     },err=>{
       this.error = "Error Occured, please try again"
     })
+  }
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    //console.log(this.is_active);
   }
 
 }

@@ -24,6 +24,7 @@ export class EditComponent implements OnInit {
   serviceId:any;
   is_reoccur_able = false;
   serviceZone=[];
+  is_active = true;
   constructor(private fb: FormBuilder ,private router: Router, private activatedRoute:ActivatedRoute, private serviceService: ServiceService) { 
     
     this.rForm = fb.group({      
@@ -46,7 +47,9 @@ export class EditComponent implements OnInit {
       'zones':[],
       'id':'',
       'banner_image':'',
-      'file':[]
+      'file':[],
+      'is_active': '',
+      'search':[]
       
     });
     //this.rForm.controls['verticalId'].setValue('');
@@ -65,7 +68,7 @@ export class EditComponent implements OnInit {
 
   public editService(service){   
     console.log(service);
-     let addServiceObj = {
+     const addServiceObj = {
         name: service.name,
         verticalId:service.verticalId,
         color_code:service.color_code,
@@ -78,11 +81,12 @@ export class EditComponent implements OnInit {
         min_no_dedicated_workers:service.min_no_dedicated_workers,
         min_no_workers:service.min_no_workers,
         time_interval:service.time_interval,
-        banner_image:service.banner_image
+        banner_image:service.banner_image,
+        is_active : this.is_active,
      }
 
      if(service.file){
-      let imgDetails = {
+      const imgDetails = {
       name: service.file.name,
       type: service.file.type
     }
@@ -233,6 +237,8 @@ export class EditComponent implements OnInit {
       this.rForm.controls['time_interval'].setValue(res.time_interval); 
       this.rForm.controls['banner_image'].setValue(res.banner_image);    
       this.is_reoccur_able = res.is_reoccur_able;
+      this.is_active = res.is_active;
+      this.rForm.controls['is_active'].setValue(res.is_active);     
       
     },err=>{
       this.error = "Error Occured, please try again"
@@ -281,5 +287,9 @@ export class EditComponent implements OnInit {
     this.selectedMapZone = selectedZone.fencing;
     this.firstCord = selectedZone.fencing[0].lat +', '+selectedZone.fencing[0].lng;
     primaryModal.show();    
+  }
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    //console.log(this.is_active);
   }
 }

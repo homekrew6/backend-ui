@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AnswerService } from '../../services/answer.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AddComponent } from './add/add.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   imports: [
@@ -15,7 +17,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [AnswerComponent],
+  declarations: [AnswerComponent, AddComponent, EditComponent],
   providers:[
     AnswerService
   ]

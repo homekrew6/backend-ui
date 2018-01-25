@@ -13,11 +13,23 @@ export class EditComponent implements OnInit {
   rForm: FormGroup;
   error: string;
   cmsId: any;
+  is_active = true;
+  public editorOptions: Object = {
+    placeholderText: 'Content',
+    heightMin:'250px',
+    events: {
+      'froalaEditor.focus': function (e, editor) {
+        console.log(editor.selection.get());
+      }
+    }
+  }
+  content: string;
   constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private cmsService: CmsService) {
     this.rForm = fb.group({      
       'title': [null, Validators.required],
-      'content': [null, Validators.required],     
-      'slug': ''      
+      'content': [],     
+      'slug': '',
+      'is_active': ''
     });
    }
 
@@ -29,7 +41,8 @@ export class EditComponent implements OnInit {
   }
 
   public editCms(cms){   
-    
+    cms.is_active = this.is_active;
+    //cms.content = this.content;
     this.cmsService.editCms(cms,this.cmsId).subscribe(res=>{      
       this.router.navigate(['/cms']);
     },err=>{
@@ -42,11 +55,21 @@ export class EditComponent implements OnInit {
       
       this.rForm.controls['title'].setValue(res.title);
       this.rForm.controls['content'].setValue(res.content);
-      this.rForm.controls['slug'].setValue(res.slug);      
+      this.content = res.content;
+      this.rForm.controls['slug'].setValue(res.slug); 
+      this.is_active = res.is_active;
+      this.rForm.controls['is_active'].setValue(res.is_active);      
       
     },err=>{
       this.error = "Error Occured, please try again"
     })
   }
+
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    //console.log(this.is_active);
+  }
+ 
+  
 
 }

@@ -10,26 +10,33 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-            <label for="company">Name</label>
+            <label for="company">Name <span>*</span></label>
             <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter worker name">
             <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter name</div>
           </div>
           <div class="form-group">
-            <label for="vat">Email</label>
+            <label for="vat">Email <span>*</span></label>
             <input type="email" [readonly]="true" formControlName="email" class="form-control" id="email" placeholder="Enter worker email">
             <div class="text-danger" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">Please enter email</div>
           </div>
           <div class="form-group">
-            <label for="street">Username</label>
+            <label for="street">Username <span>*</span></label>
             <input type="text" [readonly]="true" formControlName="username" class="form-control" id="username" placeholder="Enter Username">
             <div class="text-danger" *ngIf="!rForm.controls['username'].valid && rForm.controls['username'].touched">Please enter username</div>
           </div>
           
           <div class="form-group">
-            <label for="street">Phone</label>
+            <label for="street">Phone <span>*</span></label>
             <input type="number" formControlName="phone" class="form-control" id="phone" placeholder="Enter worker phone">
             <div class="text-danger" *ngIf="!rForm.controls['phone'].valid && rForm.controls['phone'].touched">Please enter phone</div>
-          </div>                        
+          </div> 
+          <div class="form-group">
+            <div class="checkbox">
+              <label for="is_active">
+                <input type="checkbox" id="is_active"  [checked]="is_active" (change)="changeIsActive($event)"> Is Active
+              </label>
+            </div>
+          </div>                       
         </div>
         <div class="card-footer">
           <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>

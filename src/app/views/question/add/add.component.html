@@ -35,7 +35,7 @@
                   
                 
             <div class="form-group">
-              <label for="serviceId">Service</label>
+              <label for="serviceId">Service <span>*</span></label>
               <select id="serviceId" formControlName="serviceId" class="form-control">
                 <option value="">Please select</option>
                 <option *ngFor="let service of serviceList" value="{{service.id}}">{{service.name}}</option>              
@@ -43,7 +43,7 @@
               <div class="text-danger" *ngIf="!rForm.controls['serviceId'].valid && rForm.controls['serviceId'].touched">Please select service</div>              
             </div>
             <div class="form-group">
-              <label for="questiontype">Question Type</label>
+              <label for="questiontype">Question Type <span>*</span></label>
               <select id="questiontype" formControlName="type" class="form-control" >
                 <option value="">Please select</option>
                 <option *ngFor="let questionType of questionTypeList" value="{{questionType.id}}">{{questionType.name}}</option>              
@@ -51,10 +51,34 @@
               <div class="text-danger" *ngIf="!rForm.controls['type'].valid && rForm.controls['type'].touched">Please select question type</div>              
             </div>
             <div class="form-group">
-              <label for="questiontype">Question</label>
+              <label for="questiontype">Question <span>*</span></label>
               <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter question">
               <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter question</div>
             </div>
+            <div class="form-group">
+                <label for="icon">Icon Class</label>
+                <input type="text" formControlName="icon" class="form-control" id="icon" placeholder="Enter Icon Class">
+                
+              </div>
+              <div class="form-group">
+                  <label for="color">Color</label>
+                  <input type="text" formControlName="color" class="form-control" id="color" placeholder="Enter color code">
+                  
+                </div>
+    
+              <div class="form-group">
+                  <label for="icon_class">Image</label>
+                  <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
+                  <!-- <input type="file" id="theFileInput" (change)="fileChangeListener($event)" /> -->
+                  <input type="file" id="theFileInput" />
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                      <label for="is_active">
+                        <input type="checkbox" id="is_active"  [checked]="is_active" (change)="changeIsActive($event)"> Is Active
+                      </label>
+                    </div>
+                  </div>
             <div *ngIf="typeSelected == 4">
                 <div class="form-group">
                   <label for="questiontype">Enter Range Name</label>
@@ -188,7 +212,7 @@
               <div class="text-danger" *ngIf="!rModalForm.controls['serviceId'].valid && rModalForm.controls['serviceId'].touched">Please select service</div>              
             </div>-->
             <div class="form-group">
-              <label for="questiontype">Question Type</label>
+              <label for="questiontype">Question Type <span>*</span></label>
               <select id="questiontype" formControlName="type" class="form-control" >
                 <option value="">Please select</option>
                 <option *ngFor="let questionType of questionTypeList" value="{{questionType.id}}">{{questionType.name}}</option>              
@@ -196,10 +220,34 @@
               <div class="text-danger" *ngIf="!rModalForm.controls['type'].valid && rModalForm.controls['type'].touched">Please select question type</div>              
             </div>
             <div class="form-group">
-              <label for="questiontype">Question</label>
+              <label for="questiontype">Question <span>*</span></label>
               <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter question">
               <div class="text-danger" *ngIf="!rModalForm.controls['name'].valid && rModalForm.controls['name'].touched">Please enter question</div>
             </div>
+            <div class="form-group">
+                <label for="icon">Icon Class</label>
+                <input type="text" formControlName="icon" class="form-control" id="icon" placeholder="Enter Icon Class">
+                
+              </div>
+              <div class="form-group">
+                  <label for="color">Color</label>
+                  <input type="text" formControlName="color" class="form-control" id="color" placeholder="Enter color code">
+                  
+                </div>
+    
+              <div class="form-group">
+                  <label for="icon_class">Image</label>
+                  <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
+                  <!-- <input type="file" id="theFileInput" (change)="fileChangeListener($event)" /> -->
+                  <input type="file" id="theFileInput" />
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                      <label for="modal_is_active">
+                        <input type="checkbox" id="modal_is_active"  [checked]="modal_is_active" (change)="changeModalIsActive($event)"> Is Active
+                      </label>
+                    </div>
+                  </div>
             <div *ngIf="typeModalSelected == 4">
                 <div class="form-group">
                   <label for="questiontype">Enter Range Name</label>

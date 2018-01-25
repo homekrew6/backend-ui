@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
 import { AppComponent } from './app.component';
+
 //import { NguiMapModule} from '@ngui/map';
 
 // Import containers
@@ -76,7 +77,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     ChartsModule,
     HttpModule,
     CommonModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
     //NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyAzwzNzq3irmwjUVU1MhMuwP7qD0CfZijA'})
   ],
   declarations: [

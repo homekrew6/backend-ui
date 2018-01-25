@@ -13,12 +13,14 @@ export class EditComponent implements OnInit {
   rForm: FormGroup;
   error: string;
   workerId: any;
+  is_active = true;
   constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private workerService: WorkerService) { 
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'phone': [null, Validators.required],     
       'username': [null, Validators.required],      
-      'email': [null, Validators.required]    
+      'email': [null, Validators.required],
+      'is_active': ''
       
       
     });
@@ -32,10 +34,10 @@ export class EditComponent implements OnInit {
   });
   }
 
-  public editWorker(customer){
-    //console.log(customer);
-    
-    this.workerService.editWorker(customer,this.workerId).subscribe(res=>{
+  public editWorker(worker){
+    //console.log(worker);
+    worker.is_active = this.is_active;
+    this.workerService.editWorker(worker,this.workerId).subscribe(res=>{
       //console.log(res);
       this.router.navigate(['/worker']);
     },err=>{
@@ -45,18 +47,25 @@ export class EditComponent implements OnInit {
 
   public getIndividualWorker(Id){
     this.workerService.getIndividualWorker(Id).subscribe(res=>{
-      //console.log(res);
-      //console.log(res.email);
+      // console.log(res);
+      // console.log(res.email);
       this.rForm.controls['name'].setValue(res.name);
       this.rForm.controls['phone'].setValue(res.phone);
       this.rForm.controls['username'].setValue(res.username);
-      //this.rForm.controls['password'].setValue(res.password);
+      // this.rForm.controls['password'].setValue(res.password);
       this.rForm.controls['email'].setValue(res.email); 
-      //this.rForm.controls['id'].setValue(res.id);      
+      this.is_active = res.is_active;
+      this.rForm.controls['is_active'].setValue(res.is_active);     
+      // this.rForm.controls['id'].setValue(res.id);      
       
     },err=>{
       this.error = "Error Occured, please try again"
     })
+  }
+
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    //console.log(this.is_active);
   }
 
 }

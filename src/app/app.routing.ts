@@ -199,6 +199,20 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'setting',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/settings/settings.module#SettingsModule',
+      }
+    ]
+  },
+  {
     path: 'pages',
     component: SimpleLayout,
     data: {

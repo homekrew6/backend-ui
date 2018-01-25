@@ -14,11 +14,13 @@ export class EditComponent implements OnInit {
   rForm: FormGroup;  
   error: string; 
   languageId:Number;
+  is_active = true;
   directionOptionList=[{value:'LTR'},{value:'RTL'}];
   constructor(private fb: FormBuilder ,private router: Router, private activatedRoute: ActivatedRoute, private languageService: LanguageService) { 
     this.rForm = fb.group({      
       'name': [null, Validators.required],
-      'direction': [null, Validators.required]    
+      'direction': [null, Validators.required],
+      'is_active': ''   
          
     });
   }
@@ -31,11 +33,11 @@ export class EditComponent implements OnInit {
   }
 
   public editLanguage(language){   
-    
+    language.is_active = this.is_active;
     this.languageService.editLanguage(language,this.languageId).subscribe(res=>{      
       this.router.navigate(['/language']);
-    },err=>{
-      this.error = "Error Occured, please try again"
+    }, err => {
+      this.error = 'Error Occured, please try again'
     })
   }
 
@@ -43,11 +45,17 @@ export class EditComponent implements OnInit {
     this.languageService.getIndividualLanguage(Id).subscribe(res=>{
       
       this.rForm.controls['name'].setValue(res.name);
-      this.rForm.controls['direction'].setValue(res.direction);            
+      this.rForm.controls['direction'].setValue(res.direction);
+      this.is_active = res.is_active;
+      this.rForm.controls['is_active'].setValue(res.is_active);           
       
-    },err=>{
-      this.error = "Error Occured, please try again"
+    },err=> {
+      this.error = 'Error Occured, please try again'
     })
+  }
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    // console.log(this.is_active);
   }
 
 }

@@ -13,23 +13,23 @@ import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
 export class AddComponent implements OnInit {
   dataObject = [
     {
-      key: "name",
-      label: "Name",
-      value: "Juri",
-      type: "text",
+      key: 'name',
+      label: 'Name',
+      value: 'Juri',
+      type: 'text',
       validation: {required: true}
     },
     {
-      key: "age",
-      label: "Age",
-      value: "34",
-      type: "text",
+      key: 'age',
+      label: 'Age',
+      value: '34',
+      type: 'text',
       validation: {required: true}
     }
   ];
   rForm: FormGroup; 
   rModalForm: FormGroup;  
-  //objectProps;
+  // objectProps;
   error: string;
   typeSelected = '';
   typeModalSelected = '';
@@ -37,24 +37,30 @@ export class AddComponent implements OnInit {
   radioModalOptionSelected = 0;
   serviceList = [];
   subQuestions = [];
-  questionTypeList=[{id:1,name:"Number"},{id:2,name:"Boolean"},{id:3,name:"Radio"},{id:4,name:"Range"},{id:5,name:"Photo"}];
-  radioOptionList=[{value:2},{value:3},{value:4},{value:5}];
+  is_active = true;
+  modal_is_active = true;
+  questionTypeList= [{id: 1, name: 'Number'}, {id: 2, name: 'Boolean'}, {id: 3, name: 'Radio'}, {id: 4, name: 'Range'}, {id: 5, name: 'Photo'}];
+  radioOptionList= [{value: 2}, {value: 3}, {value: 4}, {value: 5}];
   
-  constructor(private fb: FormBuilder ,private router: Router, private questionService: QuestionService) { 
+  constructor(private fb: FormBuilder , private router: Router, private questionService: QuestionService) { 
     this.rForm = fb.group({      
       'type': [null, Validators.required],
       'name': [null, Validators.required],
       'range_name': '',
       'start_range': '',
       'end_range': '',
-      'no_of_option':'',
-      'option_list':[],
-      'option1':'',
-      'option2':'',
-      'option3':'',
-      'option4':'',
-      'option5':'',
-      'serviceId':[null, Validators.required]
+      'no_of_option': '',
+      'option_list': [],
+      'option1': '',
+      'option2': '',
+      'option3': '',
+      'option4': '',
+      'option5': '',
+      'serviceId': [null, Validators.required],
+      'icon': '',
+      'color': '',
+      'image': '',
+      'is_active': ''
       
     });
     this.rModalForm = fb.group({      
@@ -63,14 +69,18 @@ export class AddComponent implements OnInit {
       'range_name': '',
       'start_range': '',
       'end_range': '',
-      'no_of_option':'',
-      'option_list':[],
-      'option1':'',
-      'option2':'',
-      'option3':'',
-      'option4':'',
-      'option5':'',
-      'serviceId':''
+      'no_of_option': '',
+      'option_list': [],
+      'option1': '',
+      'option2': '',
+      'option3': '',
+      'option4': '',
+      'option5': '',
+      'serviceId': '',
+      'icon': '',
+      'color': '',
+      'image': '',
+      'is_active': ''
       
     });
   }
@@ -87,9 +97,9 @@ export class AddComponent implements OnInit {
   public changeQuestionType(questionType){
     //console.log(questionType)
     this.typeSelected = questionType;
-    //console.log(questionType);
+    // console.log(questionType);
     this.radioOptionSelected = 0;
-    if(questionType == 4){
+    if (questionType == 4){
       this.rForm.get('no_of_option').setValidators([]);
       this.rForm.get('option1').setValidators([]);
       this.rForm.get('option2').setValidators([]);
@@ -106,7 +116,7 @@ export class AddComponent implements OnInit {
       this.rForm.get('range_name').setValidators([Validators.required]);
       this.rForm.get('start_range').setValidators([Validators.required]);
       this.rForm.get('end_range').setValidators([Validators.required]);
-    }else if(questionType == 3){
+    }else if (questionType == 3){
       this.rForm.get('range_name').setValidators([]);
       this.rForm.get('start_range').setValidators([]);
       this.rForm.get('end_range').setValidators([]);
@@ -149,8 +159,8 @@ export class AddComponent implements OnInit {
     this.rForm.get('option3').setValidators([]);
     this.rForm.get('option4').setValidators([]);
     this.rForm.get('option5').setValidators([]);
-    for (let i =0; i < optionType ; i++) {
-      this.rForm.get('option'+(i+1)).setValidators([Validators.required]);
+    for (let i = 0; i < optionType ; i++) {
+      this.rForm.get('option' + (i + 1)).setValidators([Validators.required]);
     }
 
   }
@@ -162,53 +172,57 @@ export class AddComponent implements OnInit {
       name: question.name,
       type: question.type,
       serviceId: question.serviceId,
-      parent_id:0,
-      option:[]
+      parent_id: 0,
+      icon: question.icon,
+      color: question.color,
+      image: question.image,
+      option: [],
+      is_active: this.is_active
     }
-    if(question.type == 3){
-      if(question.option1 !=''){
-        questionObj.option.push({option:question.option1})
+    if (question.type == 3){
+      if (question.option1 != ''){
+        questionObj.option.push({option: question.option1})
       }
-      if(question.option2 !=''){
-        questionObj.option.push({option:question.option2})
+      if (question.option2 != ''){
+        questionObj.option.push({option: question.option2})
       }
-      if(question.option3 !=''){
-        questionObj.option.push({option:question.option3})
+      if (question.option3 != ''){
+        questionObj.option.push({option: question.option3})
       }
-      if(question.option4 !=''){
-        questionObj.option.push({option:question.option4})
+      if (question.option4 != ''){
+        questionObj.option.push({option: question.option4})
       }
-      if(question.option5 !=''){
-        questionObj.option.push({option:question.option5})
+      if (question.option5 != ''){
+        questionObj.option.push({option: question.option5})
       }
       
-    }else if(question.type == 4){
-      questionObj.option.push({range_name:question.range_name})
-      questionObj.option.push({start_range:question.start_range})
-      questionObj.option.push({end_range:question.end_range})
+    }else if (question.type == 4){
+      questionObj.option.push({range_name: question.range_name})
+      questionObj.option.push({start_range: question.start_range})
+      questionObj.option.push({end_range: question.end_range})
     }else{
       questionObj.option = [];
     }    
-    this.questionService.addQuestion(questionObj).subscribe(res=>{
-        if(this.subQuestions.length > 0){
-          for (let i =0; i < this.subQuestions.length ; i++) {
-            //this.rModalForm.get('option'+(i+1)).setValidators([Validators.required]);
-             this.addSubQuestion(this.subQuestions[i],question.serviceId,res.id)
+    this.questionService.addQuestion(questionObj).subscribe(res => {
+        if (this.subQuestions.length > 0){
+          for (let i = 0; i < this.subQuestions.length ; i++) {
+            // this.rModalForm.get('option'+(i+1)).setValidators([Validators.required]);
+             this.addSubQuestion(this.subQuestions[i], question.serviceId, res.id)
 
-             if(i == (this.subQuestions.length - 1)){
+             if (i == (this.subQuestions.length - 1)){
               this.router.navigate(['/question']);
              }
           }
         }else{
           this.router.navigate(['/question']);
         }
-      //this.router.navigate(['/question']);
-    },err=>{
-      this.error = "Error Occured, please try again"
+      // this.router.navigate(['/question']);
+    }, err => {
+      this.error = 'Error Occured, please try again'
     })
   }
 
-  public addSubQuestion(question,serviceId,questionId){
+  public addSubQuestion(question, serviceId, questionId){
     
 
     
@@ -216,22 +230,26 @@ export class AddComponent implements OnInit {
       name: question.name,
       type: question.type,
       serviceId: serviceId,
-      parent_id:questionId,
-      option:question.option
+      parent_id: questionId,
+      icon: question.icon,
+      color: question.color,
+      image: question.image,
+      option: question.option,
+      is_active: question.is_active
     }
      
-    this.questionService.addQuestion(questionObj).subscribe(res=>{
+    this.questionService.addQuestion(questionObj).subscribe(res => {
       
       
-    },err=>{
+    }, err => {
       
     })
   }
 
   public getAllService(){
-    this.questionService.getAllService().subscribe(res=>{
+    this.questionService.getAllService().subscribe(res => {
       
-      this.serviceList=res;
+      this.serviceList = res;
     })
     
   }
@@ -241,7 +259,7 @@ export class AddComponent implements OnInit {
     this.typeModalSelected = '';
     this.radioModalOptionSelected = 0;
     this.rModalForm.controls['type'].setValue('');
-    //this.rModalForm.controls['serviceId'].setValue('');
+    // this.rModalForm.controls['serviceId'].setValue('');
     this.rModalForm.controls['name'].setValue('');
     this.rModalForm.controls['range_name'].setValue('');
     this.rModalForm.controls['start_range'].setValue('');
@@ -252,6 +270,7 @@ export class AddComponent implements OnInit {
     this.rModalForm.controls['option3'].setValue('');
     this.rModalForm.controls['option4'].setValue('');
     this.rModalForm.controls['option5'].setValue('');
+    this.modal_is_active = true;
     largeModal.show();    
   }
 
@@ -260,7 +279,7 @@ export class AddComponent implements OnInit {
     this.typeModalSelected = questionType;
     
     this.radioModalOptionSelected = 0;
-    if(questionType == 4){
+    if (questionType == 4){
       this.rModalForm.get('no_of_option').setValidators([]);
       this.rModalForm.get('option1').setValidators([]);
       this.rModalForm.get('option2').setValidators([]);
@@ -277,7 +296,7 @@ export class AddComponent implements OnInit {
       this.rModalForm.get('range_name').setValidators([Validators.required]);
       this.rModalForm.get('start_range').setValidators([Validators.required]);
       this.rModalForm.get('end_range').setValidators([Validators.required]);
-    }else if(questionType == 3){
+    }else if (questionType == 3){
       this.rModalForm.get('range_name').setValidators([]);
       this.rModalForm.get('start_range').setValidators([]);
       this.rModalForm.get('end_range').setValidators([]);
@@ -320,42 +339,46 @@ export class AddComponent implements OnInit {
     this.rModalForm.get('option3').setValidators([]);
     this.rModalForm.get('option4').setValidators([]);
     this.rModalForm.get('option5').setValidators([]);
-    for (let i =0; i < optionType ; i++) {
-      this.rModalForm.get('option'+(i+1)).setValidators([Validators.required]);
+    for (let i = 0; i < optionType ; i++) {
+      this.rModalForm.get('option' + (i + 1)).setValidators([Validators.required]);
     }
 
   }
 
-  public addModalQuestion(question,largeModal){
+  public addModalQuestion(question, largeModal){
     
     let questionObj = {
       name: question.name,
       type: question.type,
       serviceId: question.serviceId,
-      parent_id:0,
-      option:[]
+      icon: question.icon,
+      color: question.color,
+      image: question.image,
+      parent_id: 0,
+      option: [],
+      is_active: this.modal_is_active
     }
-    if(question.type == 3){
-      if(question.option1 !=''){
-        questionObj.option.push({option:question.option1})
+    if (question.type == 3){
+      if (question.option1 != ''){
+        questionObj.option.push({option: question.option1})
       }
-      if(question.option2 !=''){
-        questionObj.option.push({option:question.option2})
+      if (question.option2 != ''){
+        questionObj.option.push({option: question.option2})
       }
-      if(question.option3 !=''){
-        questionObj.option.push({option:question.option3})
+      if (question.option3 != ''){
+        questionObj.option.push({option: question.option3})
       }
-      if(question.option4 !=''){
-        questionObj.option.push({option:question.option4})
+      if (question.option4 != ''){
+        questionObj.option.push({option: question.option4})
       }
-      if(question.option5 !=''){
-        questionObj.option.push({option:question.option5})
+      if (question.option5 != ''){
+        questionObj.option.push({option: question.option5})
       }
       
-    }else if(question.type == 4){
-      questionObj.option.push({range_name:question.range_name})
-      questionObj.option.push({start_range:question.start_range})
-      questionObj.option.push({end_range:question.end_range})
+    }else if (question.type == 4){
+      questionObj.option.push({range_name: question.range_name})
+      questionObj.option.push({start_range: question.start_range})
+      questionObj.option.push({end_range: question.end_range})
     }else{
       questionObj.option = [];
     }
@@ -366,9 +389,17 @@ export class AddComponent implements OnInit {
   }
   public deleteModalQuestion(deletedId){
     let confirmMessage = confirm('Do you want to delete?')
-    if(confirmMessage){  
+    if (confirmMessage){  
       this.subQuestions.splice(deletedId, 1);
     }    
+  }
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    // console.log(this.is_active);
+  }
+  public changeModalIsActive($e: any){
+    this.modal_is_active = !this.modal_is_active;
+    // console.log(this.is_active);
   }
 
 }

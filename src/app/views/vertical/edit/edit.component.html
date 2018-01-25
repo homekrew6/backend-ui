@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-            <label for="company">Name</label>
+            <label for="company">Name <span>*</span></label>
             <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter vertical name">
             <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter vertical name</div>
           </div>

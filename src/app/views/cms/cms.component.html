@@ -10,19 +10,17 @@
           <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Content</th>                                 
+                <th>Title</th>                                                 
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let cms of cmsList">
                 
-                <td>{{cms.title}}</td>
-                <td>{{cms.content}}</td>                               
+                <td>{{cms.title}}</td>                                               
                 <td>
           <a [routerLink]="['/cms/edit',cms.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
-          <button type="button" class="btn btn-danger" (click)="deleteCms(cms.id)"><i class="fa fa-rss"></i>&nbsp; Delete</button>
+          <button type="button" class="btn btn-danger" (click)="deleteCms(cms.id)"><i class="fa fa-trash"></i>&nbsp; Delete</button>
                 </td>
               </tr>               
             </tbody>

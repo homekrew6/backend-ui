@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 import { AnswerComponent } from './answer.component';
-//import { AddComponent } from './add/add.component';
-//import { EditComponent } from './edit/edit.component';
+import { AddComponent } from './add/add.component';
+import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   {
@@ -20,21 +20,21 @@ const routes: Routes = [
         data: {
           title: 'List'
         }
-      }/*,
+      },
       {
-        path: 'add',
+        path: 'add/:questionId',
         component: AddComponent,
         data: {
           title: 'Add'
         }
       },
       {
-        path: 'edit/:id',
+        path: 'edit/:questionId/:id',
         component: EditComponent,
         data: {
           title: 'Edit'
         }
-      }*/
+      }
       
     ]
   }

@@ -26,6 +26,7 @@ export class AddComponent implements OnInit {
   selectedMapZone:any;
   firstCord:any;
   is_reoccur_able = false;
+  is_active = true;
   
   
   
@@ -48,7 +49,9 @@ export class AddComponent implements OnInit {
       'zoneMinCharge':'',
       'zoneIsReOccurable':'',
       'zones':[],
-      'file':[]
+      'file':[],
+      'is_active': '',
+      'search':[]
     });
     this.rForm.controls['verticalId'].setValue('');    
   }
@@ -82,7 +85,8 @@ export class AddComponent implements OnInit {
       min_no_dedicated_workers:service.min_no_dedicated_workers,
       min_no_workers:service.min_no_workers,
       time_interval:service.time_interval,
-      banner_image:''       
+      banner_image:'',
+      is_active : this.is_active 
     }
     if(service.file){
       let imgDetails = {
@@ -223,6 +227,11 @@ export class AddComponent implements OnInit {
     this.selectedMapZone = selectedZone.fencing;
     this.firstCord = selectedZone.fencing[0].lat +', '+selectedZone.fencing[0].lng;
     primaryModal.show();    
+  }
+
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    //console.log(this.is_active);
   }
 
 }

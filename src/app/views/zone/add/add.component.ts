@@ -20,7 +20,7 @@ export class AddComponent implements OnInit {
   currencyList = [];
   parentZoneList = [];
   is_sec_pass = false;
-  is_active = false;
+  is_active = true;
   is_job_accept = false;
   constructor(private fb: FormBuilder,private router: Router, private zoneService: ZoneService) { 
     this.rForm = fb.group({      

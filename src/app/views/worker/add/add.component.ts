@@ -12,13 +12,15 @@ import { WorkerService } from '../../../services/worker.service';
 export class AddComponent implements OnInit {
   rForm: FormGroup;
   error: string;
+  is_active = true;
   constructor(private fb: FormBuilder,private router: Router, private workerService: WorkerService) { 
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'phone': [null, Validators.required],     
       'username': [null, Validators.required],
       'password': [null, Validators.required],
-      'email': [null, Validators.required],     
+      'email': [null, Validators.required], 
+      'is_active': '',    
       'location': {
         "lat": 0,
         "lng": 0
@@ -33,12 +35,18 @@ export class AddComponent implements OnInit {
   }
 
   public addWorker(worker){
+    worker.is_active = this.is_active;
     this.workerService.addWorker(worker).subscribe(res=>{
       //console.log(res);
       this.router.navigate(['/worker']);
     },err=>{
       this.error = "Error Occured, please try again"
     })
+  }
+
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    //console.log(this.is_active);
   }
 
 }

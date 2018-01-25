@@ -21,6 +21,8 @@ export class EditComponent implements OnInit {
   serviceList = [];
   subQuestions = [];
   questionId:any;
+  is_active = true;
+  modal_is_active = true;
   questionTypeList=[{id:1,name:"Number"},{id:2,name:"Boolean"},{id:3,name:"Radio"},{id:4,name:"Range"},{id:5,name:"Photo"}];
   radioOptionList=[{value:2},{value:3},{value:4},{value:5}];
   constructor(private fb: FormBuilder ,private router: Router, private activatedRoute:ActivatedRoute, private questionService: QuestionService) { 
@@ -37,8 +39,11 @@ export class EditComponent implements OnInit {
       'option3':'',
       'option4':'',
       'option5':'',
-      'serviceId':[null, Validators.required]
-      
+      'serviceId':[null, Validators.required],
+      'icon':'',
+      'color':'',
+      'image':'',
+      'is_active': ''
     });
 
     this.rModalForm = fb.group({      
@@ -55,7 +60,11 @@ export class EditComponent implements OnInit {
       'option4':'',
       'option5':'',
       'serviceId':'',
-      'id':''
+      'id':'',
+      'icon':'',
+      'color':'',
+      'image':'',
+      'is_active': ''
       
     });
 
@@ -82,9 +91,14 @@ export class EditComponent implements OnInit {
       //this.serviceList=res;
       this.subQuestions = res.questions;
       this.rForm.controls['type'].setValue(res.type);
-      this.typeSelected = res.type;
+      //this.typeSelected = res.type;
       this.rForm.controls['serviceId'].setValue(res.serviceId);
       this.rForm.controls['name'].setValue(res.name);
+      this.rForm.controls['icon'].setValue(res.icon);
+      this.rForm.controls['color'].setValue(res.color);
+      this.rForm.controls['image'].setValue(res.image);
+      this.is_active= res.is_active;
+      
       if(res.type == 3){
         this.radioOptionSelected = res.option.length;
         this.rForm.controls['no_of_option'].setValue(res.option.length);
@@ -106,7 +120,11 @@ export class EditComponent implements OnInit {
       type: question.type,
       serviceId: question.serviceId,
       parent_id:0,
-      option:[]
+      icon:question.icon,
+      color:question.color,
+      image:question.image,
+      option:[],
+      is_active: this.is_active
     }
     if(question.type == 3){
       if(question.option1 !=''){
@@ -143,7 +161,7 @@ export class EditComponent implements OnInit {
 
   public changeQuestionType(questionType){
     //console.log(questionType)
-    this.typeSelected = questionType;
+    //this.typeSelected = questionType;
     //console.log(questionType);
     this.radioOptionSelected = 0;
     if(questionType == 4){
@@ -229,6 +247,7 @@ export class EditComponent implements OnInit {
     this.rModalForm.controls['option3'].setValue('');
     this.rModalForm.controls['option4'].setValue('');
     this.rModalForm.controls['option5'].setValue('');
+    this.modal_is_active= true;
     largeModal.show();    
   }
 
@@ -240,6 +259,11 @@ export class EditComponent implements OnInit {
       this.typeModalSelected = question.type;
       this.rModalForm.controls['serviceId'].setValue(question.serviceId);
       this.rModalForm.controls['name'].setValue(question.name);
+      this.rModalForm.controls['icon'].setValue(question.icon);
+      this.rModalForm.controls['color'].setValue(question.color);
+      this.rModalForm.controls['image'].setValue(question.image);
+      this.modal_is_active= question.is_active;
+      
       if(question.type == 3){
         this.radioModalOptionSelected = question.option.length;
         this.rModalForm.controls['no_of_option'].setValue(question.option.length);
@@ -334,8 +358,12 @@ export class EditComponent implements OnInit {
       name: question.name,
       type: question.type,
       serviceId: this.rForm.value.serviceId,
+      icon:question.icon,
+      color:question.color,
+      image:question.image,
       parent_id:this.questionId,
-      option:[]
+      option:[],
+      is_active: this.modal_is_active
     }
     if(question.type == 3){
       if(question.option1 !=''){
@@ -394,6 +422,15 @@ export class EditComponent implements OnInit {
 
       })
     }    
+  }
+
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    // console.log(this.is_active);
+  }
+  public changeModalIsActive($e: any){
+    this.modal_is_active = !this.modal_is_active;
+    // console.log(this.is_active);
   }
 
 }

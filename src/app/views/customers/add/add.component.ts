@@ -13,32 +13,39 @@ import { CustomerService } from '../../../services/customer.service';
 export class AddComponent implements OnInit {
   rForm: FormGroup;
   error: string;
-  constructor(private fb: FormBuilder,private router: Router, private customerService: CustomerService) { 
-    this.rForm = fb.group({      
+  is_active = true;
+  constructor(private fb: FormBuilder, private router: Router, private customerService: CustomerService) {
+    this.rForm = fb.group({
       'name': [null, Validators.required],
-      'phone': [null, Validators.required],     
+      'phone': [null, Validators.required],
       'username': [null, Validators.required],
       'password': [null, Validators.required],
-      'email': [null, Validators.required],     
+      'email': [null, Validators.required],
+      'is_active': '', 
       'location': {
-        "lat": 0,
-        "lng": 0
+        'lat': 0,
+        'lng': 0
       },
       'realm': '',
       'image': '',
-      
+
     });
   }
 
   ngOnInit() {
   }
-  public addCustomer(customer){
-    this.customerService.addCustomer(customer).subscribe(res=>{
+  public addCustomer(customer) {
+    customer.is_active = this.is_active;
+    this.customerService.addCustomer(customer).subscribe(res => {
       console.log(res);
       this.router.navigate(['/customers']);
-    },err=>{
-      this.error = "Error Occured, please try again"
+    }, err => {
+      this.error = 'Error Occured, please try again'
     })
+  }
+  public changeIsActive($e: any) {
+    this.is_active = !this.is_active;
+    // console.log(this.is_active);
   }
 
 }

@@ -12,27 +12,48 @@ import { CmsService } from '../../../services/cms.service';
 export class AddComponent implements OnInit {
   rForm: FormGroup;
   error: string;
+  
+  is_active = true;
+  public editorOptions: Object = {
+    placeholderText: 'Content',
+    heightMin:'250px',
+    events: {
+      'froalaEditor.focus': function (e, editor) {
+        console.log(editor.selection.get());
+      }
+    }
+  }
+  content: string;
   constructor(private fb: FormBuilder,private router: Router, private cmsService: CmsService) {
     this.rForm = fb.group({      
       'title': [null, Validators.required],
-      'content': [null, Validators.required],
+      'content': [],
       'slug': '',
+      'is_active': ''
       
     });
    }
 
   ngOnInit() {
   }
-  public addCms(customer){
-    customer.slug = customer.title.replace(/\s+/g, '-').toLowerCase();
-    //console.log(customer);
+  public addCms(cms){
+    console.log(this.content);
+    cms.is_active = this.is_active;
+    //cms.content = this.content;
+    cms.slug = cms.title.replace(/\s+/g, '-').toLowerCase();
     
-    this.cmsService.addCms(customer).subscribe(res=>{
-      //console.log(res);
+    
+    this.cmsService.addCms(cms).subscribe(res=>{
+      
       this.router.navigate(['/cms']);
     },err=>{
       this.error = "Error Occured, please try again"
     })
   }
+
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    //console.log(this.is_active);
+ }
 
 }

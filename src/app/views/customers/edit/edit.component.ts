@@ -14,6 +14,7 @@ export class EditComponent implements OnInit {
   rForm: FormGroup;
   error: string;
   customerId: any;
+  is_active = true;
   constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private customerService: CustomerService) { 
     this.rForm = fb.group({      
       'name': [null, Validators.required],
@@ -21,6 +22,7 @@ export class EditComponent implements OnInit {
       'username': [null, Validators.required],
       //'password': [null, Validators.required],
       'email': [null, Validators.required],     
+      'is_active': ''
       /*'location': {
         "lat": 0,
         "lng": 0
@@ -43,7 +45,7 @@ export class EditComponent implements OnInit {
 
   public editCustomer(customer){
     //console.log(customer);
-    
+    customer.is_active = this.is_active;
     this.customerService.editCustomer(customer,this.customerId).subscribe(res=>{
       //console.log(res);
       this.router.navigate(['/customers']);
@@ -59,6 +61,8 @@ export class EditComponent implements OnInit {
       this.rForm.controls['name'].setValue(res.name);
       this.rForm.controls['phone'].setValue(res.phone);
       this.rForm.controls['username'].setValue(res.username);
+      this.is_active = res.is_active;
+      this.rForm.controls['is_active'].setValue(res.is_active); 
       //this.rForm.controls['password'].setValue(res.password);
       this.rForm.controls['email'].setValue(res.email); 
       //this.rForm.controls['id'].setValue(res.id);      
@@ -66,6 +70,11 @@ export class EditComponent implements OnInit {
     },err=>{
       this.error = "Error Occured, please try again"
     })
+  }
+
+  public changeIsActive($e: any){
+    this.is_active = !this.is_active;
+    //console.log(this.is_active);
   }
 
 }
