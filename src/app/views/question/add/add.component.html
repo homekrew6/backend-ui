@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
               <label for="questiontype">Question Type <span>*</span></label>
-              <select id="questiontype" formControlName="type" class="form-control" >
+              <select id="questiontype" formControlName="type" class="form-control" (change)="changeQuestionType(rForm.value.type)">
                 <option value="">Please select</option>
                 <option *ngFor="let questionType of questionTypeList" value="{{questionType.id}}">{{questionType.name}}</option>              
               </select>
@@ -70,15 +70,9 @@
                   <label for="icon_class">Image</label>
                   <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
                   <!-- <input type="file" id="theFileInput" (change)="fileChangeListener($event)" /> -->
-                  <input type="file" id="theFileInput" />
+                  <input type="file" id="theFileInput" (change)="fileChangeListener($event)"/>
                 </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                      <label for="is_active">
-                        <input type="checkbox" id="is_active"  [checked]="is_active" (change)="changeIsActive($event)"> Is Active
-                      </label>
-                    </div>
-                  </div>
+                
             <div *ngIf="typeSelected == 4">
                 <div class="form-group">
                   <label for="questiontype">Enter Range Name</label>
@@ -99,7 +93,7 @@
                 </div>
 
             </div>
-            <div *ngIf="typeSelected == 3">
+            <!-- <div *ngIf="typeSelected == 3">
                 <div class="form-group">
                   <label for="no_of_option">No of Option</label>
                   <select id="no_of_option" formControlName="no_of_option" class="form-control" (change)="changeRadioOption(rForm.value.no_of_option)">
@@ -140,11 +134,19 @@
                       
                     </div>
 
+            </div> -->
+            <div class="form-group">
+              <div class="checkbox">
+                <label for="is_active">
+                  <input type="checkbox" id="is_active"  [checked]="is_active" (change)="changeIsActive($event)"> Is Active
+                </label>
+              </div>
             </div>
             <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" (click)="largeModal.show()">
               Launch large modal
             </button> -->
             <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" (click)="showPopupQuestion(largeModal)"><i class="fa fa-dot-circle-o"></i> Add Question</button>
+            
 
             <table class="table table-bordered table-striped table-sm" *ngIf="subQuestions.length > 0">
                 <thead>
@@ -179,7 +181,8 @@
                                   
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+            <button *ngIf="!is_disable" type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+            <button *ngIf="is_disable" type="submit" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-spin fa-spinner"></i> Saving</button>
             <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
           </div>
           </form>
@@ -213,7 +216,7 @@
             </div>-->
             <div class="form-group">
               <label for="questiontype">Question Type <span>*</span></label>
-              <select id="questiontype" formControlName="type" class="form-control" >
+              <select id="questiontype" formControlName="type" class="form-control" (change)="changeModalQuestionType(rModalForm.value.type)">
                 <option value="">Please select</option>
                 <option *ngFor="let questionType of questionTypeList" value="{{questionType.id}}">{{questionType.name}}</option>              
               </select>
@@ -239,15 +242,9 @@
                   <label for="icon_class">Image</label>
                   <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
                   <!-- <input type="file" id="theFileInput" (change)="fileChangeListener($event)" /> -->
-                  <input type="file" id="theFileInput" />
+                  <input type="file" id="theFileInput" (change)="fileChangeListenerModal($event)" />
                 </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                      <label for="modal_is_active">
-                        <input type="checkbox" id="modal_is_active"  [checked]="modal_is_active" (change)="changeModalIsActive($event)"> Is Active
-                      </label>
-                    </div>
-                  </div>
+                
             <div *ngIf="typeModalSelected == 4">
                 <div class="form-group">
                   <label for="questiontype">Enter Range Name</label>
@@ -268,7 +265,7 @@
                 </div>
 
             </div>
-            <div *ngIf="typeModalSelected == 3">
+            <!-- <div *ngIf="typeModalSelected == 3">
                 <div class="form-group">
                   <label for="no_of_option">No of Option</label>
                   <select id="no_of_option" formControlName="no_of_option" class="form-control" (change)="changeModalRadioOption(rModalForm.value.no_of_option)">
@@ -309,6 +306,14 @@
                       
                     </div>
 
+            </div> -->
+
+            <div class="form-group">
+              <div class="checkbox">
+                <label for="modal_is_active">
+                  <input type="checkbox" id="modal_is_active"  [checked]="modal_is_active" (change)="changeModalIsActive($event)"> Is Active
+                </label>
+              </div>
             </div>
         
       </div>

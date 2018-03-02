@@ -22,6 +22,17 @@
             </select>
             <div class="text-danger" *ngIf="!rForm.controls['zoneId'].valid && rForm.controls['zoneId'].touched">Please select zone</div>              
           </div>
+          <div class="form-group" *ngIf="rForm.value.banner_image">
+            
+            <img src="{{rForm.value.banner_image}}" style="width:50px;height:50px;">
+          </div>
+
+          <div class="form-group">
+            <label for="icon_class">Banner</label>
+            <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
+            <input type="file" id="theFileInput" (change)="fileChangeListener($event)" />
+            
+          </div>
           <div class="form-group">
             <label for="languageId">Language <span>*</span></label>
             <select id="languageId" formControlName="languageId" class="form-control">
@@ -106,7 +117,8 @@
                           
         </div>
         <div class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button *ngIf="!is_disable" type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button *ngIf="is_disable" type="submit" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-spin fa-spinner"></i> Saving</button>
           <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
         </div>
         </form>

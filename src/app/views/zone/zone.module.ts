@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ZoneRoutingModule } from './zone-routing';
 import { ZoneComponent } from './zone.component';
 import { ZoneService } from '../../services/zone.service';
+import { ServiceService } from '../../services/service.service';
 
 import { RouterModule } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +22,7 @@ import { EditComponent } from './edit/edit.component';
   ],
   declarations: [ZoneComponent, AddComponent, EditComponent],
   providers:[
-    ZoneService
+    ZoneService,ServiceService
   ]
 })
 export class ZoneModule { }

@@ -5,6 +5,7 @@ import { QuestionComponent } from './question.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { QuestionService } from '../../services/question.service';
+import { ServiceService } from '../../services/service.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
@@ -22,7 +23,8 @@ import { EditComponent } from './edit/edit.component';
   ],
   declarations: [QuestionComponent, AddComponent, EditComponent],
   providers:[
-    QuestionService
+    QuestionService,
+    ServiceService
   ]
 })
 export class QuestionModule { }

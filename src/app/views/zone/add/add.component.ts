@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ZoneService } from '../../../services/zone.service';
+import { ServiceService } from '../../../services/service.service';
 import { DrawingManager } from '@ngui/map';
 
 @Component({
@@ -22,7 +23,8 @@ export class AddComponent implements OnInit {
   is_sec_pass = false;
   is_active = true;
   is_job_accept = false;
-  constructor(private fb: FormBuilder,private router: Router, private zoneService: ZoneService) { 
+  is_disable = false;
+  constructor(private fb: FormBuilder,private router: Router, private zoneService: ZoneService, private serviceService: ServiceService) { 
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'fencing': [null, Validators.required],
@@ -35,7 +37,9 @@ export class AddComponent implements OnInit {
       'security_pasword':'',
       'is_job_accept':'',
       'level':[null, Validators.required],
-      'zoneId':''
+      'zoneId':'',
+      'file':[null, Validators.required],
+      'banner_image':''
       
     });
   }
@@ -104,13 +108,34 @@ export class AddComponent implements OnInit {
     zone.is_active = this.is_active;
     zone.is_job_accept = this.is_job_accept;
     zone.is_sec_pass = this.is_sec_pass;
-    //console.log(zone)
-    this.zoneService.addZone(zone).subscribe(res=>{
+    this.is_disable = true;
+    if(zone.file){
       
-      this.router.navigate(['/zone']);
-    },err=>{
-      this.error = "Error Occured, please try again"
-    })
+      this.serviceService.addServiceWithFile(zone.file).subscribe(res=>{
+            
+            if(res){              
+              if(res.type == 'success'){
+                zone.banner_image = res.url;
+                delete zone.file;
+                this.zoneService.addZone(zone).subscribe(res=>{
+                  this.is_disable = false;
+                  this.router.navigate(['/zone']);
+                },err=>{
+                  this.error = "Error Occured, please try again"
+                })
+              }            
+            }else{
+              this.is_disable = false;
+              this.error = "Error Occured, please try again"
+            }         
+      
+       
+      },err=>{
+        this.is_disable = false;
+        this.error = "Error Occured, please try again"
+      })
+      }
+    
   }
 
   public getAllLanguages(){
@@ -148,6 +173,28 @@ export class AddComponent implements OnInit {
  public changeIsJobAccept($e: any){
   this.is_job_accept = !this.is_job_accept;
   //console.log(this.is_job_accept);
+}
+
+public fileChangeListener($event) {
+  console.log($event);
+  
+  const image: any = new Image();
+  let file: File = $event.target.files[0];   
+  
+  
+  const myReader: FileReader = new FileReader();
+  const that = this;
+  myReader.onloadend = function (loadEvent: any) {
+    image.src = loadEvent.target.result;
+   
+    
+  };   
+      const fd = new FormData();
+      fd.append('file', file);        
+    this.rForm.controls['file'].setValue(fd);
+  
+  myReader.readAsDataURL(file);
+  
 }
 
 }

@@ -22,12 +22,32 @@ export class WorkerComponent implements OnInit {
     })
   }
   public deleteWorker(id){    
-    let confirmMessage = confirm('Do you want to delete?')
+    const confirmMessage = confirm('Do you want to delete?')
     if(confirmMessage){      
       this.workerService.deleteWorker(id).subscribe(res=>{
         this.getAllWorkers();
       },err=>{
 
+      })
+    }
+  }
+
+  public changeStatus(worker){    
+    let worker_status
+    if(worker.is_active){
+      worker_status = {
+        is_active:0
+      }
+    }else{
+      worker_status = {
+        is_active:1
+      }
+    }    
+    const confirmMessage = confirm('Do you want to change status?')
+    if(confirmMessage ){      
+      this.workerService.editWorker(worker_status,worker.id).subscribe(res=>{
+        this.getAllWorkers();
+      },err=>{
       })
     }
   }

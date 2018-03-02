@@ -91,7 +91,7 @@ export class EditComponent implements OnInit {
       //this.serviceList=res;
       this.subQuestions = res.questions;
       this.rForm.controls['type'].setValue(res.type);
-      //this.typeSelected = res.type;
+      this.typeSelected = res.type;
       this.rForm.controls['serviceId'].setValue(res.serviceId);
       this.rForm.controls['name'].setValue(res.name);
       this.rForm.controls['icon'].setValue(res.icon);
@@ -107,9 +107,9 @@ export class EditComponent implements OnInit {
           this.rForm.controls['option'+(i+1)].setValue(res.option[i].option);
         }
       }else if(res.type == 4){
-        this.rForm.controls['range_name'].setValue(res.option[0].range_name);
-        this.rForm.controls['start_range'].setValue(res.option[0].start_range);
-        this.rForm.controls['end_range'].setValue(res.option[0].end_range);
+        this.rForm.controls['range_name'].setValue(res.range_name);
+        this.rForm.controls['start_range'].setValue(res.start_range);
+        this.rForm.controls['end_range'].setValue(res.end_range);
       }
     })    
   }
@@ -124,32 +124,41 @@ export class EditComponent implements OnInit {
       color:question.color,
       image:question.image,
       option:[],
-      is_active: this.is_active
+      is_active: this.is_active,
+      range_name: '',
+      start_range: '',
+      end_range: '',
     }
-    if(question.type == 3){
-      if(question.option1 !=''){
-        questionObj.option.push({option:question.option1})
-      }
-      if(question.option2 !=''){
-        questionObj.option.push({option:question.option2})
-      }
-      if(question.option3 !=''){
-        questionObj.option.push({option:question.option3})
-      }
-      if(question.option4 !=''){
-        questionObj.option.push({option:question.option4})
-      }
-      if(question.option5 !=''){
-        questionObj.option.push({option:question.option5})
-      }
+    if (question.type == 4){
+      questionObj.range_name = question.range_name;
+      questionObj.start_range =  question.start_range;
+      questionObj.end_range =  question.end_range;
+    }
+    
+    // if(question.type == 3){
+    //   if(question.option1 !=''){
+    //     questionObj.option.push({option:question.option1})
+    //   }
+    //   if(question.option2 !=''){
+    //     questionObj.option.push({option:question.option2})
+    //   }
+    //   if(question.option3 !=''){
+    //     questionObj.option.push({option:question.option3})
+    //   }
+    //   if(question.option4 !=''){
+    //     questionObj.option.push({option:question.option4})
+    //   }
+    //   if(question.option5 !=''){
+    //     questionObj.option.push({option:question.option5})
+    //   }
       
-    }else if(question.type == 4){
-      questionObj.option.push({range_name:question.range_name})
-      questionObj.option.push({start_range:question.start_range})
-      questionObj.option.push({end_range:question.end_range})
-    }else{
-      questionObj.option = [];
-    }
+    // }else if(question.type == 4){
+    //   questionObj.option.push({range_name:question.range_name})
+    //   questionObj.option.push({start_range:question.start_range})
+    //   questionObj.option.push({end_range:question.end_range})
+    // }else{
+    //   questionObj.option = [];
+    // }
     //console.log(questionObj);
     this.questionService.editQuestion(questionObj,this.questionId).subscribe(res=>{
       //console.log(res);
@@ -181,40 +190,48 @@ export class EditComponent implements OnInit {
       this.rForm.get('range_name').setValidators([Validators.required]);
       this.rForm.get('start_range').setValidators([Validators.required]);
       this.rForm.get('end_range').setValidators([Validators.required]);
-    }else if(questionType == 3){
-      this.rForm.get('range_name').setValidators([]);
-      this.rForm.get('start_range').setValidators([]);
-      this.rForm.get('end_range').setValidators([]);
-      this.rForm.get('option1').setValidators([]);
-      this.rForm.get('option2').setValidators([]);
-      this.rForm.get('option3').setValidators([]);
-      this.rForm.get('option4').setValidators([]);
-      this.rForm.get('option5').setValidators([]);
-      //this.rForm.controls['range_name'].setValue('');
-      //this.rForm.controls['start_range'].setValue('');
-      //this.rForm.controls['end_range'].setValue('');
-      this.rForm.get('no_of_option').setValidators([Validators.required]);
     }else{
-      
       this.rForm.get('range_name').setValidators([]);
       this.rForm.get('start_range').setValidators([]);
       this.rForm.get('end_range').setValidators([]);
-      this.rForm.get('no_of_option').setValidators([]);
-      this.rForm.get('option1').setValidators([]);
-      this.rForm.get('option2').setValidators([]);
-      this.rForm.get('option3').setValidators([]);
-      this.rForm.get('option4').setValidators([]);
-      this.rForm.get('option5').setValidators([]);
-      //this.rForm.controls['no_of_option'].setValue('');
-      //this.rForm.controls['option1'].setValue('');
-      //this.rForm.controls['option2'].setValue('');
-      //this.rForm.controls['option3'].setValue('');
-      //this.rForm.controls['option4'].setValue('');
-      //this.rForm.controls['option5'].setValue('');
-      //this.rForm.controls['range_name'].setValue('');
-      //this.rForm.controls['start_range'].setValue('');
-      //this.rForm.controls['end_range'].setValue('');
+      this.rForm.controls['range_name'].setValue('');
+      this.rForm.controls['start_range'].setValue('');
+      this.rForm.controls['end_range'].setValue('');
     }
+    // else if(questionType == 3){
+    //   this.rForm.get('range_name').setValidators([]);
+    //   this.rForm.get('start_range').setValidators([]);
+    //   this.rForm.get('end_range').setValidators([]);
+    //   this.rForm.get('option1').setValidators([]);
+    //   this.rForm.get('option2').setValidators([]);
+    //   this.rForm.get('option3').setValidators([]);
+    //   this.rForm.get('option4').setValidators([]);
+    //   this.rForm.get('option5').setValidators([]);
+    //   //this.rForm.controls['range_name'].setValue('');
+    //   //this.rForm.controls['start_range'].setValue('');
+    //   //this.rForm.controls['end_range'].setValue('');
+    //   this.rForm.get('no_of_option').setValidators([Validators.required]);
+    // }else{
+      
+    //   this.rForm.get('range_name').setValidators([]);
+    //   this.rForm.get('start_range').setValidators([]);
+    //   this.rForm.get('end_range').setValidators([]);
+    //   this.rForm.get('no_of_option').setValidators([]);
+    //   this.rForm.get('option1').setValidators([]);
+    //   this.rForm.get('option2').setValidators([]);
+    //   this.rForm.get('option3').setValidators([]);
+    //   this.rForm.get('option4').setValidators([]);
+    //   this.rForm.get('option5').setValidators([]);
+    //   //this.rForm.controls['no_of_option'].setValue('');
+    //   //this.rForm.controls['option1'].setValue('');
+    //   //this.rForm.controls['option2'].setValue('');
+    //   //this.rForm.controls['option3'].setValue('');
+    //   //this.rForm.controls['option4'].setValue('');
+    //   //this.rForm.controls['option5'].setValue('');
+    //   //this.rForm.controls['range_name'].setValue('');
+    //   //this.rForm.controls['start_range'].setValue('');
+    //   //this.rForm.controls['end_range'].setValue('');
+    // }
 
   }
   public changeRadioOption(optionType){
@@ -247,7 +264,7 @@ export class EditComponent implements OnInit {
     this.rModalForm.controls['option3'].setValue('');
     this.rModalForm.controls['option4'].setValue('');
     this.rModalForm.controls['option5'].setValue('');
-    this.modal_is_active= true;
+    this.modal_is_active = true;
     largeModal.show();    
   }
 
@@ -272,9 +289,9 @@ export class EditComponent implements OnInit {
           this.rModalForm.controls['option'+(i+1)].setValue(question.option[i].option);
         }
       }else if(question.type == 4){
-        this.rModalForm.controls['range_name'].setValue(question.option[0].range_name);
-        this.rModalForm.controls['start_range'].setValue(question.option[0].start_range);
-        this.rModalForm.controls['end_range'].setValue(question.option[0].end_range);
+        this.rModalForm.controls['range_name'].setValue(question.range_name);
+        this.rModalForm.controls['start_range'].setValue(question.start_range);
+        this.rModalForm.controls['end_range'].setValue(question.end_range);
       }
       this.rModalForm.controls['id'].setValue(question.id);
       largeModal.show();
@@ -303,40 +320,48 @@ export class EditComponent implements OnInit {
       this.rModalForm.get('range_name').setValidators([Validators.required]);
       this.rModalForm.get('start_range').setValidators([Validators.required]);
       this.rModalForm.get('end_range').setValidators([Validators.required]);
-    }else if(questionType == 3){
-      this.rModalForm.get('range_name').setValidators([]);
-      this.rModalForm.get('start_range').setValidators([]);
-      this.rModalForm.get('end_range').setValidators([]);
-      this.rModalForm.get('option1').setValidators([]);
-      this.rModalForm.get('option2').setValidators([]);
-      this.rModalForm.get('option3').setValidators([]);
-      this.rModalForm.get('option4').setValidators([]);
-      this.rModalForm.get('option5').setValidators([]);
-      this.rModalForm.controls['range_name'].setValue('');
-      this.rModalForm.controls['start_range'].setValue('');
-      this.rModalForm.controls['end_range'].setValue('');
-      this.rModalForm.get('no_of_option').setValidators([Validators.required]);
     }else{
-      
       this.rModalForm.get('range_name').setValidators([]);
       this.rModalForm.get('start_range').setValidators([]);
       this.rModalForm.get('end_range').setValidators([]);
-      this.rModalForm.get('no_of_option').setValidators([]);
-      this.rModalForm.get('option1').setValidators([]);
-      this.rModalForm.get('option2').setValidators([]);
-      this.rModalForm.get('option3').setValidators([]);
-      this.rModalForm.get('option4').setValidators([]);
-      this.rModalForm.get('option5').setValidators([]);
-      this.rModalForm.controls['no_of_option'].setValue('');
-      this.rModalForm.controls['option1'].setValue('');
-      this.rModalForm.controls['option2'].setValue('');
-      this.rModalForm.controls['option3'].setValue('');
-      this.rModalForm.controls['option4'].setValue('');
-      this.rModalForm.controls['option5'].setValue('');
       this.rModalForm.controls['range_name'].setValue('');
       this.rModalForm.controls['start_range'].setValue('');
       this.rModalForm.controls['end_range'].setValue('');
     }
+    // else if(questionType == 3){
+    //   this.rModalForm.get('range_name').setValidators([]);
+    //   this.rModalForm.get('start_range').setValidators([]);
+    //   this.rModalForm.get('end_range').setValidators([]);
+    //   this.rModalForm.get('option1').setValidators([]);
+    //   this.rModalForm.get('option2').setValidators([]);
+    //   this.rModalForm.get('option3').setValidators([]);
+    //   this.rModalForm.get('option4').setValidators([]);
+    //   this.rModalForm.get('option5').setValidators([]);
+    //   this.rModalForm.controls['range_name'].setValue('');
+    //   this.rModalForm.controls['start_range'].setValue('');
+    //   this.rModalForm.controls['end_range'].setValue('');
+    //   this.rModalForm.get('no_of_option').setValidators([Validators.required]);
+    // }else{
+      
+    //   this.rModalForm.get('range_name').setValidators([]);
+    //   this.rModalForm.get('start_range').setValidators([]);
+    //   this.rModalForm.get('end_range').setValidators([]);
+    //   this.rModalForm.get('no_of_option').setValidators([]);
+    //   this.rModalForm.get('option1').setValidators([]);
+    //   this.rModalForm.get('option2').setValidators([]);
+    //   this.rModalForm.get('option3').setValidators([]);
+    //   this.rModalForm.get('option4').setValidators([]);
+    //   this.rModalForm.get('option5').setValidators([]);
+    //   this.rModalForm.controls['no_of_option'].setValue('');
+    //   this.rModalForm.controls['option1'].setValue('');
+    //   this.rModalForm.controls['option2'].setValue('');
+    //   this.rModalForm.controls['option3'].setValue('');
+    //   this.rModalForm.controls['option4'].setValue('');
+    //   this.rModalForm.controls['option5'].setValue('');
+    //   this.rModalForm.controls['range_name'].setValue('');
+    //   this.rModalForm.controls['start_range'].setValue('');
+    //   this.rModalForm.controls['end_range'].setValue('');
+    // }
 
   }
   public changeModalRadioOption(optionType){
@@ -363,32 +388,40 @@ export class EditComponent implements OnInit {
       image:question.image,
       parent_id:this.questionId,
       option:[],
-      is_active: this.modal_is_active
+      is_active: this.modal_is_active,
+      range_name: '',
+      start_range: '',
+      end_range: '',
     }
-    if(question.type == 3){
-      if(question.option1 !=''){
-        questionObj.option.push({option:question.option1})
-      }
-      if(question.option2 !=''){
-        questionObj.option.push({option:question.option2})
-      }
-      if(question.option3 !=''){
-        questionObj.option.push({option:question.option3})
-      }
-      if(question.option4 !=''){
-        questionObj.option.push({option:question.option4})
-      }
-      if(question.option5 !=''){
-        questionObj.option.push({option:question.option5})
-      }
+    if (question.type == 4){
+      questionObj.range_name = question.range_name;
+      questionObj.start_range =  question.start_range;
+      questionObj.end_range =  question.end_range;
+    }
+    // if(question.type == 3){
+    //   if(question.option1 !=''){
+    //     questionObj.option.push({option:question.option1})
+    //   }
+    //   if(question.option2 !=''){
+    //     questionObj.option.push({option:question.option2})
+    //   }
+    //   if(question.option3 !=''){
+    //     questionObj.option.push({option:question.option3})
+    //   }
+    //   if(question.option4 !=''){
+    //     questionObj.option.push({option:question.option4})
+    //   }
+    //   if(question.option5 !=''){
+    //     questionObj.option.push({option:question.option5})
+    //   }
       
-    }else if(question.type == 4){
-      questionObj.option.push({range_name:question.range_name})
-      questionObj.option.push({start_range:question.start_range})
-      questionObj.option.push({end_range:question.end_range})
-    }else{
-      questionObj.option = [];
-    }
+    // }else if(question.type == 4){
+    //   questionObj.option.push({range_name:question.range_name})
+    //   questionObj.option.push({start_range:question.start_range})
+    //   questionObj.option.push({end_range:question.end_range})
+    // }else{
+    //   questionObj.option = [];
+    // }
     //this.subQuestions.push(questionObj)
     if(question.id != ''){
       largeModal.hide();

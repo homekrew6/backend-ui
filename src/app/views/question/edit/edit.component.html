@@ -72,13 +72,7 @@
                 <!-- <input type="file" id="theFileInput" (change)="fileChangeListener($event)" /> -->
                 <input type="file" id="theFileInput" />
               </div>
-              <div class="form-group">
-                  <div class="checkbox">
-                    <label for="is_active">
-                      <input type="checkbox" id="is_active"  [checked]="is_active" (change)="changeIsActive($event)"> Is Active
-                    </label>
-                  </div>
-                </div>
+              
           <div *ngIf="typeSelected == 4">
               <div class="form-group">
                 <label for="questiontype">Enter Range Name</label>
@@ -99,7 +93,15 @@
               </div>
 
           </div>
-          <div *ngIf="typeSelected == 3">
+
+          <div class="form-group">
+            <div class="checkbox">
+              <label for="is_active">
+                <input type="checkbox" id="is_active"  [checked]="is_active" (change)="changeIsActive($event)"> Is Active
+              </label>
+            </div>
+          </div>
+          <!-- <div *ngIf="typeSelected == 3">
               <div class="form-group">
                 <label for="no_of_option">No of Option</label>
                 <select id="no_of_option" formControlName="no_of_option" class="form-control" (change)="changeRadioOption(rForm.value.no_of_option)">
@@ -140,7 +142,7 @@
                     
                   </div>
 
-          </div>
+          </div> -->
 
           <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" (click)="showPopupQuestion(largeModal)"><i class="fa fa-dot-circle-o"></i> Add Question</button>
           
@@ -240,13 +242,7 @@
                     <!-- <input type="file" id="theFileInput" (change)="fileChangeListener($event)" /> -->
                     <input type="file" id="theFileInput" />
                   </div>
-                  <div class="form-group">
-                      <div class="checkbox">
-                        <label for="modal_is_active">
-                          <input type="checkbox" id="modal_is_active"  [checked]="modal_is_active" (change)="changeModalIsActive($event)"> Is Active
-                        </label>
-                      </div>
-                    </div>
+                  
               <div *ngIf="typeModalSelected == 4">
                   <div class="form-group">
                     <label for="questiontype">Enter Range Name</label>
@@ -267,7 +263,15 @@
                   </div>
   
               </div>
-              <div *ngIf="typeModalSelected == 3">
+
+              <div class="form-group">
+                <div class="checkbox">
+                  <label for="modal_is_active">
+                    <input type="checkbox" id="modal_is_active"  [checked]="modal_is_active" (change)="changeModalIsActive($event)"> Is Active
+                  </label>
+                </div>
+              </div>
+              <!-- <div *ngIf="typeModalSelected == 3">
                   <div class="form-group">
                     <label for="no_of_option">No of Option</label>
                     <select id="no_of_option" formControlName="no_of_option" class="form-control" (change)="changeModalRadioOption(rModalForm.value.no_of_option)">
@@ -308,7 +312,7 @@
                         
                       </div>
   
-              </div>
+              </div> -->
           
         </div>
         <div class="modal-footer">

@@ -17,12 +17,12 @@ const setHttpHeaders = () => {
 
 export const environment = {
   production: false,
-  //baseurl: 'http://127.0.0.1:3000/api/',
-  baseurl: 'http://111.93.169.90:3000/api/',  
+  baseurl: 'http://192.168.1.38:3000/api/',
+  //baseurl: 'http://111.93.169.90:3000/api/',  
   headers: setHttpHeaders
 };
 
 export const absEnvironment = {   
-  //absuluteUrl : '/assets/tinymce/skins/lightgray',
-  absuluteUrl : '/team3/krew_admin/assets/tinymce/skins/lightgray',  
+  absuluteUrl : '/assets/tinymce/skins/lightgray',
+  //absuluteUrl : '/team3/krew_admin/assets/tinymce/skins/lightgray',  
 };

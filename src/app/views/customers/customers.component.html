@@ -12,7 +12,8 @@
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Phone</th>                  
+                  <th>Phone</th>
+                  <th>Status</th>                  
                   <th>Action</th>
                 </tr>
               </thead>
@@ -21,10 +22,14 @@
                   
                   <td>{{customer.name}}</td>
                   <td>{{customer.email}}</td>
-                  <td>{{customer.phone}}</td>                  
+                  <td>{{customer.phone}}</td>
+                  <td *ngIf="customer.is_active == 1">Active</td>
+                  <td *ngIf="customer.is_active != 1">Inactive</td>                  
                   <td>
             <a [routerLink]="['/customers/edit',customer.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
             <button type="button" class="btn btn-danger" (click)="deleteCustomer(customer.id)"><i class="fa fa-trash"></i>&nbsp; Delete</button>
+            <button type="button" class="btn btn-primary" (click)="changeStatus(customer)">&nbsp; Change Status</button>
+            
                   </td>
                 </tr>               
               </tbody>

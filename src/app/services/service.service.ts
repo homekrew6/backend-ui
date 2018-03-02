@@ -23,7 +23,8 @@ export class ServiceService {
         });
     }
     public addServiceWithFile(data){
-        return this.http.post(environment.baseurl+'services/uploadFile?access_token='+localStorage.getItem("authToken"),data).map((res: Response) => {  
+        console.log(data)
+        return this.http.post(environment.baseurl+'services/uploadImage?access_token='+localStorage.getItem("authToken"),data).map((res: Response) => {  
             console.log(res);          
             return res.json();
         });

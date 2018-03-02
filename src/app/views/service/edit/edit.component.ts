@@ -25,6 +25,7 @@ export class EditComponent implements OnInit {
   is_reoccur_able = false;
   serviceZone=[];
   is_active = true;
+  is_disable = false;
   constructor(private fb: FormBuilder ,private router: Router, private activatedRoute:ActivatedRoute, private serviceService: ServiceService) { 
     
     this.rForm = fb.group({      
@@ -84,7 +85,7 @@ export class EditComponent implements OnInit {
         banner_image:service.banner_image,
         is_active : this.is_active,
      }
-
+     this.is_disable = true;
      if(service.file){
       const imgDetails = {
       name: service.file.name,
@@ -92,28 +93,34 @@ export class EditComponent implements OnInit {
     }
     //console.log(addServiceObj);
 
-    this.serviceService.addServiceWithFile(imgDetails).subscribe(res=>{
-          console.log(res);
+    this.serviceService.addServiceWithFile(service.file).subscribe(res=>{
+          //console.log(res);
           if(res){
-            var xhr = new XMLHttpRequest()
-            xhr.open("PUT", res.service.signed_request)
-            xhr.setRequestHeader('x-amz-acl', 'public-read')
-            xhr.onload = function() {
-              if (xhr.status === 200) {
-                //done()
-              }
+            if(res.type == 'success'){
+              addServiceObj.banner_image = res.url;
+              this.saveServiecOnly(service,addServiceObj);
             }
+            // var xhr = new XMLHttpRequest()
+            // xhr.open("PUT", res.service.signed_request)
+            // xhr.setRequestHeader('x-amz-acl', 'public-read')
+            // xhr.onload = function() {
+            //   if (xhr.status === 200) {
+            //     //done()
+            //   }
+            // }
       
-            xhr.send(service.file)
-            addServiceObj.banner_image = res.service.url;
-            this.saveServiecOnly(service,addServiceObj);
+            // xhr.send(service.file)
+            // addServiceObj.banner_image = res.service.url;
+            // this.saveServiecOnly(service,addServiceObj);
           }else{
+            this.is_disable = false;
             this.error = "Error Occured, please try again"
           }
           
     
      
     },err=>{
+      this.is_disable = false;
       this.error = "Error Occured, please try again"
     })
     }else{
@@ -148,13 +155,16 @@ export class EditComponent implements OnInit {
           }
           
           if(i >=service.zones.length-1){
+            this.is_disable = false;
             this.router.navigate(['/service']);
           }else{
+            this.is_disable = false;
             this.error = "Error Occured, please try again"
           }             
                  
         }
        },err=>{
+        this.is_disable = false;
          this.error = "Error Occured, please try again"
        })       
        
@@ -163,6 +173,7 @@ export class EditComponent implements OnInit {
       }
       
     },err=>{
+      this.is_disable = false;
       this.error = "Error Occured, please try again"
     })
   }
@@ -264,21 +275,43 @@ export class EditComponent implements OnInit {
     })
   }
 
+  // public fileChangeListener($event) {
+  //   //console.log($event);
+    
+  //   const image: any = new Image();
+  //   const file: File = $event.target.files[0];
+  //   this.rForm.controls['file'].setValue(file);
+  //   const myReader: FileReader = new FileReader();
+  //   const that = this;
+  //   myReader.onloadend = function (loadEvent: any) {
+  //     image.src = loadEvent.target.result;
+  //     //console.log(image);
+      
+  //   };
+  //   myReader.readAsDataURL(file);
+  //   //console.log(myReader);
+  // }
+
   public fileChangeListener($event) {
-    //console.log($event);
+    console.log($event);
     
     const image: any = new Image();
-    const file: File = $event.target.files[0];
-    this.rForm.controls['file'].setValue(file);
+    let file: File = $event.target.files[0];   
+    
+    
     const myReader: FileReader = new FileReader();
     const that = this;
     myReader.onloadend = function (loadEvent: any) {
       image.src = loadEvent.target.result;
-      //console.log(image);
+     
       
-    };
+    };   
+        const fd = new FormData();
+        fd.append('file', file);        
+      this.rForm.controls['file'].setValue(fd);
+    
     myReader.readAsDataURL(file);
-    //console.log(myReader);
+    
   }
 
 

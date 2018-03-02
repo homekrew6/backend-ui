@@ -3,6 +3,7 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ZoneService } from '../../../services/zone.service';
+import { ServiceService } from '../../../services/service.service';
 import { DrawingManager } from '@ngui/map';
 
 
@@ -28,8 +29,9 @@ export class EditComponent implements OnInit {
   is_sec_pass = false;
   is_active = true;
   is_job_accept = false;
+  is_disable = false;
 
-  constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private zoneService: ZoneService) {
+  constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private zoneService: ZoneService, private serviceService: ServiceService) {
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'fencing': [null, Validators.required],
@@ -42,7 +44,9 @@ export class EditComponent implements OnInit {
       'security_pasword':'',
       'is_job_accept':'',
       'level':[null, Validators.required],
-      'zoneId':''
+      'zoneId':'',
+      'banner_image':'',
+      'file':[]
       
     });
     this.editMode = false;
@@ -86,13 +90,46 @@ export class EditComponent implements OnInit {
   public editZone(zone){  
     zone.is_active = this.is_active;
     zone.is_job_accept = this.is_job_accept;
-    zone.is_sec_pass = this.is_sec_pass;    
-    this.zoneService.editZone(zone,this.zoneId).subscribe(res=>{ 
-      //console.log(res)     
-      this.router.navigate(['/zone']);
-    },err=>{
-      this.error = "Error Occured, please try again"
-    })
+    zone.is_sec_pass = this.is_sec_pass;   
+    this.is_disable = true; 
+    if(zone.file){
+      this.serviceService.addServiceWithFile(zone.file).subscribe(res=>{
+            
+        if(res){              
+          if(res.type == 'success'){
+            zone.banner_image = res.url;
+            delete zone.file;
+            this.zoneService.editZone(zone,this.zoneId).subscribe(res=>{ 
+              //console.log(res)     
+              this.is_disable = false;
+              this.router.navigate(['/zone']);
+            },err=>{
+              this.is_disable = false;
+              this.error = "Error Occured, please try again"
+            })
+          }            
+        }else{
+          this.is_disable = false;
+          this.error = "Error Occured, please try again"
+        } 
+  
+   
+  },err=>{
+    this.is_disable = false;
+    this.error = "Error Occured, please try again"
+  })
+    }else{
+      delete zone.file;
+      this.zoneService.editZone(zone,this.zoneId).subscribe(res=>{ 
+        //console.log(res)     
+        this.is_disable = false;
+        this.router.navigate(['/zone']);
+      },err=>{
+        this.is_disable = false;
+        this.error = "Error Occured, please try again"
+      })
+    }
+    
   }
 
   public getIndividualZone(Id){
@@ -115,6 +152,7 @@ export class EditComponent implements OnInit {
       this.rForm.controls['premium'].setValue(res.premium);
       this.rForm.controls['security_pasword'].setValue(res.security_pasword);
       this.rForm.controls['level'].setValue(res.level);
+      this.rForm.controls['banner_image'].setValue(res.banner_image);
       
       //this.populateMap();        
       
@@ -188,6 +226,28 @@ public changeIsActive($e: any){
 public changeIsJobAccept($e: any){
 this.is_job_accept = !this.is_job_accept;
 //console.log(this.is_job_accept);
+}
+
+public fileChangeListener($event) {
+  console.log($event);
+  
+  const image: any = new Image();
+  let file: File = $event.target.files[0];   
+  
+  
+  const myReader: FileReader = new FileReader();
+  const that = this;
+  myReader.onloadend = function (loadEvent: any) {
+    image.src = loadEvent.target.result;
+   
+    
+  };   
+      const fd = new FormData();
+      fd.append('file', file);        
+    this.rForm.controls['file'].setValue(fd);
+  
+  myReader.readAsDataURL(file);
+  
 }
 
 }

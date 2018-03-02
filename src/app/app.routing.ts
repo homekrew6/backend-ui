@@ -213,6 +213,20 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'slider',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/intro-sliders/intro-sliders.module#IntroSlidersModule',
+      }
+    ]
+  },
+  {
     path: 'pages',
     component: SimpleLayout,
     data: {

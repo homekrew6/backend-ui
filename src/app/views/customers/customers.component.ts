@@ -34,4 +34,24 @@ export class CustomersComponent implements OnInit {
     }
   }
 
+  public changeStatus(customer){    
+    let customer_status
+    if(customer.is_active){
+      customer_status = {
+        is_active:0
+      }
+    }else{
+      customer_status = {
+        is_active:1
+      }
+    }    
+    const confirmMessage = confirm('Do you want to change status?')
+    if(confirmMessage ){      
+      this.customerService.editCustomer(customer_status,customer.id).subscribe(res=>{
+        this.getAllCustomers();
+      },err=>{
+      })
+    }
+  }
+
 }

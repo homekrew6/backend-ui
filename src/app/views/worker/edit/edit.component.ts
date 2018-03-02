@@ -18,7 +18,7 @@ export class EditComponent implements OnInit {
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'phone': [null, Validators.required],     
-      'username': [null, Validators.required],      
+      'username': '',      
       'email': [null, Validators.required],
       'is_active': ''
       
