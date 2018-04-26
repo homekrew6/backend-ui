@@ -1,0 +1,48 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Worker List
+                    <span style="float:right"><a [routerLink]="['/worker/add']" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; ADD</a></span>
+                </div>
+                <div class="card-body">
+                    <!-- <table class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Type</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let worker of workerList">
+
+                                <td>{{worker.name}}</td>
+                                <td>{{worker.email}}</td>
+                                <td>{{worker.phone}}</td>
+                                <td *ngIf="worker.is_active == 1">Active</td>
+                                <td *ngIf="worker.is_active != 1">Inactive</td>
+                                <td *ngIf="worker.isDedicated == 1">Dedicated</td>
+                                <td *ngIf="worker.isDedicated != 1">Standard</td>
+                                <td>
+                                    <a [routerLink]="['/worker/edit',worker.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
+                                    <button type="button" class="btn btn-danger" (click)="deleteWorker(worker.id)"><i class="fa fa-trash"></i>&nbsp; Delete</button>
+                                    <button type="button" class="btn btn-primary" (click)="changeStatus(worker)">&nbsp; Change Status</button>
+                                    <button type="button" class="btn btn-primary" (click)="changeType(worker)">&nbsp; Change Type</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+
+                    <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="workerList"></ng2-smart-table>
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+</div>
