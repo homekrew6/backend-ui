@@ -31,6 +31,10 @@ export class AddComponent implements OnInit {
       this.error = "Error Occured, please try again"
     })
   }
+  goToList() {
+    this.router.navigate(['currency']);
+  }
+  
 
   public changeIsActive($e: any){
     this.is_active = !this.is_active;

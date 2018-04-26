@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../services/auth.service';
 import { User } from "./user.model";
-
+import { debuglog } from 'util';
 @Component({
   templateUrl: 'login.component.html'
 })
@@ -11,12 +11,20 @@ import { User } from "./user.model";
 
 export class LoginComponent {
   data = {
-    email: 'krishnendu@natitsolved.com',
-    password: '123456'
+    email: '',
+    password: ''
   }
   error: string;
   items: Observable<any[]>;
   constructor(private router: Router, private auth: AuthService) {
+    if (!this.auth.isAuthenticated)
+    {
+
+    }
+    else
+    {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
 
@@ -27,12 +35,23 @@ export class LoginComponent {
 
   handleLogin(): void {
     this.error = null;
+    
     this.auth.login(this.data.email, this.data.password).subscribe(res => {
       console.log(res);
+
       // localStorage.setItem('authToken', res[].toString());
-       
-      this.router.navigate(['/dashboard']);
+     this.auth.getRoleTypes().subscribe((res1)=>{
+       res1.map((item)=>{
+         if(item.id==localStorage.getItem("role"))
+         {
+            localStorage.setItem("role", item.name)
+         }
+       })
+        this.router.navigate(['/dashboard']);
+     })
+     
     }, err => {
+     
       //console.log(err);
       this.error = "Invalid email or password"
     });

@@ -69,6 +69,7 @@ export class EditComponent implements OnInit {
   }
 
   public editAnswer(answer){
+    answer.selected=false;
     this.answerService.editAnswer(answer,this.answerId).subscribe(res=>{      
       this.router.navigate(['/answer/list/'+this.questionId]);
     },err=>{

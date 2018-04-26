@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ZoneRoutingModule } from './zone-routing';
@@ -10,7 +11,6 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
 import { NguiMapModule} from '@ngui/map';
 import { EditComponent } from './edit/edit.component';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +22,7 @@ import { EditComponent } from './edit/edit.component';
   ],
   declarations: [ZoneComponent, AddComponent, EditComponent],
   providers:[
-    ZoneService,ServiceService
+    ZoneService, ServiceService, AuthService
   ]
 })
 export class ZoneModule { }

@@ -52,6 +52,7 @@ export class AddComponent implements OnInit {
   }
 
   public addAnswer(answer){
+    answer.selected=false;
     //console.log(answer);
     this.answerService.addAnswer(answer).subscribe(res=>{
       //console.log(res);

@@ -10,8 +10,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NguiMapModule} from '@ngui/map';
 import { EditComponent } from './edit/edit.component';
 import { MyFilterPipe } from '../../filters/my-filter.pipe';
-
-
+import { AlertModule } from 'ngx-bootstrap';
+import { TinymceModule } from 'angular2-tinymce';
+import { absEnvironment } from '../../../environments/environment';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +21,13 @@ import { MyFilterPipe } from '../../filters/my-filter.pipe';
     FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
-    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?libraries=visualization,places,drawing&key=AIzaSyAzwzNzq3irmwjUVU1MhMuwP7qD0CfZijA'})
+    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?libraries=visualization,places,drawing&key=AIzaSyAzwzNzq3irmwjUVU1MhMuwP7qD0CfZijA'}),
+    AlertModule.forRoot(),
+    TinymceModule.withConfig({
+      skin_url: absEnvironment.absuluteUrl,
+      entity_encoding : 'xml'
+
+    })
 
   ],
   declarations: [ServiceComponent, AddComponent, EditComponent, MyFilterPipe],

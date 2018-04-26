@@ -5,18 +5,11 @@
   "rules": {
     "callable-types": true,
     "class-name": true,
-    "comment-format": [
-      true,
-      "check-space"
-    ],
     "curly": true,
     "eofline": true,
     "forin": true,
     "import-blacklist": [true, "rxjs"],
     "import-spacing": true,
-    "indent": [
-      true      
-    ],
     "interface-over-type-literal": true,
     "label-position": true,
     "max-line-length": [
@@ -40,7 +33,6 @@
       "trace"
     ],
     "no-construct": true,
-    "no-debugger": true,
     "no-duplicate-variable": true,
     "no-empty": false,
     "no-empty-interface": true,
@@ -73,27 +65,9 @@
       true,
       "allow-null-check"
     ],
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      }
-    ],
     "typeof-compare": true,
     "unified-signatures": true,
     "variable-name": false,
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ],
 
     "directive-selector": [true, "attribute", "app", "camelCase"],
     "component-selector": [true, "element", "app", "kebab-case"],

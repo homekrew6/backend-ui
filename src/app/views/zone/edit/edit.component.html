@@ -1,129 +1,127 @@
 <div class="animated fadeIn">
-  <div class="row">
-    
-    <div class="col-sm-12">
-      <div class="card">
-          <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="editZone(rForm.value)">
-        <div class="card-header">
-          <strong>Zone</strong>
-          
-        </div>
-        <div class="card-body">
-          <div class="form-group">
-            <label for="Zone">Zone <span>*</span></label>
-            <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter zone name">
-            <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter zone name</div>
-          </div>
-          <div class="form-group">
-            <label for="zoneId">Parent</label>
-            <select id="zoneId" formControlName="zoneId" class="form-control">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="card">
+                <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="editZone(rForm.value)">
+                    <div class="card-header">
+                        <strong>Zone</strong>
+                        <div class="alert alert-danger" *ngIf="error">
+                            {{error}}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="Zone">Zone <span>*</span></label>
+                            <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter zone name">
+                            <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter zone name</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="zoneId">Parent</label>
+                            <select id="zoneId" [attr.disabled]="IsReadOnly==true ? true : null" formControlName="zoneId" name="zoneId" class="form-control">
               <option value="0">Please select</option>
               <option *ngFor="let parent of parentZoneList" value="{{parent.id}}">{{parent.name}}</option>              
             </select>
-            <div class="text-danger" *ngIf="!rForm.controls['zoneId'].valid && rForm.controls['zoneId'].touched">Please select zone</div>              
-          </div>
-          <div class="form-group" *ngIf="rForm.value.banner_image">
-            
-            <img src="{{rForm.value.banner_image}}" style="width:50px;height:50px;">
-          </div>
+                            <div class="text-danger" *ngIf="!rForm.controls['zoneId'].valid && rForm.controls['zoneId'].touched">Please select zone</div>
+                        </div>
+                        <div class="form-group" *ngIf="rForm.value.banner_image">
 
-          <div class="form-group">
-            <label for="icon_class">Banner</label>
-            <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
-            <input type="file" id="theFileInput" (change)="fileChangeListener($event)" />
-            
-          </div>
-          <div class="form-group">
-            <label for="languageId">Language <span>*</span></label>
-            <select id="languageId" formControlName="languageId" class="form-control">
+                            <img src="{{rForm.value.banner_image}}" style="width:50px;height:50px;">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="icon_class">Banner</label>
+                            <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
+                            <input type="file" id="theFileInput" (change)="fileChangeListener($event)" />
+
+                        </div>
+                        <div class="form-group">
+                            <label for="languageId">Language <span>*</span></label>
+                            <select id="languageId" formControlName="languageId" class="form-control">
               <option value="">Please select</option>
               <option *ngFor="let language of languageList" value="{{language.id}}">{{language.name}}</option>              
             </select>
-            <div class="text-danger" *ngIf="!rForm.controls['languageId'].valid && rForm.controls['languageId'].touched">Please select language</div>              
-          </div>
-          <div class="form-group">
-            <label for="currencyId">Currency <span>*</span></label>
-            <select id="currencyId" formControlName="currencyId" class="form-control">
+                            <div class="text-danger" *ngIf="!rForm.controls['languageId'].valid && rForm.controls['languageId'].touched">Please select language</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="currencyId">Currency <span>*</span></label>
+                            <select id="currencyId" formControlName="currencyId" class="form-control">
               <option value="">Please select</option>
               <option *ngFor="let currency of currencyList" value="{{currency.id}}">{{currency.name}}</option>              
             </select>
-            <div class="text-danger" *ngIf="!rForm.controls['currencyId'].valid && rForm.controls['currencyId'].touched">Please select currency</div>              
-          </div>
-          <div class="form-group">
-            <label for="Zone">Premium</label>
-            <input type="text" formControlName="premium" class="form-control" id="premium" placeholder="Enter premium">
-            
-          </div>
-          <div class="form-group">
-            <label for="level">Level <span>*</span></label>
-            <input type="text" formControlName="level" class="form-control" id="level" placeholder="Enter zone level">
-            <div class="text-danger" *ngIf="!rForm.controls['level'].valid && rForm.controls['level'].touched">Please enter zone level</div>
-          </div>
-          <div class="form-group">
-            <div class="checkbox">
-              <label for="is_sec_pass">
+                            <div class="text-danger" *ngIf="!rForm.controls['currencyId'].valid && rForm.controls['currencyId'].touched">Please select currency</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Zone">Premium</label>
+                            <input type="text" formControlName="premium" class="form-control" id="premium" placeholder="Enter premium">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="level">Level <span>*</span></label>
+                            <input type="number" [readOnly]='IsReadOnly' formControlName="level" class="form-control" id="level" placeholder="Enter zone level">
+                            <div class="text-danger" *ngIf="!rForm.controls['level'].valid && rForm.controls['level'].touched">Please enter zone level</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label for="is_sec_pass">
                 <input type="checkbox" id="is_sec_pass"  [checked]="is_sec_pass" (change)="changeIsSecPass($event)"> Security Passworod Required
               </label>
-            </div>
-          </div>
-          <div class="form-group" *ngIf="is_sec_pass">
-            <label for="security_pasword">Security Password</label>
-            <input type="text" formControlName="security_pasword" class="form-control" id="security_pasword" placeholder="Enter Security Password">
-            <div class="text-danger" *ngIf="!rForm.controls['security_pasword'].valid && rForm.controls['security_pasword'].touched">Please enter security Password</div>
-          </div>
-          <div class="form-group">
-            <div class="checkbox">
-              <label for="is_job_accept">
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="is_sec_pass">
+                            <label for="security_pasword">Security Password</label>
+                            <input type="text" formControlName="security_pasword" class="form-control" id="security_pasword" placeholder="Enter Security Password">
+                            <div class="text-danger" *ngIf="!rForm.controls['security_pasword'].valid && rForm.controls['security_pasword'].touched">Please enter security Password</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label for="is_job_accept">
                 <input type="checkbox" id="is_job_accept"  [checked]="is_job_accept" (change)="changeIsJobAccept($event)"> Is Accept Job
               </label>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="checkbox">
-              <label for="is_active">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label for="is_active">
                 <input type="checkbox" id="is_active"  [checked]="is_active" (change)="changeIsActive($event)"> Is Active
               </label>
-            </div>
-          </div>
-          <!-- <div class="form-group">
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
             <label for="description">Description</label>            
             <textarea id="description" formControlName="description" rows="9" class="form-control" placeholder="Enter description"></textarea>
             
           </div> -->
-          
-          <ngui-map *ngIf="!editMode" zoom="8" [center]="firstCord">
-            <polygon [editable]="false"
-            [paths]="selectedZone"
-            ></polygon>
-          </ngui-map>
 
-          <ngui-map [class]="editClass" zoom="8" center="25.2048, 55.2708">
-            <drawing-manager
-            [drawingMode]="'polygon'"
-            [drawingControl]="true"
-            [drawingControlOptions]="{
+                        <ngui-map *ngIf="!editMode" zoom="8" [center]="firstCord">
+                            <polygon [editable]="false" [paths]="selectedZone"></polygon>
+                        </ngui-map>
+
+                        <ngui-map [class]="editClass" zoom="8" center="25.2048, 55.2708">
+                            <drawing-manager [drawingMode]="'polygon'" [drawingControl]="true" [drawingControlOptions]="{
               position: 2,
               drawingModes: [ 'polygon']
-             }"
-            [circleOptions]="{
+             }" [circleOptions]="{
               fillColor: '#ffff00',
               fillOpacity: 1,
               strokeWeight: 5,
               editable: true,
               zIndex: 1
             }"></drawing-manager>
-          </ngui-map>   
-          <button type="button" class="btn btn-sm btn-primary" (click)="toggleEditMode()"><i class="fa fa-dot-circle-o"></i> Edit Map</button>
-                          
+                        </ngui-map>
+                        <button type="button" class="btn btn-sm btn-primary" (click)="toggleEditMode()"><i class="fa fa-dot-circle-o"></i> Edit Map</button>
+
+                    </div>
+                    <div class="card-footer">
+                        <button *ngIf="!is_disable" type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                        <button *ngIf="is_disable" type="submit" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-spin fa-spinner"></i> Saving</button>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="goToList()"><i class="fa fa-ban"></i> Cancel</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="card-footer">
-          <button *ngIf="!is_disable" type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
-          <button *ngIf="is_disable" type="submit" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-spin fa-spinner"></i> Saving</button>
-          <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
-        </div>
-        </form>
-      </div>
-    </div><!--/.col-->
-  </div><!--/.row-->   
-  
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+
 </div>

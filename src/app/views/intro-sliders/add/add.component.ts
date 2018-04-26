@@ -31,7 +31,9 @@ export class AddComponent implements OnInit {
   ngOnInit() {
     this.rForm.controls['type'].setValue('');
   }
-
+  goToList() {
+    this.router.navigate(['slider']);
+  }
   public addSlider(slider){
     
     slider.is_active = this.is_active;  

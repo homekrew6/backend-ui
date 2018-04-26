@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
-
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   imports: [
@@ -15,7 +15,8 @@ import { EditComponent } from './edit/edit.component';
     WorkerRoutingModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2SmartTableModule
   ],
   declarations: [WorkerComponent, AddComponent, EditComponent],
   providers:[

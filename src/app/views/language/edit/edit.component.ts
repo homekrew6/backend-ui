@@ -32,6 +32,11 @@ export class EditComponent implements OnInit {
     });  
   }
 
+  goToList()
+  {
+    this.router.navigate(['language']);
+  }
+
   public editLanguage(language){   
     language.is_active = this.is_active;
     this.languageService.editLanguage(language,this.languageId).subscribe(res=>{      

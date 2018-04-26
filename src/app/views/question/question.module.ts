@@ -9,6 +9,7 @@ import { ServiceService } from '../../services/service.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
+import {AnswerService} from '../../services/answer.service';
 //import { IconPickerModule } from 'ngx-icon-picker/dist/index';
 
 @NgModule({
@@ -24,7 +25,8 @@ import { EditComponent } from './edit/edit.component';
   declarations: [QuestionComponent, AddComponent, EditComponent],
   providers:[
     QuestionService,
-    ServiceService
+    ServiceService,
+    AnswerService
   ]
 })
 export class QuestionModule { }

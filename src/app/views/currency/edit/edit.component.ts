@@ -21,7 +21,9 @@ export class EditComponent implements OnInit {
          
     });
   }
-
+  goToList() {
+    this.router.navigate(['currency']);
+  }
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
         this.currencyId = params['id'];        

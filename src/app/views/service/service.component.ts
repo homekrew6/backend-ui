@@ -24,7 +24,7 @@ export class ServiceComponent implements OnInit {
   }
   public deleteService(id){
     //console.log(id);
-    let confirmMessage = confirm('Do you want to delete?')
+    const confirmMessage = confirm('Do you want to delete?')
     if(confirmMessage){      
       this.serviceService.deleteService(id).subscribe(res=>{
         this.getAllServices();

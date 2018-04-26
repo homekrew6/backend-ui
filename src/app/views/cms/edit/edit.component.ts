@@ -32,7 +32,9 @@ export class EditComponent implements OnInit {
       'is_active': ''
     });
    }
-
+  goToList() {
+    this.router.navigate(['cms']);
+  }
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
         this.cmsId = params['id'];        

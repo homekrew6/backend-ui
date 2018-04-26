@@ -30,7 +30,9 @@ export class QuestionService {
     }
    
     public getIndividualQuestion(id){
-        let questionService = '{"include":["service","questions"]}';
+        let questionService = '{"include":["service","questions","answers"]}';
+        const url=environment.baseurl+'Questions/'+id+'?filter='+questionService;
+        console.log(url);
         return this.http.get(environment.baseurl+'Questions/'+id+'?filter='+questionService+'&access_token='+localStorage.getItem("authToken")).map((res: Response) => {            
             return res.json();
         });

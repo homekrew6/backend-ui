@@ -3,73 +3,64 @@
     <app-sidebar-form></app-sidebar-form>
     <nav class="sidebar-nav">
         <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-speedometer"></i> Dashboard </a>
+            <li class="nav-item" *ngFor="let menu of sidebarMenuList; let i = index">
+                <a class="nav-link" routerLinkActive="active" routerLink="{{menu.routerLink}}"><i class="{{menu.class}}"></i> {{menu.name}} </a>
             </li>
             <li class="divider"></li>
-            <!--<li class="nav-title">
-                Project Functions
+            <!-- <li class="nav-item">
+                <a [routerLink]="['/customers']" routerLinkActive="active" class="nav-link"><i class="icon-people"></i> Customers</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"><i class="icon-plus"></i> Add Project</a>
+                <a [routerLink]="['/worker']" routerLinkActive="active" class="nav-link"><i class="icon-people"></i> Workers</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"><i class="icon-check"></i> Approved Project</a>
+                <a [routerLink]="['/cms']" routerLinkActive="active" class="nav-link"><i class="icon-book-open"></i> CMS</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"><i class="icon-eye"></i> Reviewing</a>
+                <a [routerLink]="['/faq']" routerLinkActive="active" class="nav-link"><i class="icon-eye"></i> FAQ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"><i class="icon-book-open"></i> Draft</a>
+                <a [routerLink]="['/vertical']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Vertical</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"><i class="icon-ghost"></i> Disapproved</a>
+                <a [routerLink]="['/zone']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Zone</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"><i class="icon-shield"></i> On Hold</a>
-            </li>
-            <li class="nav-title">
-                Users
+                <a [routerLink]="['/service']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Service</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"><i class="icon-user-following"></i> Freelancers</a>
-            </li>-->
-            <li class="nav-item">
-                <a [routerLink]="['/customers']" routerLinkActive="active"  class="nav-link"><i class="icon-people"></i> Customers</a>
+                <a [routerLink]="['/question']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Question</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/worker']" routerLinkActive="active"  class="nav-link"><i class="icon-people"></i> Workers</a>
+                <a [routerLink]="['/language']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Language</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/cms']" routerLinkActive="active"  class="nav-link"><i class="icon-book-open"></i> CMS</a>
+                <a [routerLink]="['/currency']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Currency</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/faq']" routerLinkActive="active"  class="nav-link"><i class="icon-eye"></i> FAQ</a>
+                <a [routerLink]="['/setting']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Setting</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/vertical']" routerLinkActive="active"  class="nav-link"><i class="icon-check"></i> Vertical</a>
+                <a [routerLink]="['/slider']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Intro Slider</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/zone']" routerLinkActive="active"  class="nav-link"><i class="icon-check"></i> Zone</a>
+                <a [routerLink]="['/job']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Jobs</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/service']" routerLinkActive="active"  class="nav-link"><i class="icon-check"></i> Service</a>
+                <a [routerLink]="['/cancelReason']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Cancel Reasons</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/question']" routerLinkActive="active"  class="nav-link"><i class="icon-check"></i> Question</a>
+                <a [routerLink]="['/materials']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Materials</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/language']" routerLinkActive="active"  class="nav-link"><i class="icon-check"></i> Language</a>
+                <a [routerLink]="['/promotions']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Promotions</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/currency']" routerLinkActive="active"  class="nav-link"><i class="icon-check"></i> Currency</a>
-            </li>
-            <li class="nav-item">
-                <a [routerLink]="['/setting']" routerLinkActive="active"  class="nav-link"><i class="icon-check"></i> Setting</a>
-            </li>
-            <li class="nav-item">
-                <a [routerLink]="['/slider']" routerLinkActive="active"  class="nav-link"><i class="icon-check"></i> Intro Slider</a>
-            </li>
+                <a [routerLink]="['/payment']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Payment</a>
+            </li> -->
+            <!-- <li class="nav-item">
+                <a [routerLink]="['/chat']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Chat</a>
+            </li> -->
         </ul>
     </nav>
     <app-sidebar-footer></app-sidebar-footer>

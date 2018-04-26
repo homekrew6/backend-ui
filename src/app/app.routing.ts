@@ -54,7 +54,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './views/customers/customers.module#CustomersModule'        
+        loadChildren: './views/customers/customers.module#CustomersModule'
       }
     ]
   },
@@ -68,7 +68,35 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './views/cms/cms.module#CmsModule'        
+        loadChildren: './views/cms/cms.module#CmsModule'
+      }
+    ]
+  },
+  {
+    path: 'cancelReason',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/cancelReason/cancelReason.module#CancelReasonModule'
+      }
+    ]
+  },
+  {
+    path: 'materials',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/material/material.module#MaterialsModule'
       }
     ]
   },
@@ -82,7 +110,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './views/zone/zone.module#ZoneModule'        
+        loadChildren: './views/zone/zone.module#ZoneModule'
       }
     ]
   },
@@ -96,7 +124,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './views/faq/faq.module#FaqModule'        
+        loadChildren: './views/faq/faq.module#FaqModule'
       }
     ]
   },
@@ -110,7 +138,21 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './views/language/language.module#LanguageModule'        
+        loadChildren: './views/language/language.module#LanguageModule'
+      }
+    ]
+  },
+  {
+    path: 'job',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/job/job.module#JobModule'
       }
     ]
   },
@@ -124,7 +166,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './views/currency/currency.module#CurrencyModule'        
+        loadChildren: './views/currency/currency.module#CurrencyModule'
       }
     ]
   },
@@ -138,7 +180,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './views/vertical/vertical.module#VerticalModule'        
+        loadChildren: './views/vertical/vertical.module#VerticalModule'
       }
     ]
   },
@@ -152,7 +194,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './views/worker/worker.module#WorkerModule'        
+        loadChildren: './views/worker/worker.module#WorkerModule'
       }
     ]
   },
@@ -238,11 +280,81 @@ export const routes: Routes = [
         loadChildren: './views/pages/pages.module#PagesModule',
       }
     ]
+  },
+  {
+    path: 'promotions',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/promotions/promotions.module#PromotionsModule'
+      }
+    ]
+  },
+  {
+    path: 'payment',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/payment/payment.module#PaymentModule'
+      }
+    ]
+  },
+  {
+    path: 'chat',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/chat/chat.module#ChatModule'
+      }
+    ]
+  },
+  {
+    path: 'agent',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/agent/agent.module#AgentModule'
+      }
+    ]
+  },
+  {
+    path: 'role',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/role/role.module#RoleModule'
+      }
+    ]
   }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

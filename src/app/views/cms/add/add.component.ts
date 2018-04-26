@@ -36,6 +36,11 @@ export class AddComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  goToList()
+  {
+    this.router.navigate(['cms']);
+  }
   public addCms(cms){
     console.log(this.content);
     cms.is_active = this.is_active;

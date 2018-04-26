@@ -27,13 +27,19 @@ export class AddComponent implements OnInit {
 
     this.rForm = fb.group({      
       'question': [null, Validators.required],
-      'answer': [] ,
-      'is_active': ''    
+      'answer': [null, Validators.required] ,
+      'is_active': '',
+      'title': [null, Validators.required] 
       
     });
    }
 
   ngOnInit() {
+  }
+
+
+  goToList() {
+    this.router.navigate(['faq']);
   }
 
   public addFaq(faq){   
