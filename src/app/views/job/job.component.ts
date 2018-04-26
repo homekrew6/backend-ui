@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { JobService } from '../../services/job.service';
+import { AuthService } from '../../services/auth.service';
 declare var jqyery: any;
 declare var $: any;
 @Component({
@@ -15,7 +16,14 @@ export class JobComponent implements OnInit {
   availableWorkerList = [];
   selectedJobId: any;
   isAssigning = false;
-  constructor(private router: Router, private jobService: JobService) { }
+  role='';
+  constructor(private router: Router, private jobService: JobService, private authSrvc:AuthService) { 
+
+    if(localStorage.getItem("role"))
+    {
+      this.role=localStorage.getItem("role");
+    }
+  }
 
   ngOnInit() {
     // $('#test').hide();
@@ -25,33 +33,34 @@ export class JobComponent implements OnInit {
   public getAllJobs() {
     this.jobService.getJobList().subscribe(res => {
       //console.log(res);
-      this.jobList = res.response.message;
-      this.jobList.map((item) => {
-        if (item.status == "STARTED") {
-          item.status1 = "P";
-        }
-        else if (item.status == "ACCEPTED") {
-          item.status1 = "A";
-        }
-        else if (item.status == "COMPLETED") {
-          item.status1 = "JC";
-        }
-        else if (item.status == "ONMYWAY") {
-          item.status1 = "O";
-        }
-        else if (item.status == "FOLLOWEDUP") {
-          item.status1 = "F";
-        }
-        else if (item.status == "CANCELLED") {
-          item.status1 = "CL";
-        }
-        else if (item.status == "CLOSED") {
-          item.status1 = "C";
-        }
-        else if (item.status == "JOBSTARTED") {
-          item.status1 = "S";
-        }
-      })
+      if(this.role=="admin")
+      {
+        this.jobList = res.response.message;
+        this.formatJobData();
+      }
+      else
+      {
+        this.authSrvc.getIndividualAgent(localStorage.getItem('userId')).subscribe((agentDetails)=>{
+          if (agentDetails.response.type == "Success") 
+          {
+            debugger;
+            let myZoneList=[];
+            agentDetails.response.message.zones.map((item)=>{
+              myZoneList.push(item);
+            });
+            res.response.message.map((item)=>{
+              if(myZoneList.includes(item.zoneId))
+              {
+                this.jobList.push(item);
+              }
+            });
+            this.formatJobData();
+
+          }
+        })
+      }
+     
+    
       setTimeout(function () {
 
         $('a[href*="mailto:"]').each(function () {
@@ -68,6 +77,35 @@ export class JobComponent implements OnInit {
 
       }, 100)
     })
+  }
+
+  private formatJobData() {
+    this.jobList.map((item) => {
+      if (item.status == "STARTED") {
+        item.status1 = "P";
+      }
+      else if (item.status == "ACCEPTED") {
+        item.status1 = "A";
+      }
+      else if (item.status == "COMPLETED") {
+        item.status1 = "JC";
+      }
+      else if (item.status == "ONMYWAY") {
+        item.status1 = "O";
+      }
+      else if (item.status == "FOLLOWEDUP") {
+        item.status1 = "F";
+      }
+      else if (item.status == "CANCELLED") {
+        item.status1 = "CL";
+      }
+      else if (item.status == "CLOSED") {
+        item.status1 = "C";
+      }
+      else if (item.status == "JOBSTARTED") {
+        item.status1 = "S";
+      }
+    });
   }
 
   public deleteJob(id) {

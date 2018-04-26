@@ -308,6 +308,48 @@ export const routes: Routes = [
         loadChildren: './views/payment/payment.module#PaymentModule'
       }
     ]
+  },
+  {
+    path: 'chat',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/chat/chat.module#ChatModule'
+      }
+    ]
+  },
+  {
+    path: 'agent',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/agent/agent.module#AgentModule'
+      }
+    ]
+  },
+  {
+    path: 'role',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: ''
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/role/role.module#RoleModule'
+      }
+    ]
   }
 ];
 

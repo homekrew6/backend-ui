@@ -22,6 +22,13 @@ export class AuthService {
 
     }
   }
+
+
+   public getRoleTypes() {
+        return this.http.get(environment.baseurl + 'roleTypes?access_token=' + localStorage.getItem("authToken")).map((res: Response) => {
+            return res.json();
+        });
+    }
   public login(email: string, password: string) {
     return this.http.post(environment.baseurl + 'Admins/login', { email, password }, { headers: environment.headers() }).map((res: Response) => {
       localStorage.setItem('authToken', res.json().id);
@@ -29,6 +36,8 @@ export class AuthService {
         console.log(res);
         localStorage.setItem('loginName', res.name);
         localStorage.setItem('loginEmail', res.email);
+        localStorage.setItem('userId', res.id);
+        localStorage.setItem('role', res.role);
         return res;
       });
     });
@@ -47,6 +56,33 @@ export class AuthService {
 
   private getUserInfo(id: number, token: string) {
     return this.http.get(environment.baseurl + 'Admins/' + id + '?access_token=' + token).map((res: Response) => {
+      return res.json();
+    });
+  }
+  public getAgent() {
+    return this.http.get(environment.baseurl + 'Admins/getAllAgents?access_token=' + localStorage.getItem("authToken")).map((res: Response) => {
+      return res.json();
+    });
+  }
+  public addAgent(data) {
+    return this.http.post(environment.baseurl + 'Admins/addAgent?access_token=' + localStorage.getItem("authToken"), data).map((res: Response) => {
+      return res.json();
+    });
+  }
+  public deleteAgent(id) {
+    return this.http.delete(environment.baseurl + 'Admins/deleteAgent/' + id + '?access_token=' + localStorage.getItem("authToken"), id).map((res: Response) => {
+
+      return res.json();
+    });
+  }
+  public getIndividualAgent(id) {
+    return this.http.get(environment.baseurl + 'Admins/getAgentDetailsById/' + id + '/?access_token=' + localStorage.getItem("authToken")).map((res: Response) => {
+      return res.json();
+    });
+  }
+  public editAgent(data, id) {
+    return this.http.put(environment.baseurl + 'Admins/editAgent/' + id + '?access_token=' + localStorage.getItem("authToken"), data).map((res: Response) => {
+
       return res.json();
     });
   }

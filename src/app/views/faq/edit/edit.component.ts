@@ -27,8 +27,9 @@ export class EditComponent implements OnInit {
   constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private faqService: FaqService) {
     this.rForm = fb.group({      
       'question': [null, Validators.required],
-      'answer': [],
-      'is_active': ''    
+      'answer': [null, Validators.required],
+      'is_active': ''  ,
+      'title': [null, Validators.required]   
          
     });
 
@@ -63,7 +64,8 @@ export class EditComponent implements OnInit {
       this.rForm.controls['answer'].setValue(res.answer); 
       this.content = res.answer;
       this.is_active = res.is_active;
-      this.rForm.controls['is_active'].setValue(res.is_active);             
+      this.rForm.controls['is_active'].setValue(res.is_active);          
+      this.rForm.controls['title'].setValue(res.title);             
       
     },err=>{
       this.error = "Error Occured, please try again"

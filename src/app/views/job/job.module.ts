@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JobRoutingModule } from './job-routing';
@@ -20,7 +21,8 @@ ModalModule.forRoot()
   ],
   declarations: [JobComponent, JobDetailsComponent],
   providers:[
-    JobService
+    JobService,
+    AuthService
   ]
 })
 export class JobModule { }

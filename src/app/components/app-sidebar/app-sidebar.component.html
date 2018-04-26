@@ -3,6 +3,7 @@
     <app-sidebar-form></app-sidebar-form>
     <nav class="sidebar-nav">
         <ul class="nav">
+<<<<<<< HEAD
             <li class="nav-item">
                 <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-speedometer"></i> Dashboard </a>
             </li>
@@ -35,6 +36,13 @@
                 <a class="nav-link"><i class="icon-user-following"></i> Freelancers</a>
             </li>-->
             <li class="nav-item">
+=======
+            <li class="nav-item" *ngFor="let menu of sidebarMenuList; let i = index">
+                <a class="nav-link" routerLinkActive="active" routerLink="{{menu.routerLink}}"><i class="{{menu.class}}"></i> {{menu.name}} </a>
+            </li>
+            <li class="divider"></li>
+            <!-- <li class="nav-item">
+>>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
                 <a [routerLink]="['/customers']" routerLinkActive="active" class="nav-link"><i class="icon-people"></i> Customers</a>
             </li>
             <li class="nav-item">
@@ -84,7 +92,14 @@
             </li>
             <li class="nav-item">
                 <a [routerLink]="['/payment']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Payment</a>
+<<<<<<< HEAD
             </li>
+=======
+            </li> -->
+            <!-- <li class="nav-item">
+                <a [routerLink]="['/chat']" routerLinkActive="active" class="nav-link"><i class="icon-check"></i> Chat</a>
+            </li> -->
+>>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
         </ul>
     </nav>
     <app-sidebar-footer></app-sidebar-footer>
