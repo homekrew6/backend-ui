@@ -1,40 +1,43 @@
-<div class="animated fadeIn">  
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-header">
-          <i class="fa fa-align-justify"></i> Zone List            
-         <span style="float:right"><a [routerLink]="['/zone/add']" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; ADD</a></span>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Zone List
+                    <span style="float:right"><a [routerLink]="['/zone/add']" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; ADD</a></span>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Parent</th>
+                                <th>Level</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let zone of zoneList">
+
+                                <td>{{zone.name}}</td>
+                                <td *ngIf="zone.zoneId == 0"> </td>
+                                <td *ngIf="zone.zoneId != 0">{{zone.zone.name}}</td>
+                                <td>{{zone.level}}</td>
+
+                                <td>
+                                    <a [routerLink]="['/zone/edit',zone.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
+
+
+                                    <button type="button" class="btn btn-danger" (click)="deleteZone(zone.id)"><i class="fa fa-trash"></i>&nbsp; Delete</button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-          <table class="table table-bordered table-striped table-sm">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Parent</th>
-                <th>Level</th>                                 
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let zone of zoneList">
-                
-                <td>{{zone.name}}</td>
-                <td *ngIf="zone.zoneId == 0"> </td>
-                <td *ngIf="zone.zoneId != 0">{{zone.zone.name}}</td>
-                <td>{{zone.level}}</td>
-                                              
-                <td>
-          <a [routerLink]="['/zone/edit',zone.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
-          <button type="button" class="btn btn-danger" (click)="deleteZone(zone.id)"><i class="fa fa-trash"></i>&nbsp; Delete</button>
-                </td>
-              </tr>               
-            </tbody>
-          </table>
-        </div>
-      </div>
+        <!--/.col-->
     </div>
-    <!--/.col-->
-  </div>
-  <!--/.row-->
+    <!--/.row-->
 </div>

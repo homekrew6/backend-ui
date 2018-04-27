@@ -53,4 +53,10 @@ export class ZoneService {
             return res.json().zone;
         });
     }
+
+    public getAllZones() {
+        return this.http.get(environment.baseurl + 'Zones?access_token=' + localStorage.getItem("authToken")).map((res: Response) => {
+            return res.json();
+        });
+    }
 }

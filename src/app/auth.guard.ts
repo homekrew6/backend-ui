@@ -22,7 +22,26 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       this.router.navigate(['/pages/login']);
       return false;
     }
-    return true;
+
+    else {
+      if (localStorage.getItem("role").toLowerCase() == "admin") {
+        return true;
+      }
+      else {
+        if (localStorage.getItem("role") == "Country Admin" || (localStorage.getItem("role") == "City Admin")) {
+          if (url.includes('dashboard') || url.includes('zone') || url.includes('job')) {
+            return true;
+          }
+          
+        }
+        else if (localStorage.getItem("role") == "Support") {
+          if (url.includes('dashboard') || url.includes('chat')) {
+            return true;
+          }
+        }
+      }
+    }
+
   }
 
 }

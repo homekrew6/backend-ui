@@ -3,11 +3,11 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Service List            
+          <i class="fa fa-align-justify"></i>           
          <span style="float:right"><a [routerLink]="['/service/add']" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; ADD</a></span>
         </div>
         <div class="card-body">
-          <table class="table table-bordered table-striped table-sm">
+          <!-- <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
                 <th>Name</th>                                                
@@ -26,7 +26,10 @@
                 </td>
               </tr>               
             </tbody>
-          </table>
+          </table> -->
+
+          <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="serviceList"></ng2-smart-table>
+          
         </div>
       </div>
     </div>

@@ -31,7 +31,10 @@ export class AddComponent implements OnInit {
 
     });
   }
-
+  goToList()
+  {
+    this.router.navigate(['customers']);
+  }
   ngOnInit() {
   }
   public addCustomer(customer) {

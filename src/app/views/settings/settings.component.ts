@@ -11,13 +11,15 @@ import { SettingService } from '../../services/setting.service';
 })
 export class SettingsComponent implements OnInit {
   rForm: FormGroup;
-  error: string;  
-  constructor(private fb: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute,  private settingService: SettingService) { 
-    this.rForm = fb.group({      
+  error: string;
+  successMsg: string;
+  constructor(private fb: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute, private settingService: SettingService) {
+    this.rForm = fb.group({
       'site_name': [null, Validators.required],
-      'site_email': [], 
+      'site_email': [],
       'address': [],
-      'phone': []         
+      'phone': [],
+      'minimumPostingDiff': []
     });
   }
 
@@ -25,23 +27,25 @@ export class SettingsComponent implements OnInit {
     this.getSeting();
   }
 
-  public editSetting(setting){   
-    
-    this.settingService.editSetting(setting).subscribe(res => {      
-      this.router.navigate(['/setting']);
+  public editSetting(setting) {
+
+    this.settingService.editSetting(setting).subscribe(res => {
+      window.scrollTo(0,0);
+      this.successMsg = "Updated successfully.";
+      // this.router.navigate(['/setting']);
     }, err => {
       this.error = 'Error Occured, please try again'
     })
   }
 
-  public getSeting(){
+  public getSeting() {
     this.settingService.getSetting().subscribe(res => {
-      
+
       this.rForm.controls['site_name'].setValue(res.site_name);
       this.rForm.controls['site_email'].setValue(res.site_email);
       this.rForm.controls['address'].setValue(res.address);
-      this.rForm.controls['phone'].setValue(res.phone);            
-      
+      this.rForm.controls['phone'].setValue(res.phone);
+      this.rForm.controls['minimumPostingDiff'].setValue(res.minimumPostingDiff);
     }, err => {
       this.error = 'Error Occured, please try again'
     })

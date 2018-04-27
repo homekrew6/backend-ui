@@ -7,7 +7,7 @@
            <span style="float:right"><a [routerLink]="['/customers/add']" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; ADD</a></span>
           </div>
           <div class="card-body">
-            <table class="table table-bordered table-striped table-sm">
+            <!-- <table class="table table-bordered table-striped table-sm">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -33,7 +33,9 @@
                   </td>
                 </tr>               
               </tbody>
-            </table>
+            </table> -->
+
+          <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="customerList"></ng2-smart-table>            
           </div>
         </div>
       </div>

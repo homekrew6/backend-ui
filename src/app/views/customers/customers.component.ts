@@ -10,10 +10,59 @@ import { CustomerService } from '../../services/customer.service';
 })
 export class CustomersComponent implements OnInit {
   customerList=[];
+  settings = {
+    columns: {
+      name: {
+        title: 'Name',
+      },
+      email: {
+        title: 'Email'
+      },
+      phone: {
+        title: 'Phone'
+      },
+    },
+    actions: {
+      add: false,
+      edit:false,
+      delete:false,
+        custom: [
+          {
+            name: 'edit',
+            title: '<i class="fa fa-pencil" style="margin-left:12px !important;"></i>',
+          },
+          {
+            name: 'delete',
+            title: '<i class="fa fa-trash" ></i>',
+          },
+           {
+            name: 'status',
+            title: 'Change Status',
+          }
+        ],
+    },
+    attr: {
+      class: 'table table-bordered'
+    },
+  };
+
   constructor(private router: Router, private customerService: CustomerService) { }
 
   ngOnInit() {
     this.getAllCustomers();
+  }
+
+  onCustom(event) {
+    if (event.action == "delete") {
+      this.deleteCustomer(event.data.id);
+    }
+    else if (event.action == "edit") {
+      this.router.navigateByUrl('/customers/edit/' + event.data.id)
+    }
+
+    else if (event.action == "status") {
+      this.changeStatus(event.data)
+    }
   }
 
   public getAllCustomers(){
@@ -22,6 +71,8 @@ export class CustomersComponent implements OnInit {
       this.customerList=res;
     })
   }
+
+
   public deleteCustomer(id){
     //console.log(id);
     let confirmMessage = confirm('Do you want to delete?')

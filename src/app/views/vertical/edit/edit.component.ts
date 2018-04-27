@@ -26,7 +26,10 @@ export class EditComponent implements OnInit {
       this.getIndividualVertical(this.verticalId);
   });
   }
-
+  goToList()
+  {
+    this.router.navigate(['vertical']);
+  }
   public editVertical(faq){   
     
     this.verticalService.editVertical(faq,this.verticalId).subscribe(res=>{      

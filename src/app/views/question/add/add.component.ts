@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@ang
 import { QuestionService   } from '../../../services/question.service';
 import { ServiceService } from '../../../services/service.service';
 import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
-
+import { AnswerService } from '../../../services/answer.service';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -38,18 +38,20 @@ export class AddComponent implements OnInit {
   radioModalOptionSelected = 0;
   serviceList = [];
   subQuestions = [];
+  currencyList=[];
+  optionList=[{value:'Addition'},{value:'Multiple'}];
   is_active = true;
   is_disable = false;
   modal_is_active = true;
   questionTypeList= [{id: 1, name: 'Number'}, {id: 2, name: 'Boolean'}, {id: 3, name: 'Radio'}, {id: 4, name: 'Range'}, {id: 5, name: 'Photo'}];
   radioOptionList= [{value: 2}, {value: 3}, {value: 4}, {value: 5}];
   
-  constructor(private fb: FormBuilder , private router: Router, private questionService: QuestionService, private serviceService: ServiceService) { 
+  constructor(private fb: FormBuilder , private router: Router, private questionService: QuestionService, private serviceService: ServiceService,private answerService: AnswerService) { 
     this.rForm = fb.group({      
       'type': [null, Validators.required],
       'name': [null, Validators.required],
       'range_name': '',
-      'start_range': '',
+      'start_range': ['',Validators.max(1)],
       'end_range': '',
       'no_of_option': '',
       'option_list': [],
@@ -63,7 +65,12 @@ export class AddComponent implements OnInit {
       'color': '',
       'image': '',
       'is_active': '',
-      'file': []
+      'file': [],
+      'option_price_impact':'',
+      'price_impact':'',
+      'option_time_impact':'',
+      'time_impact':'',
+      'currencyId':''
       
     });
     this.rModalForm = fb.group({      
@@ -92,17 +99,30 @@ export class AddComponent implements OnInit {
     this.rForm.controls['type'].setValue('');
     this.rForm.controls['serviceId'].setValue('');
     this.getAllService();   
+    this.getAllCurrencies();
     
   }
 
-  
+  public getAllCurrencies(){
+    this.answerService.getAllCurrencies().subscribe(res=>{      
+      this.currencyList=res;
+    })
+  }
 
   public changeQuestionType(questionType){
     //console.log(questionType)
     this.typeSelected = questionType;
     // console.log(questionType);
     //this.radioOptionSelected = 0;
-    if (questionType == 4){
+    if(questionType==='1' || questionType==='2' || questionType==='4' )
+    {
+      this.rForm.get('option_price_impact').setValidators([Validators.required]);
+      this.rForm.get('price_impact').setValidators([Validators.required]);
+      this.rForm.get('option_time_impact').setValidators([Validators.required]);
+      this.rForm.get('time_impact').setValidators([Validators.required]);
+      this.rForm.get('currencyId').setValidators([Validators.required]);
+    }
+    if (questionType === '4'){
       this.rForm.get('no_of_option').setValidators([]);
       this.rForm.get('option1').setValidators([]);
       this.rForm.get('option2').setValidators([]);
@@ -177,7 +197,6 @@ export class AddComponent implements OnInit {
   }
   public addQuestion(question){
     console.log(question);
-
     
     let questionObj = {
       name: question.name,
@@ -192,11 +211,30 @@ export class AddComponent implements OnInit {
       range_name: '',
       start_range: '',
       end_range: '',
+      option_price_impact:'',
+      price_impact:'',
+      option_time_impact:'',
+      time_impact:'',
+      currencyId:'',
+      IncrementId:1,
+      Status:1,
+      selectedRadio:'',
+      rangeValue:'',
+      sliderValues:'',
+      isSlided:0
     }
-    if (question.type == 4){
+    if (question.type === '4'){
       questionObj.range_name = question.range_name;
       questionObj.start_range =  question.start_range;
       questionObj.end_range =  question.end_range;
+    }
+    if(question.type==='1' || question.type==='2' || question.type==='4')
+    {
+      questionObj.option_price_impact = question.option_price_impact;
+      questionObj.price_impact =  question.price_impact;
+      questionObj.option_time_impact =  question.option_time_impact;
+      questionObj.time_impact=question.time_impact;
+      questionObj.currencyId =  question.currencyId;
     }
     // if (question.type == 3){
     //   if (question.option1 != ''){
@@ -254,6 +292,9 @@ export class AddComponent implements OnInit {
     
   }
 
+  goToList() {
+    this.router.navigate(['question']);
+  }
   public saveQuestionOnly(question,questionObj){
     this.questionService.addQuestion(questionObj).subscribe(res => {
       if (this.subQuestions.length > 0){

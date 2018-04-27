@@ -34,7 +34,10 @@ export class EditComponent implements OnInit {
         this.getIndividualSlider(this.sliderId);
     });
   }
-
+  goToList()
+  {
+    this.router.navigate(['slider']);
+  }
   public editSlider(slider){   
     slider.is_active = this.is_active;
     this.is_disable = true;

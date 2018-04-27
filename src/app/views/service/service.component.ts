@@ -10,21 +10,71 @@ import { ServiceService } from '../../services/service.service';
 })
 export class ServiceComponent implements OnInit {
   serviceList=[];
+  settings = {
+    columns: {
+      name: {
+        title: 'Name',
+      },
+      verticalName: {
+        title: 'Vertical'
+      },
+      min_charge: {
+        title: 'Min Charge'
+      }
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+      custom: [
+        {
+          name: 'edit',
+          title: '<i class="fa fa-pencil"></i>',
+        },
+        {
+          name: 'delete',
+          title: '<i class="fa fa-trash" ></i>',
+        }
+      ],
+    },
+    attr: {
+      class: 'table table-bordered'
+    },
+
+
+  };
   constructor(private router: Router, private serviceService: ServiceService) { }
 
   ngOnInit() {
     this.getAllServices();
   }
 
+  onCustom(event) {
+
+    if (event.action == "delete") {
+      this.deleteService(event.data.id);
+    }
+
+    else if (event.action == "edit") {
+      //this.router.navigate(['/worker/edit', { id: "SomeValue" }]);
+      this.router.navigateByUrl('/service/edit/' + event.data.id)
+    }
+
+  }
+
   public getAllServices(){
     this.serviceService.getService().subscribe(res=>{
-      console.log(res);
+      res.map((item) => {
+        item.verticalName = item.vertical.name;
+      })
       this.serviceList=res;
     })
   }
+
+
   public deleteService(id){
     //console.log(id);
-    let confirmMessage = confirm('Do you want to delete?')
+    const confirmMessage = confirm('Do you want to delete?')
     if(confirmMessage){      
       this.serviceService.deleteService(id).subscribe(res=>{
         this.getAllServices();

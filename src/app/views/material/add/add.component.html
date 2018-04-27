@@ -1,0 +1,51 @@
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="card">
+                <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="addMaterial(rForm.value)">
+                    <div class="card-header">
+                        <strong>Add Material</strong>
+
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label for="company">Name <span>*</span></label>
+                            <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter material name">
+                            <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter name</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Price <span>*</span></label>
+                            <input type="number" formControlName="price" class="form-control" id="price" placeholder="Enter material price">
+                            <div class="text-danger" *ngIf="!rForm.controls['price'].valid && rForm.controls['price'].touched">Please enter price</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="icon_class">Image</label>
+                            <input type="file" id="theFileInput" (change)="fileChangeListener($event)" />
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label for="is_active">
+                <input type="checkbox" id="is_active"  [checked]="is_active" (change)="changeIsActive($event)"> Is Active
+              </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button *ngIf="!is_disable" type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                        <button *ngIf="is_disable" type="button" class="btn btn-sm btn-primary">
+              <i class="fa fa-fw fa-spin fa-spinner"></i> Saving</button>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="goToList()"><i class="fa fa-ban"></i> Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+
+</div>

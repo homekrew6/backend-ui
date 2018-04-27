@@ -1,0 +1,64 @@
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="card">
+                <form class="form-horizontal">
+                    <div class="card-header">
+                        <strong>Job Details</strong>
+
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label for="company">Service Name</label>
+                            <input type="text" class="form-control" placeholder="Service Name" *ngIf="jobDetails.service" name="name" [readOnly]="true" [(ngModel)]="jobDetails.service.name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company">Job Status </label>
+                            <input type="text" class="form-control" placeholder="Job Status" *ngIf="jobDetails" name="status" [readOnly]="true" [(ngModel)]="jobDetails.status">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company">Customer Name</label>
+                            <input type="text" class="form-control" placeholder="Customer Name" *ngIf="jobDetails.customer" name="customerName" [readOnly]="true" [(ngModel)]="jobDetails.customer.name">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Customer Email</label>
+                            <input type="text" class="form-control" placeholder="Customer Name" *ngIf="jobDetails.customer" name="customerEmail" [readOnly]="true" [(ngModel)]="jobDetails.customer.email">
+                        </div>
+
+                        <div class="form-group" *ngIf="jobDetails.worker">
+                            <label for="company">Worker Name</label>
+                            <input type="text" class="form-control" placeholder="Worker Name" *ngIf="jobDetails.worker" name="workerName" [readOnly]="true" [(ngModel)]="jobDetails.worker.name">
+                        </div>
+                        <div class="form-group" *ngIf="jobDetails.worker">
+                            <label for="company">Worker Email</label>
+                            <input type="text" class="form-control" placeholder="Worker Email" *ngIf="jobDetails.worker" name="workerEmail" [readOnly]="true" [(ngModel)]="jobDetails.worker.email">
+                        </div>
+
+                        <div class="form-group" *ngIf="jobDetails">
+                            <label for="company">Posted Date</label>
+                            <input type="text" class="form-control" placeholder="Posted Date" name="postedDate" [readOnly]="true" [(ngModel)]="jobDetails.postedDate">
+                        </div>
+
+                        <div class="form-group" *ngIf="jobDetails">
+                            <label for="company">Price</label>
+                            <input type="text" class="form-control" placeholder="Price" name="price" [readOnly]="true" [(ngModel)]="jobDetails.price">
+                        </div>
+
+
+                    </div>
+                    <div class="card-footer">
+
+                        <button type="button" class="btn btn-sm btn-info" (click)="goToList()"><i class="fa fa-ban"></i> Back</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+
+</div>

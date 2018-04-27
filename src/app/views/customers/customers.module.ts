@@ -9,6 +9,8 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { ListComponent } from "./list/list.component";
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+
 
 @NgModule({
   imports: [
@@ -16,12 +18,13 @@ import { EditComponent } from './edit/edit.component';
     CustomersRoutingModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2SmartTableModule
   ],
   declarations: [CustomersComponent,ListComponent, AddComponent, EditComponent],
   providers:[
     CustomerService
-  ]
+  ],
 })
 export class CustomersModule { 
   constructor(){

@@ -7,7 +7,7 @@
          <span style="float:right"><a [routerLink]="['/faq/add']" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; ADD</a></span>
         </div>
         <div class="card-body">
-          <table class="table table-bordered table-striped table-sm">
+          <!-- <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
                 <th>Question</th>                                                
@@ -25,7 +25,10 @@
                 </td>
               </tr>               
             </tbody>
-          </table>
+          </table> -->
+          
+          <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="faqList"></ng2-smart-table>   
+
         </div>
       </div>
     </div>

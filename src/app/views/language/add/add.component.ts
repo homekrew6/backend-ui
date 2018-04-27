@@ -23,6 +23,9 @@ export class AddComponent implements OnInit {
     });
   }
 
+  goToList() {
+    this.router.navigate(['language']);
+  }
   ngOnInit() {
     this.rForm.controls['direction'].setValue('');
   }

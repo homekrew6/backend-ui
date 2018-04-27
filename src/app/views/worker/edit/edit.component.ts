@@ -20,8 +20,8 @@ export class EditComponent implements OnInit {
       'phone': [null, Validators.required],     
       'username': '',      
       'email': [null, Validators.required],
-      'is_active': ''
-      
+      'is_active': '',
+      'commission':[]
       
     });
   }
@@ -33,7 +33,9 @@ export class EditComponent implements OnInit {
       this.getIndividualWorker(this.workerId);
   });
   }
-
+  goToList() {
+    this.router.navigate(['worker']);
+  }
   public editWorker(worker){
     //console.log(worker);
     worker.is_active = this.is_active;
@@ -55,7 +57,8 @@ export class EditComponent implements OnInit {
       // this.rForm.controls['password'].setValue(res.password);
       this.rForm.controls['email'].setValue(res.email); 
       this.is_active = res.is_active;
-      this.rForm.controls['is_active'].setValue(res.is_active);     
+      this.rForm.controls['is_active'].setValue(res.is_active);  
+      this.rForm.controls['commission'].setValue(res.commission);     
       // this.rForm.controls['id'].setValue(res.id);      
       
     },err=>{

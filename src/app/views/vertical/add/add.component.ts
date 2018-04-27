@@ -22,6 +22,10 @@ export class AddComponent implements OnInit {
   ngOnInit() {
   }
 
+  goToList() {
+    this.router.navigate(['vertical']);
+  }
+
   public addVertical(vertical){   
     
     this.verticalService.addVertical(vertical).subscribe(res=>{

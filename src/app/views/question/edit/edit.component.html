@@ -1,16 +1,16 @@
 <div class="animated fadeIn">
-  <div class="row">
-    
-    <div class="col-sm-12">
-      <div class="card">
-          <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="editQuestion(rForm.value)">
-        <div class="card-header">
-          <strong>Question</strong>
-          
-        </div>
-        <div class="card-body">
-          
-            <!-- <div *ngFor="let prop of objectProps">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="card">
+                <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="editQuestion(rForm.value)">
+                    <div class="card-header">
+                        <strong>Question</strong>
+
+                    </div>
+                    <div class="card-body">
+
+                        <!-- <div *ngFor="let prop of objectProps">
                 <label [attr.for]="prop">{{prop.label}}</label>
         
                 <div [ngSwitch]="prop.type">
@@ -31,77 +31,114 @@
                     <input [type]="prop.type" [formControlName]="prop.key" class="form-control" [id]="prop.key" placeholder="Enter question">
                     <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter question</div> 
                   </div> -->
-        
-                
-              
-          <div class="form-group">
-            <label for="serviceId">Service <span>*</span></label>
-            <select id="serviceId" formControlName="serviceId" class="form-control">
+
+
+
+                        <div class="form-group">
+                            <label for="serviceId">Service <span>*</span></label>
+                            <select id="serviceId" formControlName="serviceId" class="form-control">
               <option value="">Please select</option>
               <option *ngFor="let service of serviceList" value="{{service.id}}">{{service.name}}</option>              
             </select>
-            <div class="text-danger" *ngIf="!rForm.controls['serviceId'].valid && rForm.controls['serviceId'].touched">Please select service</div>              
-          </div>
-          <div class="form-group">
-            <label for="questiontype">Question Type <span>*</span></label>
-            <select id="questiontype" formControlName="type" class="form-control">
+                            <div class="text-danger" *ngIf="!rForm.controls['serviceId'].valid && rForm.controls['serviceId'].touched">Please select service</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="questiontype">Question Type <span>*</span></label>
+                            <select id="questiontype" formControlName="type" class="form-control">
               <option value="">Please select</option>
               <option *ngFor="let questionType of questionTypeList" value="{{questionType.id}}">{{questionType.name}}</option>              
             </select>
-            <div class="text-danger" *ngIf="!rForm.controls['type'].valid && rForm.controls['type'].touched">Please select question type</div>              
-          </div>
-          <div class="form-group">
-            <label for="questiontype">Question <span>*</span></label>
-            <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter question">
-            <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter question</div>
-          </div>
-          <div class="form-group">
-              <label for="icon">Icon Class</label>
-              <input type="text" formControlName="icon" class="form-control" id="icon" placeholder="Enter Icon Class">
-              
-            </div>
-            <div class="form-group">
-                <label for="color">Color</label>
-                <input type="text" formControlName="color" class="form-control" id="color" placeholder="Enter color code">
-                
-              </div>
-  
-            <div class="form-group">
-                <label for="icon_class">Image</label>
-                <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
-                <!-- <input type="file" id="theFileInput" (change)="fileChangeListener($event)" /> -->
-                <input type="file" id="theFileInput" />
-              </div>
-              
-          <div *ngIf="typeSelected == 4">
-              <div class="form-group">
-                <label for="questiontype">Enter Range Name</label>
-                <input type="text" formControlName="range_name" class="form-control" id="range_name" placeholder="Enter range name">
-                <div class="text-danger" *ngIf="!rForm.controls['range_name'].valid && rForm.controls['range_name'].touched">Please enter range name</div>
-              </div>
-              <div class="form-group">
-                <label for="questiontype">Start Range</label>
-                <input type="number" formControlName="start_range" class="form-control" id="start_range" placeholder="Enter start range">
-                <div class="text-danger" *ngIf="!rForm.controls['start_range'].valid && rForm.controls['start_range'].touched">Please enter start range</div>
-              </div>
-              
-              <div class="form-group">
-                <label for="questiontype">End Range</label>
-                <input type="number" formControlName="end_range" class="form-control" id="end_range" placeholder="Enter end range">
-                <div class="text-danger" *ngIf="!rForm.controls['end_range'].valid && rForm.controls['end_range'].touched">Please enter end range</div>
-                <div class="text-danger" *ngIf="rForm.controls['end_range'].valid && rForm.controls['start_range'].valid && rForm.value.end_range <= rForm.value.start_range">End range should be greater than start range</div>
-              </div>
+                            <div class="text-danger" *ngIf="!rForm.controls['type'].valid && rForm.controls['type'].touched">Please select question type</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="questiontype">Question <span>*</span></label>
+                            <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter question">
+                            <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter question</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="icon">Icon Class</label>
+                            <input type="text" formControlName="icon" class="form-control" id="icon" placeholder="Enter Icon Class">
 
-          </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Color</label>
+                            <input type="text" formControlName="color" class="form-control" id="color" placeholder="Enter color code">
 
-          <div class="form-group">
-            <div class="checkbox">
-              <label for="is_active">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="icon_class">Image</label>
+                            <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
+                            <!-- <input type="file" id="theFileInput" (change)="fileChangeListener($event)" /> -->
+                            <input type="file" id="theFileInput" />
+                        </div>
+                        <div *ngIf="typeSelected == '1' || typeSelected == '2' || typeSelected == '4'">
+                            <div class="form-group">
+                                <label for="option_price_impact">Price Impact Option</label>
+                                <select id="option_price_impact" formControlName="option_price_impact" class="form-control">
+                    <option value="">Please select</option>
+                    <option *ngFor="let impact of optionList" value="{{impact.value}}">{{impact.value}}</option>
+                  </select>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="currencyId">Currency</label>
+                                <select id="currencyId" formControlName="currencyId" class="form-control">
+                    <option value="">Please select</option>
+                    <option *ngFor="let currency of currencyList" value="{{currency.id}}">{{currency.name}}</option>
+                  </select>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="price_impact">Price</label>
+                                <input type="number" formControlName="price_impact" class="form-control" id="price_impact" placeholder="Enter Cost">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="option_time_impact">Time Impact Option</label>
+                                <select id="option_time_impact" formControlName="option_time_impact" class="form-control">
+                    <option value="">Please select</option>
+                    <option *ngFor="let impact of optionList" value="{{impact.value}}">{{impact.value}}</option>
+                  </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="time_impact">Time (Minutes)</label>
+                                <input type="number" formControlName="time_impact" class="form-control" id="time_impact" placeholder="Enter Time">
+
+                            </div>
+                        </div>
+                        <div *ngIf="typeSelected === '4'">
+                            <div class="form-group">
+                                <label for="questiontype">Enter Range Name</label>
+                                <input type="text" formControlName="range_name" class="form-control" id="range_name" placeholder="Enter range name">
+                                <div class="text-danger" *ngIf="!rForm.controls['range_name'].valid && rForm.controls['range_name'].touched">Please enter range name</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="questiontype">Start Range</label>
+                                <input type="number" formControlName="start_range" class="form-control" id="start_range" placeholder="Enter start range">
+                                <div class="text-danger" *ngIf="!rForm.controls['start_range'].valid && rForm.controls['start_range'].touched">Please enter start range</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="questiontype">End Range</label>
+                                <input type="number" formControlName="end_range" class="form-control" id="end_range" placeholder="Enter end range">
+                                <div class="text-danger" *ngIf="!rForm.controls['end_range'].valid && rForm.controls['end_range'].touched">Please enter end range</div>
+                                <div class="text-danger" *ngIf="rForm.controls['end_range'].valid && rForm.controls['start_range'].valid && rForm.value.end_range <= rForm.value.start_range">End range should be greater than start range</div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label for="is_active">
                 <input type="checkbox" id="is_active"  [checked]="is_active" (change)="changeIsActive($event)"> Is Active
               </label>
-            </div>
-          </div>
-          <!-- <div *ngIf="typeSelected == 3">
+                            </div>
+                        </div>
+                        <!-- <div *ngIf="typeSelected == 3">
               <div class="form-group">
                 <label for="no_of_option">No of Option</label>
                 <select id="no_of_option" formControlName="no_of_option" class="form-control" (change)="changeRadioOption(rForm.value.no_of_option)">
@@ -144,67 +181,69 @@
 
           </div> -->
 
-          <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" (click)="showPopupQuestion(largeModal)"><i class="fa fa-dot-circle-o"></i> Add Question</button>
-          
-          <table class="table table-bordered table-striped table-sm" *ngIf="subQuestions.length > 0">
-              <thead>
-                <tr>
-                  <th>Question</th>                                                
-                  <th>Type</th>
-                  
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let question of subQuestions; let idx = index">
-                  
-                  <td>{{question.name}}</td>
-                  <td *ngIf="question.type == 1">Number</td>
-                  <td *ngIf="question.type == 2">Boolean</td>
-                  <td *ngIf="question.type == 3">Radio</td>
-                  <td *ngIf="question.type == 4">Range</td>
-                  <td *ngIf="question.type == 5">Photo</td>
-                  
-                                              
-                  <td>
-            <a href="javascript:;" (click)="editModalQuestion(question,largeModal)" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
-            <button type="button" class="btn btn-danger" (click)="deleteModalQuestion(question.id)"><i class="fa fa-rss"></i>&nbsp; Delete</button>
-                  </td>
-                </tr>               
-              </tbody>
-            </table> 
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" (click)="showPopupQuestion(largeModal)"><i class="fa fa-dot-circle-o"></i> Add Question</button>
 
-              
-              
-            
-          
-                                
+                        <table class="table table-bordered table-striped table-sm" *ngIf="subQuestions.length > 0">
+                            <thead>
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Type</th>
+
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let question of subQuestions; let idx = index">
+
+                                    <td>{{question.name}}</td>
+                                    <td *ngIf="question.type == 1">Number</td>
+                                    <td *ngIf="question.type == 2">Boolean</td>
+                                    <td *ngIf="question.type == 3">Radio</td>
+                                    <td *ngIf="question.type == 4">Range</td>
+                                    <td *ngIf="question.type == 5">Photo</td>
+
+
+                                    <td>
+                                        <a href="javascript:;" (click)="editModalQuestion(question,largeModal)" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
+                                        <button type="button" class="btn btn-danger" (click)="deleteModalQuestion(question.id)"><i class="fa fa-rss"></i>&nbsp; Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="goToList()"><i class="fa fa-ban"></i> Cancel</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
-          <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
-        </div>
-        </form>
-      </div>
-    </div><!--/.col-->
-  </div><!--/.row-->   
-  
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+
 </div>
 
 
 <div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-          <form [formGroup]="rModalForm" class="form-horizontal" (ngSubmit)="addModalQuestion(rModalForm.value,largeModal)">
-        <div class="modal-header">
-          <h4 class="modal-title">Add Question</h4>
-          <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+        <div class="modal-content">
+            <form [formGroup]="rModalForm" class="form-horizontal" (ngSubmit)="addModalQuestion(rModalForm.value,largeModal)">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Question</h4>
+                    <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
-        <div class="modal-body">
-          
-              <!--<div class="form-group">
+                </div>
+                <div class="modal-body">
+
+                    <!--<div class="form-group">
                 <label for="serviceId">Service</label>
                 <select id="serviceId" formControlName="serviceId" class="form-control">
                   <option value="">Please select</option>
@@ -212,66 +251,66 @@
                 </select>
                 <div class="text-danger" *ngIf="!rModalForm.controls['serviceId'].valid && rModalForm.controls['serviceId'].touched">Please select service</div>              
               </div>-->
-              <div class="form-group">
-                <label for="questiontype">Question Type <span>*</span></label>
-                <select id="questiontype" formControlName="type" class="form-control" >
+                    <div class="form-group">
+                        <label for="questiontype">Question Type <span>*</span></label>
+                        <select id="questiontype" formControlName="type" class="form-control">
                   <option value="">Please select</option>
                   <option *ngFor="let questionType of questionTypeList" value="{{questionType.id}}">{{questionType.name}}</option>              
                 </select>
-                <div class="text-danger" *ngIf="!rModalForm.controls['type'].valid && rModalForm.controls['type'].touched">Please select question type</div>              
-              </div>
-              <div class="form-group">
-                <label for="questiontype">Question <span>*</span></label>
-                <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter question">
-                <div class="text-danger" *ngIf="!rModalForm.controls['name'].valid && rModalForm.controls['name'].touched">Please enter question</div>
-              </div>
-              <div class="form-group">
-                  <label for="icon">Icon Class</label>
-                  <input type="text" formControlName="icon" class="form-control" id="icon" placeholder="Enter Icon Class">
-                  
-                </div>
-                <div class="form-group">
-                    <label for="color">Color</label>
-                    <input type="text" formControlName="color" class="form-control" id="color" placeholder="Enter color code">
-                    
-                  </div>
-      
-                <div class="form-group">
-                    <label for="icon_class">Image</label>
-                    <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
-                    <!-- <input type="file" id="theFileInput" (change)="fileChangeListener($event)" /> -->
-                    <input type="file" id="theFileInput" />
-                  </div>
-                  
-              <div *ngIf="typeModalSelected == 4">
-                  <div class="form-group">
-                    <label for="questiontype">Enter Range Name</label>
-                    <input type="text" formControlName="range_name" class="form-control" id="range_name" placeholder="Enter range name">
-                    <div class="text-danger" *ngIf="!rModalForm.controls['range_name'].valid && rModalForm.controls['range_name'].touched">Please enter range name</div>
-                  </div>
-                  <div class="form-group">
-                    <label for="questiontype">Start Range</label>
-                    <input type="number" formControlName="start_range" class="form-control" id="start_range" placeholder="Enter start range">
-                    <div class="text-danger" *ngIf="!rModalForm.controls['start_range'].valid && rModalForm.controls['start_range'].touched">Please enter start range</div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="questiontype">End Range</label>
-                    <input type="number" formControlName="end_range" class="form-control" id="end_range" placeholder="Enter end range">
-                    <div class="text-danger" *ngIf="!rModalForm.controls['end_range'].valid && rModalForm.controls['end_range'].touched">Please enter end range</div>
-                    <div class="text-danger" *ngIf="rModalForm.controls['end_range'].valid && rModalForm.controls['start_range'].valid && rModalForm.value.end_range <= rModalForm.value.start_range">End range should be greater than start range</div>
-                  </div>
-  
-              </div>
+                        <div class="text-danger" *ngIf="!rModalForm.controls['type'].valid && rModalForm.controls['type'].touched">Please select question type</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="questiontype">Question <span>*</span></label>
+                        <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter question">
+                        <div class="text-danger" *ngIf="!rModalForm.controls['name'].valid && rModalForm.controls['name'].touched">Please enter question</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="icon">Icon Class</label>
+                        <input type="text" formControlName="icon" class="form-control" id="icon" placeholder="Enter Icon Class">
 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label for="modal_is_active">
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Color</label>
+                        <input type="text" formControlName="color" class="form-control" id="color" placeholder="Enter color code">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="icon_class">Image</label>
+                        <!-- <input type="text"  class="form-control"  placeholder="Enter service name"> -->
+                        <!-- <input type="file" id="theFileInput" (change)="fileChangeListener($event)" /> -->
+                        <input type="file" id="theFileInput" />
+                    </div>
+
+                    <div *ngIf="typeModalSelected == 4">
+                        <div class="form-group">
+                            <label for="questiontype">Enter Range Name</label>
+                            <input type="text" formControlName="range_name" class="form-control" id="range_name" placeholder="Enter range name">
+                            <div class="text-danger" *ngIf="!rModalForm.controls['range_name'].valid && rModalForm.controls['range_name'].touched">Please enter range name</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="questiontype">Start Range</label>
+                            <input type="number" formControlName="start_range" class="form-control" id="start_range" placeholder="Enter start range">
+                            <div class="text-danger" *ngIf="!rModalForm.controls['start_range'].valid && rModalForm.controls['start_range'].touched">Please enter start range</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="questiontype">End Range</label>
+                            <input type="number" formControlName="end_range" class="form-control" id="end_range" placeholder="Enter end range">
+                            <div class="text-danger" *ngIf="!rModalForm.controls['end_range'].valid && rModalForm.controls['end_range'].touched">Please enter end range</div>
+                            <div class="text-danger" *ngIf="rModalForm.controls['end_range'].valid && rModalForm.controls['start_range'].valid && rModalForm.value.end_range <= rModalForm.value.start_range">End range should be greater than start range</div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label for="modal_is_active">
                     <input type="checkbox" id="modal_is_active"  [checked]="modal_is_active" (change)="changeModalIsActive($event)"> Is Active
                   </label>
-                </div>
-              </div>
-              <!-- <div *ngIf="typeModalSelected == 3">
+                        </div>
+                    </div>
+                    <!-- <div *ngIf="typeModalSelected == 3">
                   <div class="form-group">
                     <label for="no_of_option">No of Option</label>
                     <select id="no_of_option" formControlName="no_of_option" class="form-control" (change)="changeModalRadioOption(rModalForm.value.no_of_option)">
@@ -313,14 +352,17 @@
                       </div>
   
               </div> -->
-          
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
-          <button type="submit" class="btn btn-primary" [disabled]="!rModalForm.valid">Submit</button>
-        </div>
-      </form>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!rModalForm.valid">Submit</button>
+                    <button type="button" class="btn btn-sm btn-danger" (click)="goToList()"><i class="fa fa-ban"></i> Cancel</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

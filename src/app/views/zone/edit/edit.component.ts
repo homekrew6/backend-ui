@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ZoneService } from '../../../services/zone.service';
 import { ServiceService } from '../../../services/service.service';
 import { DrawingManager } from '@ngui/map';
-
+import { AuthService } from './../../../services/auth.service';
 
 @Component({
   selector: 'app-edit',
@@ -29,9 +29,13 @@ export class EditComponent implements OnInit {
   is_sec_pass = false;
   is_active = true;
   is_job_accept = false;
+  IsReadOnly=false;
   is_disable = false;
-
-  constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private zoneService: ZoneService, private serviceService: ServiceService) {
+  role: any;
+  parentZoneId='';
+  selectedLevel='';
+  constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private zoneService: ZoneService, private serviceService: ServiceService,
+    private authService: AuthService) {
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'fencing': [null, Validators.required],
@@ -50,9 +54,13 @@ export class EditComponent implements OnInit {
       
     });
     this.editMode = false;
-
+    if (localStorage.getItem("role")) {
+      this.role = localStorage.getItem("role");
+    }
    }
-
+  goToList() {
+    this.router.navigate(['zone']);
+  }
   ngOnInit() {
     navigator.geolocation.getCurrentPosition((position)=> {
       //console.log(position)
@@ -88,47 +96,104 @@ export class EditComponent implements OnInit {
   this.getAllParent();
   }
   public editZone(zone){  
-    zone.is_active = this.is_active;
-    zone.is_job_accept = this.is_job_accept;
-    zone.is_sec_pass = this.is_sec_pass;   
-    this.is_disable = true; 
-    if(zone.file){
-      this.serviceService.addServiceWithFile(zone.file).subscribe(res=>{
-            
-        if(res){              
-          if(res.type == 'success'){
-            zone.banner_image = res.url;
-            delete zone.file;
-            this.zoneService.editZone(zone,this.zoneId).subscribe(res=>{ 
-              //console.log(res)     
-              this.is_disable = false;
-              this.router.navigate(['/zone']);
-            },err=>{
-              this.is_disable = false;
-              this.error = "Error Occured, please try again"
-            })
-          }            
-        }else{
+    let IsValid = true;
+ 
+    zone.zoneId=this.parentZoneId;
+    zone.level=this.selectedLevel;
+    if (this.role) {
+      if (this.role == "Country Admin") {
+        if (!zone.zoneId) {
+          IsValid = false;
+          this.error = "Please select a parent for the zone.";
+          window.scrollTo(0, 0);
+          return;
+        }
+        if (zone.level > 20 && zone.level <= 30) {
+
+        }
+        else {
+          IsValid = false;
+          this.error = "You can add zone with level from 21 to 30.";
+          window.scrollTo(0, 0);
+          return;
+        }
+      }
+      else if (this.role == "City Admin") {
+        if (!zone.zoneId) {
+          IsValid = false;
+          this.error = "Please select a parent for the zone.";
+          window.scrollTo(0, 0);
+          return;
+        }
+        if (zone.level > 30) {
+
+        }
+        else {
+          IsValid = false;
+          this.error = "You can add zone with level greater than 30";
+          window.scrollTo(0, 0);
+          return;
+        }
+      }
+      else if (this.role == "admin") {
+        if (zone.level < 20 && zone.zoneId) {
+          IsValid = false;
+          this.error = "You can not add zone parent for level greater than 20.";
+          window.scrollTo(0, 0);
+          return;
+        }
+      }
+    }
+    if(IsValid)
+    {
+      if (this.role != "admin")
+      {
+        zone.zoneId=this.parentZoneId;
+        zone.level=this.selectedLevel;
+      }
+      zone.is_active = this.is_active;
+      zone.is_job_accept = this.is_job_accept;
+      zone.is_sec_pass = this.is_sec_pass;
+      this.is_disable = true;
+      if (zone.file) {
+        this.serviceService.addServiceWithFile(zone.file).subscribe(res => {
+
+          if (res) {
+            if (res.type == 'success') {
+              zone.banner_image = res.url;
+              delete zone.file;
+              this.zoneService.editZone(zone, this.zoneId).subscribe(res => {
+                //console.log(res)     
+                this.is_disable = false;
+                this.router.navigate(['/zone']);
+              }, err => {
+                this.is_disable = false;
+                this.error = "Error Occured, please try again"
+              })
+            }
+          } else {
+            this.is_disable = false;
+            this.error = "Error Occured, please try again"
+          }
+
+
+        }, err => {
           this.is_disable = false;
           this.error = "Error Occured, please try again"
-        } 
-  
-   
-  },err=>{
-    this.is_disable = false;
-    this.error = "Error Occured, please try again"
-  })
-    }else{
-      delete zone.file;
-      this.zoneService.editZone(zone,this.zoneId).subscribe(res=>{ 
-        //console.log(res)     
-        this.is_disable = false;
-        this.router.navigate(['/zone']);
-      },err=>{
-        this.is_disable = false;
-        this.error = "Error Occured, please try again"
-      })
+        })
+      } else {
+        delete zone.file;
+        this.zoneService.editZone(zone, this.zoneId).subscribe(res => {
+          //console.log(res)     
+          this.is_disable = false;
+          this.router.navigate(['/zone']);
+        }, err => {
+          this.is_disable = false;
+          this.error = "Error Occured, please try again"
+        })
+      }
     }
+    
     
   }
 
@@ -153,6 +218,16 @@ export class EditComponent implements OnInit {
       this.rForm.controls['security_pasword'].setValue(res.security_pasword);
       this.rForm.controls['level'].setValue(res.level);
       this.rForm.controls['banner_image'].setValue(res.banner_image);
+      console.log(this.rForm.value)
+      if(this.role !="admin")
+      {
+        this.parentZoneId = res.zoneId;
+        this.selectedLevel = res.level;
+        this.IsReadOnly=true;
+        //this.rForm.controls['level'].disable();
+        //this.rForm.controls['zoneId'].disable();
+      }
+     
       
       //this.populateMap();        
       
@@ -203,10 +278,20 @@ public getAllCurrencies(){
 }
 
 public getAllParent(){
-  this.zoneService.getAllParentZones().subscribe(res=>{   
-    //console.log(res);   
-    this.parentZoneList=res;
-  })
+  if (this.role == "admin") {
+    this.zoneService.getAllParentZones().subscribe(res => {
+      this.parentZoneList = res;
+
+
+    })
+  }
+  else 
+  {
+    this.zoneService.getZone().subscribe((res=>{
+      this.parentZoneList=res;
+    }))
+  }
+  
 }
 public changeIsSecPass($e: any){
    this.is_sec_pass = !this.is_sec_pass;

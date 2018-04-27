@@ -9,9 +9,46 @@ import { FaqService } from '../../services/faq.service';
   styleUrls: ['./faq.component.css']
 })
 export class FaqComponent implements OnInit {
+  constructor(private router: Router, private faqService: FaqService) { }
+  
   faqList=[];
-  constructor(private router: Router, private faqService: FaqService) { 
+  settings = {
+    columns: {
+      title: {
+        title: 'Title',
+      },
+      question: {
+        title: 'Question',
+      }
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+      custom: [
+        {
+          name: 'edit',
+          title: '<i class="fa fa-pencil"></i>',
+        },
+        {
+          name: 'delete',
+          title: '<i class="fa fa-trash" ></i>',
+        },
+      ],
+    },
+    attr: {
+      class: 'table table-bordered'
+    },
+  };
 
+  onCustom(event) {
+    if (event.action == "delete") {
+      this.deleteFaq(event.data.id);
+    }
+    else if (event.action == "edit") {
+      //this.router.navigate(['/worker/edit', { id: "SomeValue" }]);
+      this.router.navigateByUrl('/faq/edit/' + event.data.id)
+    }
   }
 
   ngOnInit() {
@@ -20,7 +57,7 @@ export class FaqComponent implements OnInit {
 
   public getAllFaqs(){
     this.faqService.getFaq().subscribe(res=>{
-      //console.log(res);
+      // console.log(res);
       this.faqList=res;
     })
   }

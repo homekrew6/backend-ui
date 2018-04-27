@@ -1,0 +1,9 @@
+
+
+:host /deep/ ng2-smart-table  tr td { vertical-align: middle; padding-top: 0.75rem;  }
+:host /deep/ ng2-smart-table  tr th { vertical-align: middle; padding-top: 0.75rem; text-align: center;  }
+:host /deep/ ng2-smart-table  tr td a { border: 1px solid #ddd; padding-left: 0.625rem; padding-right: 0.625rem; padding-top: 0.3125rem; padding-bottom: 0.3125rem; white-space: nowrap; margin: 0.125rem; display: inline-block; transition: all 0.5s ease ; }
+:host /deep/ ng2-smart-table  tr td a:hover { color: #fff; background-color: #20a8d8; text-decoration: none }
+:host /deep/ ng2-smart-table  tr td:first-child{ white-space: nowrap; text-align: center }
+:host /deep/ ng2-smart-table  .ng2-smart-pagination a { height: 35px; display: flex; align-items: center; justify-content: center; }
+

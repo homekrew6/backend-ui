@@ -5,8 +5,11 @@ import { Component, ElementRef } from '@angular/core';
   templateUrl: './app-footer.component.html'
 })
 export class AppFooter {
-
-  constructor(private el: ElementRef) { }
+  curentYear:any;
+  constructor(private el: ElementRef) { 
+    const d = new Date();
+    this.curentYear = d.getFullYear();
+  }
 
   //wait for the component to render completely
   ngOnInit(): void {

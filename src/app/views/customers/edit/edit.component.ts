@@ -33,7 +33,9 @@ export class EditComponent implements OnInit {
       
     });
   }
-
+  goToList() {
+    this.router.navigate(['customers']);
+  }
   ngOnInit() {
     //console.log
     this.activatedRoute.params.subscribe((params: Params) => {

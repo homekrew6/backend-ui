@@ -1,46 +1,53 @@
 <div class="animated fadeIn">
-  <div class="row">
-    
-    <div class="col-sm-12">
-      <div class="card">
-          <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="editFaq(rForm.value)">
-        <div class="card-header">
-          <strong>Faq</strong>
-          
-        </div>
-        <div class="card-body">
-          <div class="form-group">
-            <label for="company">Question <span>*</span></label>
-            <input type="text" formControlName="question" class="form-control" id="question" placeholder="Enter question">
-            <div class="text-danger" *ngIf="!rForm.controls['question'].valid && rForm.controls['question'].touched">Please enter question</div>
-          </div>
-          <!-- <div class="form-group">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="card">
+                <form [formGroup]="rForm" class="form-horizontal" (ngSubmit)="editFaq(rForm.value)">
+                    <div class="card-header">
+                        <strong>Faq</strong>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="company">Question <span>*</span></label>
+                            <input type="text" formControlName="question" class="form-control" id="question" placeholder="Enter question">
+                            <div class="text-danger" *ngIf="!rForm.controls['question'].valid && rForm.controls['question'].touched">Please enter question</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Title <span>*</span></label>
+                            <input type="text" formControlName="title" class="form-control" id="title" placeholder="Enter title">
+                            <div class="text-danger" *ngIf="!rForm.controls['title'].valid && rForm.controls['title'].touched">Please enter title</div>
+                        </div>
+                        <!-- <div class="form-group">
             <label for="vat">Answer</label>
             
             <textarea id="answer" formControlName="answer" rows="9" class="form-control" placeholder="Enter answer"></textarea>
             <div class="text-danger" *ngIf="!rForm.controls['answer'].valid && rForm.controls['answer'].touched">Please enter answer</div>
           </div> -->
-          <div class="form-group">
-            <label for="vat">Answer</label>
-            <!-- <div  [froalaEditor]="editorOptions" [(froalaModel)]="content"></div> -->
-            <app-tinymce formControlName="answer" name='answer'></app-tinymce>
-             </div>
-          <div class="form-group">
-            <div class="checkbox">
-              <label for="is_active">
+                        <div class="form-group">
+                            <label for="vat">Answer</label>
+                            <!-- <div  [froalaEditor]="editorOptions" [(froalaModel)]="content"></div> -->
+                            <app-tinymce formControlName="answer" name='answer'></app-tinymce>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label for="is_active">
                 <input type="checkbox" id="is_active"  [checked]="is_active" (change)="changeIsActive($event)"> Is Active
               </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="goToList()"><i class="fa fa-ban"></i> Cancel</button>
+                    </div>
+                </form>
             </div>
-          </div>
-                                
         </div>
-        <div class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
-          <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
-        </div>
-        </form>
-      </div>
-    </div><!--/.col-->
-  </div><!--/.row-->   
-  
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+
 </div>

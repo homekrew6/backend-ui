@@ -8,9 +8,10 @@ import { RouterModule } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+// import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { TinymceModule } from 'angular2-tinymce';
 import { absEnvironment } from '../../../environments/environment';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   imports: [
@@ -22,8 +23,10 @@ import { absEnvironment } from '../../../environments/environment';
     TinymceModule.withConfig({
       skin_url: absEnvironment.absuluteUrl
     }),
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot()
+    Ng2SmartTableModule
+    // ,
+    // FroalaEditorModule.forRoot(),
+    // FroalaViewModule.forRoot()
 
   ],
   declarations: [FaqComponent, AddComponent, EditComponent],

@@ -66,6 +66,19 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+// import { AngularFireModule } from 'angularfire2';
+
+// import { AngularFireDatabaseModule } from 'angularfire2/database';
+// import { AngularFireAuthModule } from 'angularfire2/auth';
+
+// export const firebaseConfig = {
+//   apiKey: "AIzaSyCnS3M8ZZBYRH4QubDH3OJPKSgk-03Nm9w",
+//   authDomain: "krew-user-app.firebaseapp.com",
+//   databaseURL: "https://krew-user-app.firebaseio.com",
+//   projectId: "krew-user-app",
+//   storageBucket: "krew-user-app.appspot.com",
+//   messagingSenderId: "16831185707"
+// };
 
 @NgModule({
   imports: [
@@ -77,7 +90,10 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     ChartsModule,
     HttpModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // AngularFireModule.initializeApp(firebaseConfig),
+    // AngularFireDatabaseModule,
+    // AngularFireAuthModule
     //NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyAzwzNzq3irmwjUVU1MhMuwP7qD0CfZijA'})
   ],
   declarations: [

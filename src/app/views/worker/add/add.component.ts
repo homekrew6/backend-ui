@@ -27,10 +27,14 @@ export class AddComponent implements OnInit {
       },
       'realm': '',
       'image': '',
+      'commission':[]
       
     });
   }
-
+  goToList()
+  {
+    this.router.navigate(['worker']);
+  }
   ngOnInit() {
   }
 
