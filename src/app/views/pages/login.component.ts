@@ -38,11 +38,6 @@ export class LoginComponent {
     
     this.auth.login(this.data.email, this.data.password).subscribe(res => {
       console.log(res);
-<<<<<<< HEAD
-      // localStorage.setItem('authToken', res[].toString());
-     
-      this.router.navigate(['/dashboard']);
-=======
 
       // localStorage.setItem('authToken', res[].toString());
      this.auth.getRoleTypes().subscribe((res1)=>{
@@ -55,7 +50,6 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']);
      })
      
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
     }, err => {
      
       //console.log(err);

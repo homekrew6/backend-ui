@@ -1,19 +1,11 @@
-<<<<<<< HEAD
-import { Component, OnInit,ViewChild } from '@angular/core';
-=======
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ZoneService } from '../../../services/zone.service';
 import { ServiceService } from '../../../services/service.service';
 import { DrawingManager } from '@ngui/map';
-<<<<<<< HEAD
-
-=======
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -23,11 +15,7 @@ export class AddComponent implements OnInit {
   @ViewChild(DrawingManager) drawingManager: DrawingManager;
   rForm: FormGroup;
   error: string;
-<<<<<<< HEAD
-  selectedOverlay : any;
-=======
   selectedOverlay: any;
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
   currentCord: any;
   languageList = [];
   currencyList = [];
@@ -35,36 +23,17 @@ export class AddComponent implements OnInit {
   is_sec_pass = false;
   is_active = true;
   is_job_accept = false;
-<<<<<<< HEAD
-  is_disable = false;
-  constructor(private fb: FormBuilder,private router: Router, private zoneService: ZoneService, private serviceService: ServiceService) { 
-    this.rForm = fb.group({      
-=======
   IsReadOnly = false;
   is_disable = false;
   role: any;
   constructor(private fb: FormBuilder, private router: Router, private zoneService: ZoneService, private serviceService: ServiceService,
     private srvc: AuthService) {
     this.rForm = fb.group({
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
       'name': [null, Validators.required],
       'fencing': [null, Validators.required],
       'description': '',
       'languageId': [null, Validators.required],
       'currencyId': [null, Validators.required],
-<<<<<<< HEAD
-      'premium': '', 
-      'is_active': '',
-      'is_sec_pass':'',
-      'security_pasword':'',
-      'is_job_accept':'',
-      'level':[null, Validators.required],
-      'zoneId':'',
-      'file':[null, Validators.required],
-      'banner_image':''
-      
-    });
-=======
       'premium': '',
       'is_active': '',
       'is_sec_pass': '',
@@ -82,25 +51,16 @@ export class AddComponent implements OnInit {
         this.IsReadOnly = true;
       }
     }
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
   }
   goToList() {
     this.router.navigate(['zone']);
   }
   ngOnInit() {
-<<<<<<< HEAD
-    navigator.geolocation.getCurrentPosition((position)=> {
-      //console.log(position)
-      
-      //console.log(position.coords.latitude);
-      this.currentCord = position.coords.latitude +', '+position.coords.longitude;      
-=======
     navigator.geolocation.getCurrentPosition((position) => {
       //console.log(position)
 
       //console.log(position.coords.latitude);
       this.currentCord = position.coords.latitude + ', ' + position.coords.longitude;
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
       //console.log(this.currentCord);      
     })
     this.drawingManager['initialized$'].subscribe(dm => {
@@ -117,18 +77,6 @@ export class AddComponent implements OnInit {
         this.extractPath();
       });
 
-<<<<<<< HEAD
-      
-      
-    });
-    this.rForm.controls['languageId'].setValue('');
-    this.rForm.controls['currencyId'].setValue('');
-    this.rForm.controls['zoneId'].setValue(0); 
-    this.rForm.controls['is_active'].setValue(false);
-    this.rForm.controls['is_sec_pass'].setValue(false); 
-    this.rForm.controls['is_job_accept'].setValue(false);
-     
-=======
 
 
     });
@@ -139,28 +87,11 @@ export class AddComponent implements OnInit {
     this.rForm.controls['is_sec_pass'].setValue(false);
     this.rForm.controls['is_job_accept'].setValue(false);
 
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
     this.getAllLanguages();
     this.getAllCurrencies();
     this.getAllParent();
   }
 
-<<<<<<< HEAD
-  public extractPath(){      
-      let zoneCords = [];
-      let vertices = this.selectedOverlay.getPath();
-      let contentString;
-      for (let i =0; i < vertices.getLength(); i++) {
-        let xy = vertices.getAt(i);
-        let individualCord = {
-          lat:xy.lat(),
-          lng:xy.lng()
-        }
-        zoneCords.push(individualCord);        
-      }
-      //console.log(zoneCords);
-      this.rForm.controls['fencing'].setValue(zoneCords);
-=======
   public extractPath() {
     let zoneCords = [];
     let vertices = this.selectedOverlay.getPath();
@@ -175,7 +106,6 @@ export class AddComponent implements OnInit {
     }
     //console.log(zoneCords);
     this.rForm.controls['fencing'].setValue(zoneCords);
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
   }
 
   public deleteSelectedOverlay() {
@@ -185,100 +115,6 @@ export class AddComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-  public addZone(zone){   
-    zone.is_active = this.is_active;
-    zone.is_job_accept = this.is_job_accept;
-    zone.is_sec_pass = this.is_sec_pass;
-    this.is_disable = true;
-    if(zone.file){
-      
-      this.serviceService.addServiceWithFile(zone.file).subscribe(res=>{
-            
-            if(res){              
-              if(res.type == 'success'){
-                zone.banner_image = res.url;
-                delete zone.file;
-                this.zoneService.addZone(zone).subscribe(res=>{
-                  this.is_disable = false;
-                  this.router.navigate(['/zone']);
-                },err=>{
-                  this.error = "Error Occured, please try again"
-                })
-              }            
-            }else{
-              this.is_disable = false;
-              this.error = "Error Occured, please try again"
-            }         
-      
-       
-      },err=>{
-        this.is_disable = false;
-        this.error = "Error Occured, please try again"
-      })
-      }
-    
-  }
-
-  public getAllLanguages(){
-    this.zoneService.getAllLanguages().subscribe(res=>{      
-      this.languageList=res;
-    })
-  }
-  public getAllCurrencies(){
-    this.zoneService.getAllCurrencies().subscribe(res=>{      
-      this.currencyList=res;
-    })
-  }
-
-  public getAllParent(){
-    this.zoneService.getAllParentZones().subscribe(res=>{   
-      console.log(res);   
-      this.parentZoneList=res;
-    })
-  }
-  public changeIsSecPass($e: any){
-     this.is_sec_pass = !this.is_sec_pass;
-     
-     if(this.is_sec_pass){
-      //this.rForm.get('security_pasword').setValidators([Validators.required]);
-     }else{
-      this.rForm.controls['security_pasword'].setValue('');
-      //console.log(this.is_sec_pass);
-      //this.rForm.get('security_pasword').setValidators([]);
-     }
-  }
-  public changeIsActive($e: any){
-    this.is_active = !this.is_active;
-    //console.log(this.is_active);
- }
- public changeIsJobAccept($e: any){
-  this.is_job_accept = !this.is_job_accept;
-  //console.log(this.is_job_accept);
-}
-
-public fileChangeListener($event) {
-  console.log($event);
-  
-  const image: any = new Image();
-  let file: File = $event.target.files[0];   
-  
-  
-  const myReader: FileReader = new FileReader();
-  const that = this;
-  myReader.onloadend = function (loadEvent: any) {
-    image.src = loadEvent.target.result;
-   
-    
-  };   
-      const fd = new FormData();
-      fd.append('file', file);        
-    this.rForm.controls['file'].setValue(fd);
-  
-  myReader.readAsDataURL(file);
-  
-}
-=======
   public addZone(zone) {
     let IsValid = true;
     if (this.role) {
@@ -470,6 +306,5 @@ public fileChangeListener($event) {
     myReader.readAsDataURL(file);
 
   }
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
 
 }

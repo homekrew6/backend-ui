@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { PromoService } from '../../services/promo.service';
-<<<<<<< HEAD
 import { DatePipe } from '@angular/common';
-=======
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
 
 @Component({
   selector: 'app-promotions',
@@ -14,7 +11,6 @@ import { DatePipe } from '@angular/common';
 })
 export class PromotionsComponent implements OnInit {
   promosList=[];
-<<<<<<< HEAD
   settings = {
     columns: {
       promo_code: {
@@ -50,15 +46,12 @@ export class PromotionsComponent implements OnInit {
 
 
   };
-=======
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
   constructor(private router: Router, private srvc: PromoService) { }
 
   ngOnInit() {
     this.getAllPromos();
   }
 
-<<<<<<< HEAD
   onCustom(event) {
 
     if (event.action == "delete") {
@@ -72,8 +65,6 @@ export class PromotionsComponent implements OnInit {
 
   }
 
-=======
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
   public getAllPromos(){
     this.srvc.getPromo().subscribe(res=>{
       //console.log(res);

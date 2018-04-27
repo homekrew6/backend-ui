@@ -1,11 +1,11 @@
 #custom-search-input {
-    background: #e8e6e7 none repeat scroll 0 0;
+    background: #e8e6e7;
     margin: 0;
     padding: 10px;
 }
 
 #custom-search-input .search-query {
-    background: #fff none repeat scroll 0 0 !important;
+    background: #fff !important;
     border-radius: 4px;
     height: 33px;
     margin-bottom: 0;
@@ -14,7 +14,7 @@
 }
 
 #custom-search-input button {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0);
     border: 0 none;
     border-radius: 3px;
     color: #666666;
@@ -31,16 +31,26 @@
     z-index: 3;
 }
 
+.all_conversation{
+    padding-bottom: 15px;
+}
+
+
 .all_conversation button {
-    background: #f5f3f3 none repeat scroll 0 0;
+    background: #f5f3f3;
     border: 1px solid #dddddd;
     height: 38px;
     text-align: left;
     width: 100%;
 }
 
+.chat-time{
+    font-size: 0.6rem;
+    color: #ccc
+}
+
 .all_conversation i {
-    background: #e9e7e8 none repeat scroll 0 0;
+    background: #e9e7e8;
     border-radius: 100px;
     color: #636363;
     font-size: 17px;
@@ -59,7 +69,7 @@
 }
 
 .all_conversation .dropdown-menu {
-    background: #f5f3f3 none repeat scroll 0 0;
+    background: #f5f3f3;
     border-radius: 0;
     margin-top: 0;
     padding: 0;
@@ -73,7 +83,7 @@
 }
 
 .all_conversation ul li a:hover {
-    background: #dddddd none repeat scroll 0 0;
+    background: #dddddd;
     color: #333;
 }
 
@@ -98,6 +108,7 @@
 
 .member_list li {
     padding: 6px;
+    background: #fff;
 }
 
 .member_list ul {
@@ -122,10 +133,11 @@
     height: 380px;
     overflow-x: hidden;
     overflow-y: auto;
+    width: 100%;
 }
 
 .sub_menu_ {
-    background: #e8e6e7 none repeat scroll 0 0;
+    background: #e8e6e7;
     left: 100%;
     max-width: 233px;
     position: absolute;
@@ -133,7 +145,7 @@
 }
 
 .sub_menu_ {
-    background: #f5f3f3 none repeat scroll 0 0;
+    background: #f5f3f3;
     border: 1px solid rgba(0, 0, 0, 0.15);
     display: none;
     left: 100%;
@@ -149,12 +161,12 @@
 }
 
 .new_message_head button {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0);
     border: medium none;
 }
 
 .new_message_head {
-    background: #f5f3f3 none repeat scroll 0 0;
+    background: #f5f3f3;
     float: left;
     font-size: 13px;
     font-weight: 600;
@@ -188,7 +200,7 @@
 }
 
 .chat-body1 p {
-    background: #fbf9fa none repeat scroll 0 0;
+    background: #fbf9fa;
     padding: 10px;
 }
 
@@ -202,7 +214,7 @@
 }
 
 .message_write {
-    background: #f5f3f3 none repeat scroll 0 0;
+    background: #f5f3f3;
     float: left;
     padding: 15px;
     width: 100%;
@@ -217,6 +229,9 @@
     float: left;
     margin-top: 13px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .upload_btn {
@@ -230,7 +245,5 @@
 }
 
 .member_list li:hover {
-    background: #428bca none repeat scroll 0 0;
-    color: #fff;
-    cursor: pointer;
+    background: #428bca;
 }

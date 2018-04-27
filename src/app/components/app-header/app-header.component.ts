@@ -23,11 +23,7 @@ export class AppHeader {
   }
 
   logout() {
-<<<<<<< HEAD
-    localStorage.removeItem('authToken');
-=======
     localStorage.clear();
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
     this.router.navigate(['pages/login']);
   }
 }

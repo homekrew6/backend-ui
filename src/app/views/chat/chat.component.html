@@ -8,25 +8,23 @@
                 <div class="row">
                     <div class="col-sm-3 chat_sidebar">
                         <div class="row">
-                            <div id="custom-search-input">
-                            </div>
-                            <div class="dropdown all_conversation">
-                                All Conversation
-                            </div>
-                            <div class="member_list" *ngIf="chatList">
-                                <ul class="list-unstyled" *ngFor="let chat of chatList; let i = index">
-                                    <li class="left clearfix" (click)="openChat(chat)">
+                            <div class="dropdown all_conversation"> All Conversation </div>
+                            <div class="member_list pr-1" *ngIf="chatList">
+                                <ul class="list-unstyled mb-1" *ngFor="let chat of chatList; let i = index">
+                                    <li class="left clearfix bg-white" (click)="openChat(chat)">
                                         <span class="chat-img pull-left">
                      <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
                      </span>
                                         <div class="chat-body clearfix">
                                             <div class="header_sec">
-                                                <strong class="primary-font">{{chat.customerName}}</strong> <strong class="pull-right">
-                           {{chat.date | date}}</strong>
+                                                <strong class="primary-font">{{chat.customerName}}</strong> 
+                                                <div >
+                                                    <strong class="pull-right chat-time"> {{chat.date | date}} </strong>
+                                                </div>
                                             </div>
-                                            <div class="contact_sec">
+                                            <!-- <div class="contact_sec">
                                                 <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </li>
                                 </ul>

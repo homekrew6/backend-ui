@@ -5,11 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ZoneService } from '../../../services/zone.service';
 import { ServiceService } from '../../../services/service.service';
 import { DrawingManager } from '@ngui/map';
-<<<<<<< HEAD
-
-=======
 import { AuthService } from './../../../services/auth.service';
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
 
 @Component({
   selector: 'app-edit',
@@ -33,11 +29,6 @@ export class EditComponent implements OnInit {
   is_sec_pass = false;
   is_active = true;
   is_job_accept = false;
-<<<<<<< HEAD
-  is_disable = false;
-
-  constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private zoneService: ZoneService, private serviceService: ServiceService) {
-=======
   IsReadOnly=false;
   is_disable = false;
   role: any;
@@ -45,7 +36,6 @@ export class EditComponent implements OnInit {
   selectedLevel='';
   constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private zoneService: ZoneService, private serviceService: ServiceService,
     private authService: AuthService) {
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'fencing': [null, Validators.required],
@@ -64,13 +54,9 @@ export class EditComponent implements OnInit {
       
     });
     this.editMode = false;
-<<<<<<< HEAD
-
-=======
     if (localStorage.getItem("role")) {
       this.role = localStorage.getItem("role");
     }
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
    }
   goToList() {
     this.router.navigate(['zone']);
@@ -110,50 +96,6 @@ export class EditComponent implements OnInit {
   this.getAllParent();
   }
   public editZone(zone){  
-<<<<<<< HEAD
-    zone.is_active = this.is_active;
-    zone.is_job_accept = this.is_job_accept;
-    zone.is_sec_pass = this.is_sec_pass;   
-    this.is_disable = true; 
-    if(zone.file){
-      this.serviceService.addServiceWithFile(zone.file).subscribe(res=>{
-            
-        if(res){              
-          if(res.type == 'success'){
-            zone.banner_image = res.url;
-            delete zone.file;
-            this.zoneService.editZone(zone,this.zoneId).subscribe(res=>{ 
-              //console.log(res)     
-              this.is_disable = false;
-              this.router.navigate(['/zone']);
-            },err=>{
-              this.is_disable = false;
-              this.error = "Error Occured, please try again"
-            })
-          }            
-        }else{
-          this.is_disable = false;
-          this.error = "Error Occured, please try again"
-        } 
-  
-   
-  },err=>{
-    this.is_disable = false;
-    this.error = "Error Occured, please try again"
-  })
-    }else{
-      delete zone.file;
-      this.zoneService.editZone(zone,this.zoneId).subscribe(res=>{ 
-        //console.log(res)     
-        this.is_disable = false;
-        this.router.navigate(['/zone']);
-      },err=>{
-        this.is_disable = false;
-        this.error = "Error Occured, please try again"
-      })
-    }
-    
-=======
     let IsValid = true;
  
     zone.zoneId=this.parentZoneId;
@@ -253,7 +195,6 @@ export class EditComponent implements OnInit {
     }
     
     
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
   }
 
   public getIndividualZone(Id){
@@ -277,8 +218,6 @@ export class EditComponent implements OnInit {
       this.rForm.controls['security_pasword'].setValue(res.security_pasword);
       this.rForm.controls['level'].setValue(res.level);
       this.rForm.controls['banner_image'].setValue(res.banner_image);
-<<<<<<< HEAD
-=======
       console.log(this.rForm.value)
       if(this.role !="admin")
       {
@@ -289,7 +228,6 @@ export class EditComponent implements OnInit {
         //this.rForm.controls['zoneId'].disable();
       }
      
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
       
       //this.populateMap();        
       
@@ -340,12 +278,6 @@ public getAllCurrencies(){
 }
 
 public getAllParent(){
-<<<<<<< HEAD
-  this.zoneService.getAllParentZones().subscribe(res=>{   
-    //console.log(res);   
-    this.parentZoneList=res;
-  })
-=======
   if (this.role == "admin") {
     this.zoneService.getAllParentZones().subscribe(res => {
       this.parentZoneList = res;
@@ -360,7 +292,6 @@ public getAllParent(){
     }))
   }
   
->>>>>>> 522761d9eb6cc12ebf04ce089470c9568a3804f0
 }
 public changeIsSecPass($e: any){
    this.is_sec_pass = !this.is_sec_pass;

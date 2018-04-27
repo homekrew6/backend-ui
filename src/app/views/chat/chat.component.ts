@@ -57,7 +57,6 @@ export class ChatComponent implements OnInit {
 
         if (allChatList[key]) {
           if (allChatList[key].adminId == self.userId) {
-           debugger;
             if (self.chatRoomId) {
 
               if (allChatList[key].chatRoomId == self.chatRoomId) {
