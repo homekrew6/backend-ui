@@ -22,36 +22,36 @@ export class AppSidebar {
     if (localStorage.getItem("role")) {
       if (localStorage.getItem("role").toLowerCase() == "admin") {
         this.sidebarMenuList.push({ name: 'Dashboard', routerLink: '/dashboard', class: 'icon-speedometer' },
-          { name: 'Role', routerLink: '/role', class: 'icon-speedometer' },
-          { name: 'Customer', routerLink: '/customers', class: 'icon-people' },
+          { name: 'Role', routerLink: '/role', class: 'fa fa-users' },
+          { name: 'Customer', routerLink: '/customers', class: 'fa fa-user-o' },
           { name: 'Worker', routerLink: '/worker', class: 'icon-people' },
           { name: 'CMS', routerLink: '/cms', class: 'icon-book-open' },
           { name: 'FAQ', routerLink: '/faq', class: 'icon-eye' },
-          { name: 'Vertical', routerLink: '/vertical', class: 'icon-check' },
+          { name: 'Vertical', routerLink: '/vertical', class: 'icon-options-vertical' },
           { name: 'Zone', routerLink: '/zone', class: 'icon-globe' },
-          { name: 'Service', routerLink: '/service', class: 'icon-check' },
-          { name: 'Question', routerLink: '/question', class: 'icon-check' },
-          { name: 'Language', routerLink: '/language', class: 'icon-check' },
-          { name: 'Currency', routerLink: '/currency', class: 'icon-check' },
-          { name: 'Setting', routerLink: '/setting', class: 'icon-check' },
-          { name: 'Intro Slider', routerLink: '/slider', class: 'icon-check' },
-          { name: 'Job', routerLink: '/job', class: 'icon-check' },
-          { name: 'Cancel Reasons', routerLink: '/cancelReason', class: 'icon-check' },
-          { name: 'Materials', routerLink: '/materials', class: 'icon-check' },
-          { name: 'Promo Code', routerLink: '/promotions', class: 'icon-check' },
-          { name: 'Payment', routerLink: '/payment', class: 'icon-check' },
+          { name: 'Service', routerLink: '/service', class: 'fa fa-shopping-bag' },
+          { name: 'Question', routerLink: '/question', class: 'fa fa-question' },
+          { name: 'Language', routerLink: '/language', class: 'fa fa-language' },
+          { name: 'Currency', routerLink: '/currency', class: 'fa fa-money' },
+          { name: 'Setting', routerLink: '/setting', class: 'fa fa-cog' },
+          { name: 'Intro Slider', routerLink: '/slider', class: 'fa fa-book' },
+          { name: 'Job', routerLink: '/job', class: 'icon-briefcase' },
+          { name: 'Cancel Reasons', routerLink: '/cancelReason', class: 'fa fa-ban' },
+          { name: 'Materials', routerLink: '/materials', class: 'fa fa-cogs' },
+          { name: 'Promo Code', routerLink: '/promotions', class: 'icon-tag' },
+          { name: 'Payment', routerLink: '/payment', class: 'icon-wallet' },
           { name: 'Agent', routerLink: '/agent', class: 'icon-people' })
       }
       else if (localStorage.getItem("role") == "Country Admin" || localStorage.getItem("role") == "City Admin") {
 
         this.sidebarMenuList.push({ name: 'Dashboard', routerLink: '/dashboard', class: 'icon-speedometer' }, { name: 'Zone', routerLink: '/zone', class: 'icon-globe' },
-          { name: 'Job', routerLink: '/job', class: 'icon-check' })
+          { name: 'Job', routerLink: '/job', class: 'icon-briefcase' })
 
       }
       
       else if (localStorage.getItem("role") == "Support") {
 
-        this.sidebarMenuList.push({ name: 'Dashboard', routerLink: '/dashboard', class: 'icon-speedometer' }, { name: 'Chat', routerLink: '/chat', class: 'icon-message' })
+        this.sidebarMenuList.push({ name: 'Dashboard', routerLink: '/dashboard', class: 'icon-speedometer' }, { name: 'Chat', routerLink: '/chat', class: 'fa fa-comments' })
 
       }
     }
