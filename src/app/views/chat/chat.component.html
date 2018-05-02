@@ -11,21 +11,25 @@
                             <div class="dropdown all_conversation"> All Conversation </div>
                             <div class="member_list pr-1" *ngIf="chatList">
                                 <ul class="list-unstyled mb-1" *ngFor="let chat of chatList; let i = index">
-                                    <li class="left clearfix bg-white" (click)="openChat(chat)">
-                                        <span class="chat-img pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
+                                    <li class="left clearfix bg-white">
+                                        <a (click)="openChat(chat)" href="javascript:void(0)">
+                                            <span class="chat-img pull-left">
+                     <img src="assets/img/user.png" alt="User Avatar" class="img-circle">
                      </span>
-                                        <div class="chat-body clearfix">
-                                            <div class="header_sec">
-                                                <strong class="primary-font">{{chat.customerName}}</strong> 
-                                                <div >
-                                                    <strong class="pull-right chat-time"> {{chat.date | date}} </strong>
+                                            <div class="chat-body clearfix">
+                                                <div class="header_sec">
+                                                    <strong class="primary-font">{{chat.customerName}}</strong>
+                                                    <div>
+                                                        <strong class="pull-right chat-time"> {{chat.date | date}} </strong>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <!-- <div class="contact_sec">
+                                                <!-- <div class="contact_sec">
                                                 <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
                                             </div> -->
-                                        </div>
+                                            </div>
+                                        </a>
+
+
                                     </li>
                                 </ul>
                             </div>
@@ -45,7 +49,7 @@
                                 <ul class="list-unstyled" *ngFor="let chat of specificChatList; let i = index">
                                     <li class="left clearfix" *ngIf="chat.IsAdminSender==false">
                                         <span class="chat-img1 pull-left">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
+                     <img src="assets/img/user.png" alt="User Avatar" class="img-circle">
                      </span>
                                         <div class="chat-body1 clearfix">
                                             <p *ngIf="chat.Message">{{chat.Message}}</p>
@@ -59,7 +63,7 @@
 
                                     <li class="left clearfix admin_chat" *ngIf="chat.IsAdminSender==true">
                                         <span class="chat-img1 pull-right">
-                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
+                     <img src="assets/img/user.png" alt="User Avatar" class="img-circle">
                      </span>
                                         <div class="chat-body1 clearfix">
                                             <p *ngIf="chat.Message">{{chat.Message}}</p>
@@ -80,10 +84,19 @@
                             <div class="message_write" *ngIf="IsShowChatSection">
                                 <textarea class="form-control" placeholder="Type a message" [(ngModel)]="message"></textarea>
                                 <div class="clearfix"></div>
-                                <div class="chat_bottom"><a href="#" class="pull-left upload_btn"><i class="fa fa-cloud-upload" aria-hidden="true"></i>
- Add Files</a>
-                                    <a href="javascript:void(0)" class="pull-right btn btn-success" (click)="sendMessage()">
- Send</a></div>
+                                <div class="chat_bottom">
+                                    <a href="javascript:void(0)" class="pull-left upload_btn" (click)="file.click()">
+
+                                        <i class="fa fa-cloud-upload " aria-hidden="true "></i>
+                                        <input type="file" accept="image/*" style="display:none" #file id="theFileInput" (change)="fileChangeListener($event)" /> Add Files</a>
+                                    <a href="javascript:void(0)" *ngIf="!is_disable" class="pull-right btn btn-success " (click)="sendMessage()">
+
+                                    Send</a>
+
+                                    <a href="javascript:void(0)" *ngIf="is_disable" class="pull-right btn btn-success"><i class="fa fa-fw fa-spin fa-spinner"></i>Sending</a>
+
+
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -16,6 +16,22 @@ export class WorkerService {
             return res.json();
         });
     }
+
+
+    public getWorkerSkillsById(id) {
+        const filter ='{"where":{"workerId":'+id+'}, "include":["service"]}';
+        return this.http.get(environment.baseurl + 'WorkerSkills?filter='+filter+'&access_token=' + localStorage.getItem("authToken")).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+
+    public getJobListingById(id) {
+        const filter = '{"where":{"workerId":' + id +'}, "include":["service", "zone", "userLocation", "currency", "customer", "worker"]}';
+        return this.http.get(environment.baseurl + 'Jobs?filter=' + filter + '&access_token=' + localStorage.getItem("authToken")).map((res: Response) => {
+            return res.json();
+        });
+    }
     public addWorker(data){
         return this.http.post(environment.baseurl+'Workers?access_token='+localStorage.getItem("authToken"),data).map((res: Response) => {            
             return res.json();

@@ -24,6 +24,40 @@ export class AuthService {
   }
 
 
+  updatePushToken(id, data)
+  {
+    return this.http.patch(environment.baseurl + 'Admins/'+id+'?access_token=' + localStorage.getItem("authToken"), data).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+
+  emailChecking(data)
+  {
+    return this.http.post(environment.baseurl + 'Admins/emailChecking?access_token=' + localStorage.getItem("authToken"), data).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  otpChecking(data) {
+    return this.http.post(environment.baseurl + 'Admins/otpChecking?access_token=' + localStorage.getItem("authToken"), data).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  resetPassword(data) {
+    return this.http.post(environment.baseurl + 'Admins/reset-password?access_token=' + data.accessToken, data).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  adminReset(data) {
+    return this.http.post(environment.baseurl + 'Admins/reset?access_token=' + localStorage.getItem("authToken"), data).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+
    public getRoleTypes() {
         return this.http.get(environment.baseurl + 'roleTypes?access_token=' + localStorage.getItem("authToken")).map((res: Response) => {
             return res.json();

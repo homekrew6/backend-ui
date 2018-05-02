@@ -41,6 +41,10 @@ export class WorkerComponent implements OnInit {
             name: 'delete',
             title: '<i class="fa fa-trash" ></i>',
           },
+          {
+            name: 'details',
+            title: '<i class="fa fa-info-circle" ></i>',
+          },
            {
             name: 'status',
             title: 'Change Status',
@@ -49,6 +53,7 @@ export class WorkerComponent implements OnInit {
             name: 'type',
             title: 'Change Type',
           }
+        
         ],
     },
     attr: {
@@ -92,6 +97,10 @@ export class WorkerComponent implements OnInit {
     {
       //this.router.navigate(['/worker/edit', { id: "SomeValue" }]);
       this.router.navigateByUrl('/worker/edit/'+event.data.id)
+    }
+    else if (event.action =="details")
+    {
+      this.router.navigateByUrl('/worker/details/' + event.data.id)
     }
 
     else if (event.action == "status") {

@@ -1,5 +1,7 @@
+import { AdminProfileComponent } from './views/profile/profile.component';
 import { NgModule } from '@angular/core';
 import { CanActivate, Routes, RouterModule } from '@angular/router';
+
 // Import Containers
 import {
   FullLayout,
@@ -55,6 +57,20 @@ export const routes: Routes = [
       {
         path: '',
         loadChildren: './views/customers/customers.module#CustomersModule'
+      }
+    ]
+  },
+  {
+    path: 'profile',
+    component: FullLayout,
+    canActivate: [AuthGuard],
+    data: {
+      title: 'Profile'
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/profile/profile.module#ProfileModule'
       }
     ]
   },

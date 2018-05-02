@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent
     // CustomersComponent
   ]
 })

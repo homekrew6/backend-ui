@@ -19,7 +19,7 @@ export class AddComponent implements OnInit {
       'phone': [null, Validators.required],     
       'username': '',
       'password': [null, Validators.required],
-      'email': [null, Validators.required], 
+      'email': [null, Validators.compose([Validators.required, Validators.email])], 
       'is_active': '',    
       'location': {
         "lat": 0,

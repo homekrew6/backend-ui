@@ -19,7 +19,7 @@ export class EditComponent implements OnInit {
       'name': [null, Validators.required],
       'phone': [null, Validators.required],     
       'username': '',      
-      'email': [null, Validators.required],
+      'email': [null, Validators.compose([Validators.required, Validators.email])],
       'is_active': '',
       'commission':[]
       

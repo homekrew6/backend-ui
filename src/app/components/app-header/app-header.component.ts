@@ -1,12 +1,14 @@
 import { Component, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './app-header.component.html'
 })
 export class AppHeader {
   logName = '';
-  constructor(private el: ElementRef, private router: Router) { }
+  constructor(private el: ElementRef, private router: Router, private authSrvc: AuthService) {
+  }
 
   //wait for the component to render completely
   ngOnInit(): void {
@@ -23,6 +25,12 @@ export class AppHeader {
   }
 
   logout() {
+    if (localStorage.getItem('role') == "admin") {
+      const userId = localStorage.getItem("userId");
+      this.authSrvc.updatePushToken(localStorage.getItem("userId"), { pushToken: "" }).subscribe((res) => {
+
+      });
+    }
     localStorage.clear();
     this.router.navigate(['pages/login']);
   }

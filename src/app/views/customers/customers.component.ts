@@ -21,6 +21,9 @@ export class CustomersComponent implements OnInit {
       phone: {
         title: 'Phone'
       },
+      status: {
+        title: 'Status'
+      },
     },
     actions: {
       add: false,
@@ -68,6 +71,16 @@ export class CustomersComponent implements OnInit {
   public getAllCustomers(){
     this.customerService.getCustomer().subscribe(res=>{
       //console.log(res);
+      res.map((item)=>{
+        if(item.is_active==1)
+        {
+          item.status ="Active";
+        }
+        else
+        {
+          item.status = "InActive"
+        }
+      })
       this.customerList=res;
     })
   }

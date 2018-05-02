@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-
+import { ServiceService } from '../../services/service.service';
 import * as firebase from 'firebase/app';
 @Component({
   selector: 'app-chat',
@@ -19,8 +19,9 @@ export class ChatComponent implements OnInit {
   message: any;
   errorMessage: any;
   selectedCustomer: any;
+  is_disable=false;
   // @ViewChild('chatScroll') private chatScroll: ElementRef;
-  constructor(private router: Router) {
+  constructor(private router: Router, private service: ServiceService) {
     if (localStorage.getItem("userId")) {
       this.userId = localStorage.getItem("userId");
     }
@@ -40,6 +41,43 @@ export class ChatComponent implements OnInit {
       }
       this.IsShowChatSection = true;
     }
+
+  }
+
+
+  public fileChangeListener($event) {
+    if(!this.is_disable)
+    {
+      this.is_disable = true;
+      console.log($event);
+
+      const image: any = new Image();
+      let file: File = $event.target.files[0];
+      const myReader: FileReader = new FileReader();
+      const that = this;
+      myReader.onloadend = function (loadEvent: any) {
+        image.src = loadEvent.target.result;
+
+      };
+      const fd = new FormData();
+      fd.append('file', file);
+
+      this.service.addServiceWithFile(fd).subscribe((res) => {
+        if (res.type == "success") {
+          console.log(res);
+          const data = {
+            Message: "", IsAdminSender: true, chatRoomId:
+              this.chatRoomId, customerName: this.selectedCustomer.customerName, customerId: this.selectedCustomer.customerId, date: new Date().toUTCString(), adminId: this.userId,
+            MessageImage: res.url
+          };
+          this.messageRef.push(data);
+          this.is_disable = false;
+
+        }
+      })
+      myReader.readAsDataURL(file);
+    }
+    
 
   }
   ngOnInit() {

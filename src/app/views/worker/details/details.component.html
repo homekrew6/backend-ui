@@ -1,0 +1,37 @@
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Worker Details</strong>
+                </div>
+                <div class="card-body">
+                    <accordion [closeOthers]="true">
+                        <accordion-group heading=" Skill Set">
+                            <div *ngIf="skillsList.length>0">
+                                <ul class="list-group" *ngFor="let item of skillsList">
+                                    <li class="list-group-item">
+                                        <p>{{item.service.name}}</p>
+                                        <div><img [src]="item.service.cover_image" [height]="100" [width]="100" /></div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div *ngIf="skillsList.length==0">
+                                <div>No Skills </div>
+                            </div>
+                        </accordion-group>
+                        <accordion-group heading="Job History">
+                            <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="jobList"></ng2-smart-table>
+                        </accordion-group>
+
+                    </accordion>
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+
+</div>

@@ -37,12 +37,13 @@
                 <span class="d-md-down-none">{{logName}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-                <div class="dropdown-header text-center"><strong>Settings</strong></div>
+                <!-- <div class="dropdown-header text-center"><strong>Settings</strong></div> -->
+                <a class="dropdown-header text-center" href="javascript:void(0)" [routerLink]="['/profile']"><i class="icon-settings"></i> Profile</a>
                 <!--<a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
                 <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
                 <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>-->
                 <div class="divider"></div>
-                <a class="dropdown-item" href="#" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
+                <a class="dropdown-item" href="javascript:void(0)" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
             </div>
         </li>
         &nbsp;

@@ -1,61 +1,78 @@
 <div class="animated fadeIn">
     <div class="row">
-        <!--<div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3">
             <div class="card text-white bg-primary">
                 <div class="card-body pb-0">
-                    <h4 class="mb-0">9.823</h4>
-                    <p>New Projects</p>
-                </div>
-                <div class="chart-wrapper px-3" style="height:70px;">
-                    <canvas baseChart class="chart" [datasets]="lineChart1Data" [labels]="lineChart1Labels" [options]="lineChart1Options" [colors]="lineChart1Colours" [legend]="lineChart1Legend" [chartType]="lineChart1Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-info">
-                <div class="card-body pb-0">
+                    <div class="btn-group float-right" dropdown="">
+                        <button class="btn btn-transparent dropdown-toggle p-0" (click)="showWorkerActive()" dropdowntoggle="" type="button" aria-haspopup="true" aria-expanded="false">
+              <i class="icon-settings"></i>
+            </button>
 
-                    <h4 class="mb-0">9.823</h4>
-                    <p>Members</p>
-                </div>
-                <div class="chart-wrapper px-3" style="height:70px;">
-                    <canvas baseChart class="chart" [datasets]="lineChart2Data" [labels]="lineChart2Labels" [options]="lineChart2Options" [colors]="lineChart2Colours" [legend]="lineChart2Legend" [chartType]="lineChart2Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-warning">
-                <div class="card-body pb-0">
 
-                    <h4 class="mb-0">9.823</h4>
-                    <p>Freelancers</p>
-                </div>
-                <div class="chart-wrapper" style="height:70px;">
-                    <canvas baseChart class="chart" [datasets]="lineChart3Data" [labels]="lineChart3Labels" [options]="lineChart3Options" [colors]="lineChart3Colours" [legend]="lineChart3Legend" [chartType]="lineChart3Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-danger">
-                <div class="card-body pb-0">
+                        <div class="dropdown-menu" id="activeWorkerDropdown">
+                            <a class="dropdown-item" href="javascript:void(0)" (click)="filterActiveWorkersCount()">{{IsFilter?'Total Workers':'Total Active'}}</a>
+                            <a class="dropdown-item" [routerLink]="['/worker']">Go To Worker</a>
+                        </div>
+                    </div>
+                    <h4 class="mb-0">{{countDetails.workersCount}}</h4>
+                    <p>Total Workers</p>
 
-                    <h4 class="mb-0">9.823</h4>
-                    <p>Customers</p>
-                </div>
-                <div class="chart-wrapper px-3" style="height:70px;">
-                    <canvas baseChart class="chart" [datasets]="barChart1Data" [labels]="barChart1Labels" [options]="barChart1Options" [colors]="barChart1Colours" [legend]="barChart1Legend" [chartType]="barChart1Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+
                 </div>
             </div>
-        </div>-->
-        
+
+
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body pb-0">
+                    <div class="btn-group float-right" dropdown="">
+                        <button class="btn btn-transparent" type="button" (click)="showCustomerActive()">
+              <i class="icon-settings"></i>
+            </button>
+
+                        <div class="dropdown-menu" id="activeCustomerDropdown">
+                            <a class="dropdown-item" href="javascript:void(0)" (click)="filterActiveCustomersCount()">{{IsFilterCustomer?'Total Customers':'Total Active'}}</a>
+                            <a class="dropdown-item" [routerLink]="['/customers']">Go To Customer</a>
+                        </div>
+                    </div>
+                    <h4 class="mb-0">{{countDetails.customerCount}}</h4>
+                    <p>Total Customer</p>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="col-sm-6 col-lg-3">
+            <a [routerLink]="['/job']">
+                <div class="card text-white bg-primary">
+                    <div class="card-body pb-0">
+                        <div class="btn-group float-right" dropdown="">
+                            <button class="btn btn-transparent" type="button">
+              <i class="icon-settings"></i>
+            </button>
+
+                            <div class="dropdown-menu dropdown-menu-right" style="left: auto; right: 0px; top: 100%; transform: translateY(0px);">
+                                <a class="dropdown-item" href="javascript:void(0)">Total Active</a>
+                            </div>
+                        </div>
+                        <h4 class="mb-0">{{countDetails.jobCount}}</h4>
+                        <p>Total Jobs</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+
     </div>
-    
 
 
-    
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -63,12 +80,13 @@
                     Dashboard
                 </div>
                 <div class="card-body">
+                    <fusioncharts [id]="id" [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource"></fusioncharts>
+                    <!-- 
 
-                    
                     <br>
                     <div class="table-responsive"></div>
                     <h6>Coming soon.</h6>
-                    <!-- <table class="table table-responsive table-hover table-outline mb-0">
+                    <table class="table table-responsive table-hover table-outline mb-0">
                         <thead class="thead-default">
                             <tr>
                                 <th class="text-center"><i class="icon-people"></i></th>
@@ -104,7 +122,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
-    
+
 </div>

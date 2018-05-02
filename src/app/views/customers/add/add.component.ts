@@ -18,7 +18,7 @@ export class AddComponent implements OnInit {
     this.rForm = fb.group({
       'name': [null, Validators.required],
       'phone': [null, Validators.required],
-      'username': [null, Validators.required],
+      'username': [null],
       'password': [null, Validators.required],
       'email': [null, Validators.required],
       'is_active': '', 
