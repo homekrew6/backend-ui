@@ -37,20 +37,8 @@ export class PaymentComponent implements OnInit {
       delete: false,
       custom: [
         {
-          name: 'edit',
-          title: '<i class="fa fa-pencil"></i>',
-        },
-        {
           name: 'delete',
           title: '<i class="fa fa-trash" ></i>',
-        },
-        {
-          name: 'status',
-          title: 'Change Status',
-        },
-        {
-          name: 'type',
-          title: 'Change Type',
         }
       ],
     },
