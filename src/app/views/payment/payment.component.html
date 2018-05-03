@@ -7,7 +7,9 @@
                     <span style="float:right"><a [routerLink]="['/cms/add']" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; ADD</a></span>
                 </div>
                 <div class="card-body">
-                    <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="paymentList"></ng2-smart-table>
+                    <div style="overflow-x: scroll">
+                        <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="paymentList"></ng2-smart-table>
+                    </div>
                 </div>
             </div>
         </div>

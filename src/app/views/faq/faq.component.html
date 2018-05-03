@@ -26,9 +26,9 @@
               </tr>               
             </tbody>
           </table> -->
-          
-          <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="faqList"></ng2-smart-table>   
-
+          <div style="overflow-x: scroll">
+            <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="faqList"></ng2-smart-table>   
+          </div>
         </div>
       </div>
     </div>

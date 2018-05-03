@@ -1,15 +1,6 @@
-:host /deep/ ng2-smart-table tr td {
-    vertical-align: middle;
-    padding-top: 0.75rem;
-    text-align: center;
-}
-
-:host /deep/ ng2-smart-table tr th {
-    vertical-align: middle;
-    padding-top: 0.75rem;
-    text-align: center;
-}
-
+:host /deep/ ng2-smart-table .table { width: auto; max-width: auto; }
+:host /deep/ ng2-smart-table tr td { vertical-align: middle; padding-top: 0.75rem; text-align: center; }
+:host /deep/ ng2-smart-table tr th { vertical-align: middle; padding-top: 0.75rem; text-align: center; }
 :host /deep/ ng2-smart-table tr td a {
     border: 1px solid #ddd;
     padding-left: 0.625rem;
@@ -37,4 +28,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+:host /deep/ ng2-smart-table .table  {
+    min-width: 1500px;
 }
