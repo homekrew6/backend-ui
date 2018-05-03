@@ -21,7 +21,10 @@ export class CurrencyComponent implements OnInit {
   public getAllCurrencies(){
     this.currencyService.getCurrency().subscribe(res=>{
       //console.log(res);
-      this.currencyList=res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.currencyList = filteredItems;
       console.log(this.currencyList);
     })
   }

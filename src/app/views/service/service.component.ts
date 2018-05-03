@@ -67,7 +67,10 @@ export class ServiceComponent implements OnInit {
       res.map((item) => {
         item.verticalName = item.vertical.name;
       })
-      this.serviceList=res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.serviceList = filteredItems;
     })
   }
 

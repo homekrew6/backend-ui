@@ -70,7 +70,10 @@ export class PaymentComponent implements OnInit {
   public getAllPayment(){
     this.srvc.getPayment().subscribe(res=>{
       //console.log(res);
-      this.paymentList=res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.paymentList = filteredItems;
     })
   }
 

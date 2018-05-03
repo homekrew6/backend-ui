@@ -63,7 +63,10 @@ export class MaterialsComponent implements OnInit {
   public getAllMaterials() {
     this.srvc.getMaterial().subscribe(res => {
       //console.log(res);
-      this.materialsList = res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.materialsList = filteredItems;
     })
   }
   public deleteMaterial(id) {

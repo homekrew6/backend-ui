@@ -19,7 +19,10 @@ export class VerticalComponent implements OnInit {
   public getAllVerticals(){
     this.verticalService.getVertical().subscribe(res=>{
       //console.log(res);
-      this.verticalList=res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.verticalList = filteredItems;
     })
   }
   // public deleteVertical(id){

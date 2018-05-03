@@ -14,7 +14,7 @@ export class AgentComponent implements OnInit {
   settings = {
     columns: {
       name: {
-        title: 'Name',
+        title: 'Name'
       },
       email: {
         title: 'Email'
@@ -83,7 +83,10 @@ export class AgentComponent implements OnInit {
       {
         const userId=localStorage.getItem("userId");
         let finalList=[];
-        res.response.map((item) => {
+        const filteredItems = res.response.sort(function (a, b) {
+          return b.id - a.id;
+        });
+        filteredItems.map((item) => {
           if(item.id!=userId)
           {
             if (item.is_active == 1) {

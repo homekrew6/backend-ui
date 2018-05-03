@@ -19,7 +19,10 @@ export class CmsComponent implements OnInit {
   public getAllCms(){
     this.cmsService.getCms().subscribe(res=>{
       //console.log(res);
-      this.cmsList=res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.cmsList = filteredItems;
     })
   }
   public deleteCms(id){

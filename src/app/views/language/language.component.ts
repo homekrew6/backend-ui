@@ -19,7 +19,10 @@ export class LanguageComponent implements OnInit {
   public getAllLanguages(){
     this.languageService.getLanguages().subscribe(res=>{
       //console.log(res);
-      this.languageList=res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.languageList = filteredItems;
       console.log(this.languageList);
     })
   }

@@ -19,7 +19,10 @@ export class CancelReasonComponent implements OnInit {
   public getAllReasons(){
     this.cancelSrvc.getCancelReason().subscribe(res=>{
       //console.log(res);
-      this.cancelReasonList=res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.cancelReasonList = filteredItems;
     })
   }
   public deleteReason(id){

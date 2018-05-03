@@ -19,7 +19,10 @@ export class IntroSlidersComponent implements OnInit {
   public getAllSlider(){
     this.sliderService.getSlider().subscribe(res=>{
       //console.log(res);
-      this.sliderList = res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.sliderList = filteredItems;
     })
   }
   public deleteSlider(id){

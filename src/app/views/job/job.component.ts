@@ -120,9 +120,12 @@ export class JobComponent implements OnInit {
   public getAllJobs() {
     this.jobService.getJobList().subscribe(res => {
       //console.log(res);
+      const filteredItems = res.response.message.sort(function (a, b) {
+        return b.id - a.id;
+      });
       if (this.role.toLowerCase()=="admin")
       {
-        this.jobList = res.response.message;
+        this.jobList = filteredItems;
         this.formatJobData();
       }
       else
@@ -135,7 +138,8 @@ export class JobComponent implements OnInit {
             agentDetails.response.message.zones.map((item)=>{
               myZoneList.push(item);
             });
-            res.response.message.map((item)=>{
+
+            filteredItems.map((item)=>{
               if(myZoneList.includes(item.zoneId))
               {
                 this.jobList.push(item);

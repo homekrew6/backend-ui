@@ -80,8 +80,10 @@ export class QuestionComponent implements OnInit {
 
   public getAllQuestion(){
     this.questionService.getQuestion().subscribe(res=>{
-      console.log(res);
-      this.questionList=res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.questionList = filteredItems;
     })
   }
   

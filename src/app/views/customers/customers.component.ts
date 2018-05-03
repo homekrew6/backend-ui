@@ -80,8 +80,11 @@ export class CustomersComponent implements OnInit {
         {
           item.status = "InActive"
         }
-      })
-      this.customerList=res;
+      });
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.customerList = filteredItems;
     })
   }
 

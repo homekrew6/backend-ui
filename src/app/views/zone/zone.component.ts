@@ -27,8 +27,12 @@ export class ZoneComponent implements OnInit {
   public getAllZones() {
     this.zoneService.getZone().subscribe(res => {
       //console.log(res);
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
       if (this.role.toLowerCase() == "admin") {
-        this.zoneList = res;
+       
+        this.zoneList = filteredItems;
       }
      
       else {
@@ -46,6 +50,7 @@ export class ZoneComponent implements OnInit {
                   finalList.push(item);
                 }
               });
+
               this.zoneList=finalList;
             }
           }

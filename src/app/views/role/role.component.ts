@@ -22,9 +22,13 @@ export class RoleComponent implements OnInit {
   public getAllRole(){
     this.srvc.getRoleTypes().subscribe(res=>{
       //console.log(res);
-      this.roleList=res;
+    const filteredItems=  res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.roleList = filteredItems;
     })
   }
+
   public deleteFaq(id){
     //console.log(id);
     let confirmMessage = confirm('Do you want to delete?')

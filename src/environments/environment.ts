@@ -24,6 +24,6 @@ export const environment = {
 };
 
 export const absEnvironment = {   
-  // absuluteUrl : '/assets/tinymce/skins/lightgray',
-  absuluteUrl : '/team3/krew_admin/assets/tinymce/skins/lightgray',  
+  absuluteUrl : '/assets/tinymce/skins/lightgray',
+  // absuluteUrl : '/team3/krew_admin/assets/tinymce/skins/lightgray',  
 };

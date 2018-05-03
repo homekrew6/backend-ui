@@ -133,8 +133,12 @@ export class WorkerComponent implements OnInit {
         {
           item.isDedicated = "Standard";
         }
-      })     
-      this.workerList=res;
+      });
+      
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.workerList = filteredItems;
     })
   }
   public deleteWorker(id){    

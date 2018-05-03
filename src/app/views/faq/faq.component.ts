@@ -58,7 +58,10 @@ export class FaqComponent implements OnInit {
   public getAllFaqs(){
     this.faqService.getFaq().subscribe(res=>{
       // console.log(res);
-      this.faqList=res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.faqList = filteredItems;
     })
   }
   public deleteFaq(id){

@@ -68,7 +68,10 @@ export class PromotionsComponent implements OnInit {
   public getAllPromos(){
     this.srvc.getPromo().subscribe(res=>{
       //console.log(res);
-      this.promosList=res;
+      const filteredItems = res.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      this.promosList = filteredItems;
     })
   }
   public deletePromo(id){
