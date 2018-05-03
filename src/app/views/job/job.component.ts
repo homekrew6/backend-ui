@@ -130,7 +130,7 @@ export class JobComponent implements OnInit {
         this.authSrvc.getIndividualAgent(localStorage.getItem('userId')).subscribe((agentDetails)=>{
           if (agentDetails.response.type == "Success") 
           {
-            debugger;
+            // debugger;
             let myZoneList=[];
             agentDetails.response.message.zones.map((item)=>{
               myZoneList.push(item);

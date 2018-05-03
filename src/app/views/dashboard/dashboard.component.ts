@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   dataFormat = 'json';
   IsFilter = false;
   IsFilterCustomer = false;
+  finalDayRange = [ ];
   constructor(private workerService: WorkerService, private customerSrvc: CustomerService, private jobSrvc: JobService,
     private paymentSrvc: PaymentService) {
 
@@ -66,48 +67,49 @@ export class DashboardComponent implements OnInit {
       ]
 
     }
-    // const curr = new Date; // get current date
-    // const first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
-    // const last = first + 6; // last day is the first day + 6
-
-    // const firstday = new Date(curr.setDate(first));
-    // const lastday = new Date(curr.setDate(last));
-    // let dayRange = [];
-    // for (let i = 0; i <= 6; i++) {
-    //   debugger;
-    //   if (i == 0) {
-    //     const paymentDate = new Date(firstday);
-    //     const month = paymentDate.getMonth() + 1;
-    //     const month1 = ("0" + month).slice(-2);
-    //     const day = paymentDate.getDate();
-    //     const day1 = ("0" + day).slice(-2);
-    //     dayRange.push({ paymentDate: paymentDate, actualDate: day1 + "/" + month1 + "/" + paymentDate.getFullYear() });
-    //   }
-    //   else if (i == 6) {
-    //     const paymentDate = new Date(lastday);
-    //     const month = paymentDate.getMonth() + 1;
-    //     const month1 = ("0" + month).slice(-2);
-    //     const day = paymentDate.getDate();
-    //     const day1 = ("0" + day).slice(-2);
-    //     dayRange.push({ paymentDate: paymentDate, actualDate: day1 + "/" + month1 + "/" + paymentDate.getFullYear() });
-
-    //   }
-    //   else {
-    //     let index = dayRange.length - 1;
-
-    //     let paymentDate = new Date(dayRange[index].paymentDate);
-    //     paymentDate.setDate(paymentDate.getDate() + 1)
-    //     const month = paymentDate.getMonth() + 1;
-    //     const month1 = ("0" + month).slice(-2);
-    //     const day = paymentDate.getDate();
-    //     const day1 = ("0" + day).slice(-2);
-    //     dayRange.push({ paymentDate: paymentDate, actualDate: day1 + "/" + month1 + "/" + paymentDate.getFullYear() });
-    //   }
-    // }
 
 
 
+    const curr = new Date; // get current date
+    const first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+    const last = first + 6; // last day is the first day + 6
+
+    const firstday = new Date(curr.setDate(first));
+    const lastday = new Date(curr.setDate(firstday.getDate() + 5));
+    let dayRange = [];
+    for (let i = 0; i <= 6; i++) {
+      if (i == 0) {
+        const paymentDate = new Date(firstday);
+        const month = paymentDate.getMonth() + 1;
+        const month1 = ("0" + month).slice(-2);
+        const day = paymentDate.getDate();
+        const day1 = ("0" + day).slice(-2);
+        dayRange.push({ paymentDate: paymentDate, actualDate: day1 + "/" + month1 + "/" + paymentDate.getFullYear() });
+      }
+      else if (i == 6) {
+        let paymentDate = new Date(lastday);
+        paymentDate.setDate(paymentDate.getDate() + 1)
+        const month = paymentDate.getMonth() + 1;
+        const month1 = ("0" + month).slice(-2);
+        const day = paymentDate.getDate();
+        const day1 = ("0" + day).slice(-2);
+        dayRange.push({ paymentDate: paymentDate, actualDate: day1 + "/" + month1 + "/" + paymentDate.getFullYear() });
+      }
+      else {
+        let index = dayRange.length - 1;
+        let paymentDate = new Date(dayRange[index].paymentDate);
+        paymentDate.setDate(paymentDate.getDate() + 1)
+        const month = paymentDate.getMonth() + 1;
+        const month1 = ("0" + month).slice(-2);
+        const day = paymentDate.getDate();
+        const day1 = ("0" + day).slice(-2);
+        dayRange.push({ paymentDate: paymentDate, actualDate: day1 + "/" + month1 + "/" + paymentDate.getFullYear() });
+      }
+    }
+    this.finalDayRange = dayRange;
   }
+
+
   filterActiveCustomersCount() {
     if (this.IsFilterCustomer == false) {
       let finalCount = 0;
@@ -127,6 +129,8 @@ export class DashboardComponent implements OnInit {
 
     $("#activeCustomerDropdown").toggle();
   }
+
+
   filterActiveWorkersCount() {
     if (this.IsFilter == false) {
       let finalCount = 0;
@@ -146,12 +150,16 @@ export class DashboardComponent implements OnInit {
 
     $("#activeWorkerDropdown").toggle();
   }
+
+  
   showWorkerActive() {
     if (localStorage.getItem("role").toLowerCase() == "admin") {
       $("#activeWorkerDropdown").toggle();
     }
 
   }
+
+  
   showCustomerActive() {
     if (localStorage.getItem("role").toLowerCase() == "admin") {
       $("#activeCustomerDropdown").toggle();
@@ -173,6 +181,7 @@ export class DashboardComponent implements OnInit {
     })
 
     this.paymentSrvc.getPayment().subscribe((res) => {
+
       res.map((item) => {
         const paymentDate = new Date(item.paymentDate);
         const month = paymentDate.getMonth() + 1;
@@ -182,42 +191,62 @@ export class DashboardComponent implements OnInit {
         item.paymentDay = day1 + "/" + month1 + "/" + paymentDate.getFullYear();
       });
 
-      var services = {};
-      for (var i = 0; i < res.length; i++) {
-        var paymentDay = res[i].paymentDay;
-        if (!services[paymentDay]) {
-          services[paymentDay] = [];
-        }
-        services[paymentDay].push(res[i]);
-      }
-      let finalList = [];
-      for (var groupName in services) {
-        finalList.push({ group: groupName, color: services[groupName] });
-      }
-      let finalServiceList = [];
-      for (let key in finalList) {
-        let data = { "paymentDate": finalList[key].group, paymentList: [] };
-        for (let i = 0; i < finalList[key].color.length; i++) {
-          data.paymentList.push(finalList[key].color[i]);
-        }
-        finalServiceList.push(data);
-      }
-      let finalPyamentList = [];
-      for (let key in finalServiceList) {
-        let data = { label: finalServiceList[key].paymentDate, value: '' };
-        let totalAmount = 0;
-        for (let key1 in finalServiceList[key].paymentList) {
-          totalAmount = totalAmount + Number(finalServiceList[key].paymentList[key1].amount)
-        }
-        console.log("totalamount", totalAmount);
-        let totalAmount1 = totalAmount.toFixed(2);
-        data.value = totalAmount1;
-        finalPyamentList.push(data);
-      }
-      this.dataSource.data = finalPyamentList;
+      var Newservices = {};
 
-
-
+      
+      for (var j = 0; j < this.finalDayRange.length; j++) {
+        let price = 0;
+        var d2 = this.finalDayRange[j].actualDate;
+        for (var k = 0; k < res.length; k++) {
+          var d1 = res[k].paymentDay;
+          if (d2 == d1 ) {
+            price = price + parseInt(res[k].amount);
+          }
+        }
+        this.finalDayRange[j].price = price;
+      }
+ 
+      // var services = {};
+      // for (var i = 0; i < res.length; i++) {
+      //   var paymentDay = res[i].paymentDay;
+      //   if (!services[paymentDay]) {
+      //     services[paymentDay] = [];
+      //   }
+      //   services[paymentDay].push(res[i]);
+      // }
+      // let finalList = [];
+      // for (var groupName in services) {
+      //   finalList.push({ group: groupName, color: services[groupName] });
+      // }
+      // let finalServiceList = [];
+      // for (let key in finalList) {
+      //   let data = { "paymentDate": finalList[key].group, paymentList: [] };
+      //   for (let i = 0; i < finalList[key].color.length; i++) {
+      //     data.paymentList.push(finalList[key].color[i]);
+      //   }
+      //   finalServiceList.push(data);
+      // }
+      // let finalPyamentList = [];
+      // for (let key in finalServiceList) {
+      //   let data = { label: finalServiceList[key].paymentDate, value: '' };
+      //   let totalAmount = 0;
+      //   for (let key1 in finalServiceList[key].paymentList) {
+      //     totalAmount = totalAmount + Number(finalServiceList[key].paymentList[key1].amount)
+      //   }
+      //   console.log("totalamount", totalAmount);
+      //   let totalAmount1 = totalAmount.toFixed(2);
+      //   data.value = totalAmount1;
+      //   finalPyamentList.push(data);
+      // }
+      let newfinalPyamentList = [];
+      for (let key in this.finalDayRange ){
+        let newData = {
+          label: this.finalDayRange[key].actualDate,
+          value: this.finalDayRange[key].price,          
+        }
+        newfinalPyamentList.push(newData);
+      }
+      this.dataSource.data = newfinalPyamentList;
     })
   }
 }
