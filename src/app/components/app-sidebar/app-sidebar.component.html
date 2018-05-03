@@ -1,7 +1,7 @@
 <div class="sidebar">
     <app-sidebar-header></app-sidebar-header>
     <app-sidebar-form></app-sidebar-form>
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav" style="overflow-y: auto !important">
         <ul class="nav">
             <li class="nav-item" *ngFor="let menu of sidebarMenuList; let i = index">
                 <a class="nav-link" routerLinkActive="active" routerLink="{{menu.routerLink}}"><i class="{{menu.class}}"></i> {{menu.name}} </a>
