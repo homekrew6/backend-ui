@@ -4,6 +4,9 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-align-justify"></i> Job List
+                    <div class="alert alert-danger" *ngIf="errorMessage">
+                        {{errorMessage}}
+                    </div>
                 </div>
                 <div>
                     <span style="font-weight:bold;padding-left:12px">*Note</span>
@@ -22,7 +25,7 @@
                     </ul>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-striped table-sm">
+                    <!-- <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
                                 <th>Service</th>
@@ -69,7 +72,8 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> -->
+                    <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="jobList"></ng2-smart-table>
                 </div>
             </div>
         </div>
@@ -79,7 +83,7 @@
 </div>
 
 
-<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div bsModal id="largeModal" #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">

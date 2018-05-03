@@ -27,7 +27,7 @@ export class ZoneComponent implements OnInit {
   public getAllZones() {
     this.zoneService.getZone().subscribe(res => {
       //console.log(res);
-      if (this.role == "admin") {
+      if (this.role.toLowerCase() == "admin") {
         this.zoneList = res;
       }
      

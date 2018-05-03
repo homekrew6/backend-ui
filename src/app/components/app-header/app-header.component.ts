@@ -25,7 +25,8 @@ export class AppHeader {
   }
 
   logout() {
-    if (localStorage.getItem('role') == "admin") {
+    let role1 = localStorage.getItem('role').toLowerCase();
+    if (role1 == "admin") {
       const userId = localStorage.getItem("userId");
       this.authSrvc.updatePushToken(localStorage.getItem("userId"), { pushToken: "" }).subscribe((res) => {
 

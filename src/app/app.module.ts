@@ -8,6 +8,8 @@ import { environment } from '../environments/environment';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToasterModule } from 'ngx-toaster/src';
 import * as firebase from 'firebase';
 export const firebaseConfig = {
   apiKey: "AIzaSyCnS3M8ZZBYRH4QubDH3OJPKSgk-03Nm9w",
@@ -106,7 +108,9 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    BrowserAnimationsModule,
+    ToasterModule
     //NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyAzwzNzq3irmwjUVU1MhMuwP7qD0CfZijA'})
   ],
   declarations: [

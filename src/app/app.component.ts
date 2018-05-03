@@ -3,16 +3,29 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ToasterService, ToastNotificationConfiguration, ToastType } from 'ngx-toaster/src';
 @Component({
   // tslint:disable-next-line
   selector: 'body',
-  template: '<router-outlet></router-outlet>'
+  template: '<ngx-toast-notification></ngx-toast-notification><router-outlet></router-outlet>'
 })
 export class AppComponent implements OnInit{
   items: Observable<any[]>;
   messaging = firebase.messaging()
   currentMessage = new BehaviorSubject(null)
-  constructor(private authService:AuthService) {};
+  constructor(private authService: AuthService, private toasterService: ToasterService) {
+    // setTimeout(()=>{
+    //   debugger;
+    //   let toastNotificationConfiguration: ToastNotificationConfiguration = {
+    //     message: 'Sample Toast message',
+    //     displayDuration: 5000,
+    //     autoHide: true,
+    //     showCloseButton: true,
+    //     toastType: ToastType.INFORMATION
+    //   };
+    //   this.toasterService.showToastMessage(toastNotificationConfiguration);
+    // },1000)
+  };
 
   ngOnInit()
   {
@@ -26,7 +39,8 @@ export class AppComponent implements OnInit{
         return this.messaging.getToken()
       })
       .then(token => {
-        if(localStorage.getItem("userId") && localStorage.getItem("role")=="admin")
+        let role1 = localStorage.getItem("role").toLowerCase();
+        if (localStorage.getItem("userId") && role1=="admin")
         {
          const data={pushToken:token};
           this.authService.updatePushToken(localStorage.getItem("userId"), data).subscribe((res)=>{
@@ -48,6 +62,14 @@ export class AppComponent implements OnInit{
     this.messaging.onMessage((payload) => {
       console.log("Message received. ", payload);
       this.currentMessage.next(payload)
+      const toastNotificationConfiguration: ToastNotificationConfiguration = {
+        message: payload["notification"].title,
+        displayDuration: 10000,
+        autoHide: true,
+        showCloseButton: true,
+        toastType: ToastType.INFORMATION
+      };
+      this.toasterService.showToastMessage(toastNotificationConfiguration);
     });
 
   }

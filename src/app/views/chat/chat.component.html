@@ -24,8 +24,8 @@
                                                     </div>
                                                 </div>
                                                 <!-- <div class="contact_sec">
-                                                <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
-                                            </div> -->
+                                                    <span class="badge pull-right" style="color:red">3</span>
+                                                </div> -->
                                             </div>
                                         </a>
 
@@ -51,12 +51,12 @@
                                         <span class="chat-img1 pull-left">
                      <img src="assets/img/user.png" alt="User Avatar" class="img-circle">
                      </span>
-                                        <div class="chat-body1 clearfix">
+                                        <div class="chat-body1 clearfix d-inline-block">
                                             <p *ngIf="chat.Message">{{chat.Message}}</p>
                                             <div *ngIf="chat.MessageImage">
-                                                <Img [src]="chat.MessageImage" />
+                                                <Img [src]="chat.MessageImage" style=" height: auto; width: 200px" />
                                             </div>
-                                            <div class="chat_time pull-right">{{chat.date |date}}</div>
+                                            <div class="chat_time">{{chat.date |date}}</div>
                                         </div>
                                     </li>
 
@@ -65,12 +65,12 @@
                                         <span class="chat-img1 pull-right">
                      <img src="assets/img/user.png" alt="User Avatar" class="img-circle">
                      </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p *ngIf="chat.Message">{{chat.Message}}</p>
-                                            <div *ngIf="chat.MessageImage">
-                                                <Img [src]="chat.MessageImage" />
+                                        <div class="chat-body1 clearfix d-inline-block  pull-right">
+                                            <p *ngIf="chat.Message" style="text-align: right">{{chat.Message}}</p>
+                                            <div *ngIf="chat.MessageImage" style="text-align: right">
+                                                <Img [src]="chat.MessageImage" style="height: auto; width: 200px; " />
                                             </div>
-                                            <div class="chat_time pull-left">{{chat.date |date}}</div>
+                                            <div class="chat_time text-right">{{chat.date |date}}</div>
                                         </div>
                                     </li>
 

@@ -111,7 +111,7 @@ export class AddComponent implements OnInit {
     this.roleSrvc.getRoleTypes().subscribe((roles) => {
       let finalList = [];
       roles.map((item) => {
-        if (item.name != "admin") {
+        if (item.name.toLowerCase() != "admin") {
           if (item.is_active == true) {
             finalList.push(item);
           }

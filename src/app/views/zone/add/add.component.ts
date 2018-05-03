@@ -47,7 +47,7 @@ export class AddComponent implements OnInit {
     });
     if (localStorage.getItem("role")) {
       this.role = localStorage.getItem("role");
-      if (this.role != "admin") {
+      if (this.role.toLowerCase() != "admin") {
         this.IsReadOnly = true;
       }
     }
@@ -152,7 +152,7 @@ export class AddComponent implements OnInit {
           return;
         }
       }
-      else if (this.role == "admin") {
+      else if (this.role.toLowerCase() == "admin") {
         if (zone.level < 20 && zone.zoneId) {
           IsValid = false;
           this.error = "You can not add zone parent for level greater than 20.";
@@ -209,7 +209,7 @@ export class AddComponent implements OnInit {
   }
 
   public getAllParent() {
-    if (this.role == "admin") {
+    if (this.role.toLowerCase() == "admin") {
       this.zoneService.getAllParentZones().subscribe(res => {
         this.parentZoneList = res;
 

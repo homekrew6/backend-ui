@@ -146,7 +146,7 @@ export class EditComponent implements OnInit {
     }
     if(IsValid)
     {
-      if (this.role != "admin")
+      if (this.role.toLowerCase() != "admin")
       {
         zone.zoneId=this.parentZoneId;
         zone.level=this.selectedLevel;
@@ -219,7 +219,7 @@ export class EditComponent implements OnInit {
       this.rForm.controls['level'].setValue(res.level);
       this.rForm.controls['banner_image'].setValue(res.banner_image);
       console.log(this.rForm.value)
-      if(this.role !="admin")
+      if (this.role.toLowerCase() !="admin")
       {
         this.parentZoneId = res.zoneId;
         this.selectedLevel = res.level;
@@ -278,7 +278,7 @@ public getAllCurrencies(){
 }
 
 public getAllParent(){
-  if (this.role == "admin") {
+  if (this.role.toLowerCase() == "admin") {
     this.zoneService.getAllParentZones().subscribe(res => {
       this.parentZoneList = res;
 

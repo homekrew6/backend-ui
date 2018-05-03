@@ -51,7 +51,6 @@ export class AdminProfileComponent implements OnInit {
         const self=this;
         this.authService.getIndividualAgent(localStorage.getItem("userId")).subscribe((res) => {
             if (res.response.type == "Success") {
-                debugger;
                 this.userDetails = res.response.message;
                 this.rForm.controls['name'].setValue(self.userDetails.name);
                 this.rForm.controls['phone'].setValue(self.userDetails.phone);
@@ -94,11 +93,9 @@ export class AdminProfileComponent implements OnInit {
             this.errorMessage = '';
             console.log(admin);
             this.is_disable = true;
-            debugger;
             const self = this;
             if (admin.file.length==undefined) {
                 this.service.addServiceWithFile(admin.file).subscribe((success) => {
-                    debugger;
                     if (success.type == "success") {
                         admin.image = success.url;
                         self.userDetails.image = success.url;

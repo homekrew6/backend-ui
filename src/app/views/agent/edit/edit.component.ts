@@ -83,7 +83,7 @@ export class EditComponent implements OnInit {
       let finalList = [];
       roles.map((item) => {
 
-        if (item.name != "admin") {
+        if (item.name.toLowerCase() != "admin") {
           if (item.is_active == true) {
             finalList.push(item);
           }

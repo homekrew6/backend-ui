@@ -5,22 +5,22 @@ import { WorkerService } from './../../services/worker.service';
 import { JobService } from '../../services/job.service';
 import { PaymentService } from '../../services/payment.service';
 
-declare var jquery:any;
-declare var $ :any;
+declare var jquery: any;
+declare var $: any;
 @Component({
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
   countDetails = { workersCount: 0, customerCount: 0, jobCount: 0 };
-  listDetails={workers:[], customers:[], jobs:[]};
+  listDetails = { workers: [], customers: [], jobs: [] };
   dataSource;
   id = 'chart1';
   width = 600;
   height = 400;
   type = 'column2d';
   dataFormat = 'json';
-  IsFilter=false;
-  IsFilterCustomer=false;
+  IsFilter = false;
+  IsFilterCustomer = false;
   constructor(private workerService: WorkerService, private customerSrvc: CustomerService, private jobSrvc: JobService,
     private paymentSrvc: PaymentService) {
 
@@ -66,9 +66,49 @@ export class DashboardComponent implements OnInit {
       ]
 
     }
+    // const curr = new Date; // get current date
+    // const first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+    // const last = first + 6; // last day is the first day + 6
+
+    // const firstday = new Date(curr.setDate(first));
+    // const lastday = new Date(curr.setDate(last));
+    // let dayRange = [];
+    // for (let i = 0; i <= 6; i++) {
+    //   debugger;
+    //   if (i == 0) {
+    //     const paymentDate = new Date(firstday);
+    //     const month = paymentDate.getMonth() + 1;
+    //     const month1 = ("0" + month).slice(-2);
+    //     const day = paymentDate.getDate();
+    //     const day1 = ("0" + day).slice(-2);
+    //     dayRange.push({ paymentDate: paymentDate, actualDate: day1 + "/" + month1 + "/" + paymentDate.getFullYear() });
+    //   }
+    //   else if (i == 6) {
+    //     const paymentDate = new Date(lastday);
+    //     const month = paymentDate.getMonth() + 1;
+    //     const month1 = ("0" + month).slice(-2);
+    //     const day = paymentDate.getDate();
+    //     const day1 = ("0" + day).slice(-2);
+    //     dayRange.push({ paymentDate: paymentDate, actualDate: day1 + "/" + month1 + "/" + paymentDate.getFullYear() });
+
+    //   }
+    //   else {
+    //     let index = dayRange.length - 1;
+
+    //     let paymentDate = new Date(dayRange[index].paymentDate);
+    //     paymentDate.setDate(paymentDate.getDate() + 1)
+    //     const month = paymentDate.getMonth() + 1;
+    //     const month1 = ("0" + month).slice(-2);
+    //     const day = paymentDate.getDate();
+    //     const day1 = ("0" + day).slice(-2);
+    //     dayRange.push({ paymentDate: paymentDate, actualDate: day1 + "/" + month1 + "/" + paymentDate.getFullYear() });
+    //   }
+    // }
+
+
+
   }
-  filterActiveCustomersCount()
-  {
+  filterActiveCustomersCount() {
     if (this.IsFilterCustomer == false) {
       let finalCount = 0;
       this.listDetails.customers.map((item) => {
@@ -88,8 +128,7 @@ export class DashboardComponent implements OnInit {
     $("#activeCustomerDropdown").toggle();
   }
   filterActiveWorkersCount() {
-    if(this.IsFilter==false)
-    {
+    if (this.IsFilter == false) {
       let finalCount = 0;
       this.listDetails.workers.map((item) => {
         if (item.is_active) {
@@ -99,25 +138,29 @@ export class DashboardComponent implements OnInit {
       this.countDetails.workersCount = finalCount;
       this.IsFilter = true;
     }
-    else
-    {
-      
+    else {
+
       this.countDetails.workersCount = this.listDetails.workers.length;
       this.IsFilter = false;
     }
-    
+
     $("#activeWorkerDropdown").toggle();
   }
   showWorkerActive() {
-    $("#activeWorkerDropdown").toggle();
+    if (localStorage.getItem("role").toLowerCase() == "admin") {
+      $("#activeWorkerDropdown").toggle();
+    }
+
   }
-  showCustomerActive()
-  {
-    $("#activeCustomerDropdown").toggle();
+  showCustomerActive() {
+    if (localStorage.getItem("role").toLowerCase() == "admin") {
+      $("#activeCustomerDropdown").toggle();
+    }
+
   }
   ngOnInit() {
     this.workerService.getWorker().subscribe((res) => {
-      this.listDetails.workers=res;
+      this.listDetails.workers = res;
       this.countDetails.workersCount = res.length;
     });
     this.customerSrvc.getCustomer().subscribe((res) => {
@@ -126,18 +169,18 @@ export class DashboardComponent implements OnInit {
     })
 
     this.jobSrvc.getJobList().subscribe((res) => {
-      this.countDetails.jobCount = res.length;
+      this.countDetails.jobCount = res.response.message.length;
     })
 
     this.paymentSrvc.getPayment().subscribe((res) => {
-     res.map((item)=>{
-       const paymentDate=new Date(item.paymentDate);
-       const month = paymentDate.getMonth()+1;
-       const month1=("0"+month).slice(-2);
-       const day=paymentDate.getDate();
-       const day1 = ("0" + day).slice(-2);
-       item.paymentDay = day1 + "/" + month1+"/"+paymentDate.getFullYear();
-     });
+      res.map((item) => {
+        const paymentDate = new Date(item.paymentDate);
+        const month = paymentDate.getMonth() + 1;
+        const month1 = ("0" + month).slice(-2);
+        const day = paymentDate.getDate();
+        const day1 = ("0" + day).slice(-2);
+        item.paymentDay = day1 + "/" + month1 + "/" + paymentDate.getFullYear();
+      });
 
       var services = {};
       for (var i = 0; i < res.length; i++) {
@@ -151,7 +194,7 @@ export class DashboardComponent implements OnInit {
       for (var groupName in services) {
         finalList.push({ group: groupName, color: services[groupName] });
       }
-     let  finalServiceList = [];
+      let finalServiceList = [];
       for (let key in finalList) {
         let data = { "paymentDate": finalList[key].group, paymentList: [] };
         for (let i = 0; i < finalList[key].color.length; i++) {
@@ -159,24 +202,22 @@ export class DashboardComponent implements OnInit {
         }
         finalServiceList.push(data);
       }
-     let finalPyamentList=[];
-      for(let key in finalServiceList)
-      {
-        let data = { label: finalServiceList[key].paymentDate, value:''};
-        let totalAmount=0;
-        for (let key1 in finalServiceList[key].paymentList)
-        {
-           totalAmount=totalAmount+Number(finalServiceList[key].paymentList[key1].amount)
+      let finalPyamentList = [];
+      for (let key in finalServiceList) {
+        let data = { label: finalServiceList[key].paymentDate, value: '' };
+        let totalAmount = 0;
+        for (let key1 in finalServiceList[key].paymentList) {
+          totalAmount = totalAmount + Number(finalServiceList[key].paymentList[key1].amount)
         }
         console.log("totalamount", totalAmount);
-        let  totalAmount1=totalAmount.toFixed(2);
+        let totalAmount1 = totalAmount.toFixed(2);
         data.value = totalAmount1;
         finalPyamentList.push(data);
       }
-      this.dataSource.data=finalPyamentList;
-      
+      this.dataSource.data = finalPyamentList;
 
-     
+
+
     })
   }
 }

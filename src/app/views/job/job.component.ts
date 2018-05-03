@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ElementRef, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { JobService } from '../../services/job.service';
 import { AuthService } from '../../services/auth.service';
-declare var jqyery: any;
+import { DatePipe } from '@angular/common';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+declare var jquery: any;
 declare var $: any;
 @Component({
   selector: 'app-job',
@@ -16,7 +18,68 @@ export class JobComponent implements OnInit {
   availableWorkerList = [];
   selectedJobId: any;
   isAssigning = false;
+  errorMessage:any;
+  @ViewChild('largeModal') public largeModal: ModalDirective;
   role='';
+  settings = {
+    columns: {
+      service: {
+        title: 'Service',
+        valuePrepareFunction: (cell, row) => { return row.service?row.service.name:'' }
+      },
+      customer: {
+        title: 'Customer',
+        valuePrepareFunction: (cell, row) => { return row.customer?row.customer.name:'' }
+      },
+      customerEmail: {
+        title: 'Customer Email',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { return row.customer ? '<a href="mailto:' + row.customer.email+'">' + row.customer.email+'</a>':'' }
+      },
+      worker: {
+        title: 'Worker',
+        valuePrepareFunction: (cell, row) => { return row.worker?row.worker.name:'N/A' }
+      },
+      workerEmail: {
+        title: 'Worker Email',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => { return row.worker ? '<a href="mailto:' + row.worker.email + '">' + row.worker.email + '</a>' : '' }
+      },
+      status1: {
+        title: 'Status'
+      },
+      price:{
+        title:'Price'
+      },
+      postedDate:{
+        title:'Posted Date',
+        valuePrepareFunction: (cell, row) => { const raw = new Date(row.postedDate); const formatted = new DatePipe('en-EN').transform(raw, 'dd MMM yyyy HH:mm:ss'); return formatted; }
+      }
+      
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+      custom: [
+        {
+          name: 'info',
+          title: '<i class="fa fa-info"></i>',
+        },
+        {
+          name: 'delete',
+          title: '<i class="fa fa-trash" ></i>',
+        },
+        {
+          name: 'assign',
+          title: '<i class="fa fa-tasks" ></i>',
+        }
+      ],
+    },
+    attr: {
+      class: 'table table-bordered'
+    },
+  };
   constructor(private router: Router, private jobService: JobService, private authSrvc:AuthService) { 
 
     if(localStorage.getItem("role"))
@@ -29,11 +92,35 @@ export class JobComponent implements OnInit {
     // $('#test').hide();
     this.getAllJobs();
   }
-
+  onCustom(event) {
+    if (event.action == "delete") {
+      this.deleteJob(event.data.id);
+    }
+    else if (event.action == "info") {
+      //this.router.navigate(['/worker/edit', { id: "SomeValue" }]);
+      if(event.data.price)
+      {
+        event.data.price=parseFloat(event.data.price).toFixed(2);
+      }
+     this.goToDetails(event.data)
+    }
+    else if (event.action == "assign") {
+      if(event.data.status1!='S')
+      {
+        window.scrollTo(0,0);
+        this.errorMessage='This job is alreay assigned.';
+      }
+      else
+      {
+        this.openModal('', event.data)
+      }
+   
+    }
+  }
   public getAllJobs() {
     this.jobService.getJobList().subscribe(res => {
       //console.log(res);
-      if(this.role=="admin")
+      if (this.role.toLowerCase()=="admin")
       {
         this.jobList = res.response.message;
         this.formatJobData();
@@ -61,21 +148,21 @@ export class JobComponent implements OnInit {
       }
      
     
-      setTimeout(function () {
+      // setTimeout(function () {
 
-        $('a[href*="mailto:"]').each(function () {
+      //   $('a[href*="mailto:"]').each(function () {
 
-          // get the replaced text/number
-          let number = $(this).text();
+      //     // get the replaced text/number
+      //     let number = $(this).text();
 
-          // replace all spaces with nothing (in case the tel: property doesn't like spaces)
-          number = number.replace(/\s+/g, '').toLowerCase();
+      //     // replace all spaces with nothing (in case the tel: property doesn't like spaces)
+      //     number = number.replace(/\s+/g, '').toLowerCase();
 
-          // update the href attribute to the replaced number
-          $(this).attr('href', 'mailto:' + number);
-        });
+      //     // update the href attribute to the replaced number
+      //     $(this).attr('href', 'mailto:' + number);
+      //   });
 
-      }, 100)
+      // }, 100)
     })
   }
 
@@ -173,8 +260,15 @@ export class JobComponent implements OnInit {
         this.jobService.getAvailableWorkerList(data).subscribe((res) => {
           this.is_disabled = false;
           this.availableWorkerList = res.response.message;
-          console.log("pragati", this.availableWorkerList);
-          largeModal.show();
+          if(largeModal)
+          {
+            largeModal.show();
+          }
+          else if(this.largeModal)
+          {
+            this.largeModal.show();
+          }
+          
           setTimeout(function () {
 
             $('a[href*="mailto:"]').each(function () {

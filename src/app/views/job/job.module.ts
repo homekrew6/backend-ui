@@ -9,7 +9,7 @@ import { JobService } from '../../services/job.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
-ModalModule.forRoot()
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +17,8 @@ ModalModule.forRoot()
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    Ng2SmartTableModule
   ],
   declarations: [JobComponent, JobDetailsComponent],
   providers:[
