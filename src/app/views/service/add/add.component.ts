@@ -7,8 +7,8 @@ import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
 //import { BsModalService } from 'ngx-bootstrap/modal';
 //import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { DrawingManager } from '@ngui/map';
-import { debug } from 'util';
-
+declare var jquery :any;
+declare var $:any;
 
 
 @Component({
@@ -68,6 +68,14 @@ export class AddComponent implements OnInit {
   }
 
   ngOnInit() {
+    $('form').on('focus', 'input[type=number]', function (e) {
+      $(this).on('mousewheel.disableScroll', function (e) {
+        e.preventDefault()
+      });
+    });
+    $('form').on('blur', 'input[type=number]', function (e) {
+      $(this).off('mousewheel.disableScroll')
+    });
     this.getAllVertical();
     this.getAllZone();
     this.getAllExecutionMethod();

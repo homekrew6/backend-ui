@@ -26,9 +26,13 @@ export class AuthService {
 
   updatePushToken(id, data)
   {
-    return this.http.patch(environment.baseurl + 'Admins/'+id+'?access_token=' + localStorage.getItem("authToken"), data).map((res: Response) => {
+    return this.http.put(environment.baseurl + 'Admins/editAgent/' + id + '?access_token=' + localStorage.getItem("authToken"), data).map((res: Response) => {
+
       return res.json();
     });
+    // return this.http.patch(environment.baseurl + 'Admins/'+id+'?access_token=' + localStorage.getItem("authToken"), data).map((res: Response) => {
+    //   return res.json();
+    // });
   }
 
 

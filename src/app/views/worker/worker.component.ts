@@ -10,6 +10,7 @@ import { WorkerService } from '../../services/worker.service';
 })
 export class WorkerComponent implements OnInit {
   workerList=[];
+  errorMessage="";
   settings = {
     columns: {
       name: {
@@ -152,24 +153,42 @@ export class WorkerComponent implements OnInit {
     }
   }
 
-  public changeStatus(worker){    
+  public changeStatus(worker){
+    this.errorMessage="";    
+    let IsValid=true;
     let worker_status
     if(worker.is_active){
       worker_status = {
         is_active:0
       }
     }else{
-      worker_status = {
-        is_active:1
+      if (worker.commission)
+      {
+        worker_status = {
+          is_active: 1
+        }
       }
-    }    
-    const confirmMessage = confirm('Do you want to change status?')
-    if(confirmMessage ){      
-      this.workerService.editWorker(worker_status,worker.id).subscribe(res=>{
-        this.getAllWorkers();
-      },err=>{
-      })
+      else
+      {
+        IsValid=false;
+      }
+     
     }
+    if(IsValid)
+    {
+      const confirmMessage = confirm('Do you want to change status?')
+      if (confirmMessage) {
+        this.workerService.editWorker(worker_status, worker.id).subscribe(res => {
+          this.getAllWorkers();
+        }, err => {
+        })
+      }
+    }
+    else
+    {
+      this.errorMessage="Please set the comission for the worker to make it active.";
+    }    
+   
   }
   public changeType(worker) {
     let worker_type

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule, PathLocationStrategy } from '@angular/common';
 import { environment } from '../environments/environment';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
@@ -11,13 +11,20 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToasterModule } from 'ngx-toaster/src';
 import * as firebase from 'firebase';
+// export const firebaseConfig = {
+//   apiKey: "AIzaSyCnS3M8ZZBYRH4QubDH3OJPKSgk-03Nm9w",
+//   authDomain: "krew-user-app.firebaseapp.com",
+//   databaseURL: "https://krew-user-app.firebaseio.com",
+//   projectId: "krew-user-app",
+//   storageBucket: "krew-user-app.appspot.com",
+//   messagingSenderId: "16831185707"
+// };
 export const firebaseConfig = {
-  apiKey: "AIzaSyCnS3M8ZZBYRH4QubDH3OJPKSgk-03Nm9w",
-  authDomain: "krew-user-app.firebaseapp.com",
-  databaseURL: "https://krew-user-app.firebaseio.com",
-  projectId: "krew-user-app",
-  storageBucket: "krew-user-app.appspot.com",
-  messagingSenderId: "16831185707"
+  apiKey: "AIzaSyCRclijPdb65nW25fvZozVv0LekbC0GHRM",
+  authDomain: "homekrew-91b4e.firebaseapp.com",
+  databaseURL: "https://homekrew-91b4e.firebaseio.com",
+  storageBucket: "homekrew-91b4e.appspot.com",
+  messagingSenderId: "834042316676"
 };
 firebase.initializeApp(firebaseConfig);
 //import { NguiMapModule} from '@ngui/map';

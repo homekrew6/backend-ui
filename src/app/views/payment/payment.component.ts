@@ -15,7 +15,7 @@ export class PaymentComponent implements OnInit {
     columns: {
       customer: {
         title: 'Customer',
-        valuePrepareFunction: (cell, row) => { return row.customer.name }
+        valuePrepareFunction: (cell, row) => { return row.customer?row.customer.name:'' }
       },
       message: {
         title: 'Message'
@@ -53,6 +53,16 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit() {
     this.getAllPayment();
+  }
+
+
+  onCustom(event)
+  {
+    debugger;
+    if(event.action=="delete")
+    {
+      this.deletePayment(event.data.id);
+    }
   }
 
   public getAllPayment(){

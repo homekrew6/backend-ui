@@ -29,7 +29,7 @@ export class RoleComponent implements OnInit {
     })
   }
 
-  public deleteFaq(id){
+  public deleteRole(id){
     //console.log(id);
     let confirmMessage = confirm('Do you want to delete?')
     if(confirmMessage){      

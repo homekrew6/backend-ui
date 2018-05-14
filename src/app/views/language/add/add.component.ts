@@ -18,7 +18,8 @@ export class AddComponent implements OnInit {
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'direction': [null, Validators.required],
-      'is_active': '' 
+      'is_active': [true],
+      'Code': ['', Validators.required]
       
     });
   }
@@ -31,6 +32,7 @@ export class AddComponent implements OnInit {
   }
   public addLanguage(language){   
     language.is_active = this.is_active;
+    language.Code=language.Code.toLowerCase();
     this.languageService.addLanguage(language).subscribe(res=>{      
       this.router.navigate(['/language']);
     },err=>{

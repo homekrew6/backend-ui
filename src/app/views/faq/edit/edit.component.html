@@ -15,9 +15,30 @@
                             <div class="text-danger" *ngIf="!rForm.controls['question'].valid && rForm.controls['question'].touched">Please enter question</div>
                         </div>
                         <div class="form-group">
+                            <label for="company">Question(For French) <span>*</span></label>
+                            <input type="text" formControlName="fr_question" class="form-control" id="fr_question" placeholder="Enter question">
+                            <div class="text-danger" *ngIf="!rForm.controls['fr_question'].valid && rForm.controls['fr_question'].touched">Please enter question for french</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company">Question(For Arabic) <span>*</span></label>
+                            <input type="text" formControlName="ar_question" class="form-control" id="ar_question" placeholder="Enter question">
+                            <div class="text-danger" *ngIf="!rForm.controls['ar_question'].valid && rForm.controls['ar_question'].touched">Please enter question for arabic</div>
+                        </div>
+                        <div class="form-group">
                             <label for="company">Title <span>*</span></label>
                             <input type="text" formControlName="title" class="form-control" id="title" placeholder="Enter title">
                             <div class="text-danger" *ngIf="!rForm.controls['title'].valid && rForm.controls['title'].touched">Please enter title</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Title(For French) <span>*</span></label>
+                            <input type="text" formControlName="fr_title" class="form-control" id="fr_title" placeholder="Enter title">
+                            <div class="text-danger" *ngIf="!rForm.controls['fr_title'].valid && rForm.controls['fr_title'].touched">Please enter title for french</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Title(For Arabic) <span>*</span></label>
+                            <input type="text" formControlName="ar_title" class="form-control" id="ar_title" placeholder="Enter title">
+                            <div class="text-danger" *ngIf="!rForm.controls['ar_title'].valid && rForm.controls['ar_title'].touched">Please enter title for arabic</div>
                         </div>
                         <!-- <div class="form-group">
             <label for="vat">Answer</label>
@@ -29,6 +50,15 @@
                             <label for="vat">Answer</label>
                             <!-- <div  [froalaEditor]="editorOptions" [(froalaModel)]="content"></div> -->
                             <app-tinymce formControlName="answer" name='answer'></app-tinymce>
+                        </div>
+                        <div class="form-group">
+                            <label for="vat">Answer(For French)</label>
+                            <app-tinymce formControlName="fr_answer" name='fr_answer'></app-tinymce>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vat">Answer(For Arabic)</label>
+                            <app-tinymce formControlName="ar_answer" name='ar_answer'></app-tinymce>
                         </div>
                         <div class="form-group">
                             <div class="checkbox">

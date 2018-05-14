@@ -60,20 +60,20 @@ export const routes: Routes = [
       }
     ]
   },
-  {
-    path: 'profile',
-    component: FullLayout,
-    canActivate: [AuthGuard],
-    data: {
-      title: 'Profile'
-    },
-    children: [
-      {
-        path: '',
-        loadChildren: './views/profile/profile.module#ProfileModule'
-      }
-    ]
-  },
+  // {
+  //   path: 'profile',
+  //   component: FullLayout,
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     title: 'Profile'
+  //   },
+  //   children: [
+  //     {
+  //       path: '',
+  //       loadChildren: './views/profile/profile.module#ProfileModule'
+  //     }
+  //   ]
+  // },
   {
     path: 'cms',
     component: FullLayout,

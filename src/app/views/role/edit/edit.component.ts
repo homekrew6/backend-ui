@@ -42,7 +42,7 @@ export class EditComponent implements OnInit {
 
 
   goToList() {
-    this.router.navigate(['faq']);
+    this.router.navigate(['role']);
   }
 
   public editRole(role){   

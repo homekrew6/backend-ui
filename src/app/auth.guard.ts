@@ -24,23 +24,30 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     }
 
     else {
-      if (localStorage.getItem("role").toLowerCase() == "admin") {
-        return true;
+      if(localStorage.getItem("role"))
+      {
+        if (localStorage.getItem("role").toLowerCase() == "admin") {
+          return true;
+        }
+        else {
+          if (localStorage.getItem("role") == "Country Admin" || (localStorage.getItem("role") == "City Admin")) {
+            if (url.includes('dashboard') || url.includes('profile') || url.includes('zone') || url.includes('job')) {
+              return true;
+            }
+
+          }
+          else if (localStorage.getItem("role") == "Support") {
+            if (url.includes('profile') || url.includes('dashboard') || url.includes('chat')) {
+              return true;
+            }
+          }
+        }
       }
       else {
-        if (localStorage.getItem("role") == "Country Admin" || (localStorage.getItem("role") == "City Admin")) {
-          if (url.includes('dashboard') || url.includes('profile') || url.includes('zone') || url.includes('job')) {
-            return true;
-          }
-          
-        }
-        else if (localStorage.getItem("role") == "Support") {
-          if (url.includes('profile') || url.includes('dashboard') || url.includes('chat')) {
-            return true;
-          }
-        }
+        return true;
       }
     }
+    
 
   }
 

@@ -33,7 +33,7 @@
 
                         <div class="form-group">
                             <label for="company">Job Time Range<span>*</span></label>
-                            <input type="number" formControlName="jobEstimatedHours" class="form-control" id="jobEstimatedHours" placeholder="Enter Job Range Minutes">
+                            <input type="number" myNumberOnly formControlName="jobEstimatedHours" class="form-control" id="jobEstimatedHours" placeholder="Enter Job Range Minutes">
                             <div class="text-danger" *ngIf="!rForm.controls['jobEstimatedHours'].valid && rForm.controls['jobEstimatedHours'].touched">Please enter Job Range Minutes </div>
                         </div>
                         <div class="form-group">
@@ -48,12 +48,12 @@
 
                         <div class="form-group">
                             <label for="company">Amount<span>*</span></label>
-                            <input type="number" formControlName="amount" class="form-control" id="amount" placeholder="Enter Amount">
+                            <input type="number" myNumberOnly formControlName="amount" class="form-control" id="amount" placeholder="Enter Amount">
                             <div class="text-danger" *ngIf="!rForm.controls['amount'].valid && rForm.controls['amount'].touched">Please enter amount </div>
                         </div>
                         <div class="form-group">
                             <label for="company">Priority<span>*</span></label>
-                            <input type="number" formControlName="priority" class="form-control" id="priority" placeholder="Enter Priority">
+                            <input type="number" myNumberOnly formControlName="priority" class="form-control" id="priority" placeholder="Enter Priority">
                             <div class="text-danger" *ngIf="!rForm.controls['priority'].valid && rForm.controls['priority'].touched">Please enter priority </div>
                         </div>
                         <div class="form-group ">
@@ -66,27 +66,27 @@
                         </div>
                         <div class="form-group">
                             <label for="company">Min Order Amount<span>*</span></label>
-                            <input type="number" formControlName="min_order_amount" class="form-control" id="min_order_amount" placeholder="Enter Min Order Amount">
+                            <input type="number" myNumberOnly formControlName="min_order_amount" class="form-control" id="min_order_amount" placeholder="Enter Min Order Amount">
                             <div class="text-danger" *ngIf="!rForm.controls['min_order_amount'].valid && rForm.controls['min_order_amount'].touched">Please enter min order amount </div>
                         </div>
                         <div class="form-group">
                             <label for="company">Max Discount Amount<span>*</span></label>
-                            <input type="number" formControlName="max_discount_amount" class="form-control" id="max_discount_amount" placeholder="Enter Max Amount">
+                            <input type="number" myNumberOnly formControlName="max_discount_amount" class="form-control" id="max_discount_amount" placeholder="Enter Max Amount">
                             <div class="text-danger" *ngIf="!rForm.controls['max_discount_amount'].valid && rForm.controls['max_discount_amount'].touched">Please enter max discount amount </div>
                         </div>
                         <div class="form-group">
                             <label for="company">Coupon Count<span>*</span></label>
-                            <input type="number" formControlName="coupon_count" class="form-control" id="coupon_count" placeholder="Enter Coupon Count">
+                            <input type="number" myNumberOnly formControlName="coupon_count" class="form-control" id="coupon_count" placeholder="Enter Coupon Count">
                             <div class="text-danger" *ngIf="!rForm.controls['coupon_count'].valid && rForm.controls['coupon_count'].touched">Please enter coupon count </div>
                         </div>
                         <div class="form-group">
                             <label for="company">No of Users<span>*</span></label>
-                            <input type="number" formControlName="noOfUses" class="form-control " id="noOfUses " placeholder="Enter No of Users ">
+                            <input type="number" myNumberOnly formControlName="noOfUses" class="form-control " id="noOfUses " placeholder="Enter No of Users ">
                             <div class="text-danger " *ngIf="!rForm.controls[ 'noOfUses'].valid && rForm.controls[ 'noOfUses'].touched ">Please enter no of uses</div>
                         </div>
                         <div class="form-group ">
                             <label for="company ">Labour<span>*</span></label>
-                            <input type="text " formControlName="Labour" class="form-control " id="Labour " placeholder="Enter Labour ">
+                            <input type="text" formControlName="Labour" class="form-control " id="Labour " placeholder="Enter Labour ">
                             <div class="text-danger " *ngIf="!rForm.controls[ 'Labour'].valid && rForm.controls[ 'Labour'].touched ">Please enter Labour</div>
                         </div>
 

@@ -14,7 +14,7 @@ import { AlertModule } from 'ngx-bootstrap';
 import { TinymceModule } from 'angular2-tinymce';
 import { absEnvironment } from '../../../environments/environment';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
+import { NumberDirectiveModule } from './../../filters/numberDirective.module.';
 @NgModule({
   imports: [
     CommonModule,
@@ -30,7 +30,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
       skin_url: absEnvironment.absuluteUrl,
       entity_encoding : 'xml'
 
-    })
+    }),
+    NumberDirectiveModule
 
   ],
   declarations: [ServiceComponent, AddComponent, EditComponent, MyFilterPipe],

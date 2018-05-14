@@ -3,7 +3,8 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { CustomerService } from '../../../services/customer.service';
-
+declare var jquery: any;
+declare var $: any;
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -15,6 +16,7 @@ export class EditComponent implements OnInit {
   error: string;
   customerId: any;
   is_active = true;
+  customerList = [];
   constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private customerService: CustomerService) { 
     this.rForm = fb.group({      
       'name': [null, Validators.required],
@@ -37,6 +39,17 @@ export class EditComponent implements OnInit {
     this.router.navigate(['customers']);
   }
   ngOnInit() {
+    $('form').on('focus', 'input[type=number]', function (e) {
+      $(this).on('mousewheel.disableScroll', function (e) {
+        e.preventDefault()
+      });
+    });
+    $('form').on('blur', 'input[type=number]', function (e) {
+      $(this).off('mousewheel.disableScroll')
+    });
+    this.customerService.getCustomer().subscribe((res)=>{
+    this.customerList=res;      
+    })
     //console.log
     this.activatedRoute.params.subscribe((params: Params) => {
       this.customerId = params['id'];
@@ -46,6 +59,13 @@ export class EditComponent implements OnInit {
   }
 
   public editCustomer(customer){
+    for (let i = 0; i < this.customerList.length; i++) {
+      if (this.customerList[i].phone == customer.phone && this.customerList[i].id != this.customerId) {
+        this.error = 'Phone already exists.';
+        window.scrollTo(0, 0);
+        return false;
+      }
+    }
     //console.log(customer);
     customer.is_active = this.is_active;
     this.customerService.editCustomer(customer,this.customerId).subscribe(res=>{

@@ -20,7 +20,7 @@
             <div class="text-danger" *ngIf="!rForm.controls['content'].valid && rForm.controls['content'].touched">Please enter content</div>
           </div> -->
                         <div class="form-group">
-                            <label for="vat">Content</label>
+                            <label for="vat">Content <span>*</span></label>
                             <!-- <div  [froalaEditor]="editorOptions" [(froalaModel)]="content"></div> -->
                             <app-tinymce formControlName="content" name='content'></app-tinymce>
                         </div>

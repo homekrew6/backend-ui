@@ -20,7 +20,8 @@ export class EditComponent implements OnInit {
     this.rForm = fb.group({      
       'name': [null, Validators.required],
       'direction': [null, Validators.required],
-      'is_active': ''   
+      'is_active': [true],
+      'Code': ['', Validators.required]
          
     });
   }
@@ -39,6 +40,7 @@ export class EditComponent implements OnInit {
 
   public editLanguage(language){   
     language.is_active = this.is_active;
+    language.Code = language.Code.toLowerCase();
     this.languageService.editLanguage(language,this.languageId).subscribe(res=>{      
       this.router.navigate(['/language']);
     }, err => {
@@ -52,7 +54,8 @@ export class EditComponent implements OnInit {
       this.rForm.controls['name'].setValue(res.name);
       this.rForm.controls['direction'].setValue(res.direction);
       this.is_active = res.is_active;
-      this.rForm.controls['is_active'].setValue(res.is_active);           
+      this.rForm.controls['is_active'].setValue(res.is_active);   
+      this.rForm.controls['Code'].setValue(res.Code);           
       
     },err=> {
       this.error = 'Error Occured, please try again'

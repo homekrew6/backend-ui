@@ -13,6 +13,9 @@ import * as FintTheme from 'fusioncharts/themes/fusioncharts.theme.fint';
 import { FusionChartsModule } from 'angular4-fusioncharts';
 import { PaymentService } from '../../services/payment.service';
 import { CommonModule } from '@angular/common';  
+import { AdminProfileComponent } from '../profile/profile.component';
+import { RoleService } from './../../services/role.service';
+import { ServiceService } from '../../services/service.service';
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 @NgModule({
   imports: [
@@ -24,7 +27,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
     FusionChartsModule,
     CommonModule
   ],
-  declarations: [ DashboardComponent ],
-  providers: [WorkerService, CustomerService, JobService, PaymentService]
+  declarations: [ DashboardComponent ,AdminProfileComponent],
+  providers: [WorkerService, CustomerService, JobService, PaymentService, ServiceService, RoleService]
 })
 export class DashboardModule { }

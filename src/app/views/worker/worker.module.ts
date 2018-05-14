@@ -10,7 +10,8 @@ import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AccordionModule } from 'ngx-bootstrap';
-
+// import { NumberOnlyDirective } from './../../filters/numberOnly.directive';
+import { NumberDirectiveModule } from './../../filters/numberDirective.module.';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { AccordionModule } from 'ngx-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     Ng2SmartTableModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    NumberDirectiveModule
   ],
   declarations: [WorkerComponent, AddComponent, EditComponent, DetailsComponent],
   providers:[

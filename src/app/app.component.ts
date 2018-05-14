@@ -39,17 +39,23 @@ export class AppComponent implements OnInit{
         return this.messaging.getToken()
       })
       .then(token => {
-        let role1 = localStorage.getItem("role").toLowerCase();
-        if (localStorage.getItem("userId") && role1=="admin")
+        if (localStorage.getItem("role"))
         {
-         const data={pushToken:token};
-          this.authService.updatePushToken(localStorage.getItem("userId"), data).subscribe((res)=>{
-          })
+          let role1 = localStorage.getItem("role").toLowerCase();
+          if (localStorage.getItem("userId")) {
+            const data = { pushToken: token };
+            this.authService.updatePushToken(localStorage.getItem("userId"), data).subscribe((res) => {
+            })
+          }
+          else {
+            localStorage.setItem("pushToken", token);
+          }
         }
         else
         {
           localStorage.setItem("pushToken", token);
         }
+       
         //this.updateToken(token)
       })
       .catch((err) => {

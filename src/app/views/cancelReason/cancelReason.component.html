@@ -20,12 +20,13 @@
 
                                 <td>{{item.name}}</td>
                                 <td>
+                                    {{item.is_active?'Active':'InActive'}}
+                                </td>
+                                <td>
                                     <a [routerLink]="['/cancelReason/edit',item.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
                                     <button type="button" class="btn btn-danger" (click)="deleteReason(item.id)"><i class="fa fa-trash"></i>&nbsp; Delete</button>
                                 </td>
-                                <td>
-                                    {{item.IsActive?'Active':'In Active'}}
-                                </td>
+
                             </tr>
                         </tbody>
                     </table>

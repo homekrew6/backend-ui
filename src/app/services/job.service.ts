@@ -39,5 +39,13 @@ export class JobService {
             return res.json();
         });
     }
+
+
+    updateJobPaidStatus(data)
+    {
+        return this.http.patch(environment.baseurl + 'Jobs/' + data.id + '/?access_token=' + localStorage.getItem('authToken'), data).map((res:Response)=>{
+            return res.json();
+        });
+    }
    
 }

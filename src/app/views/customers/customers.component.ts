@@ -1,8 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { CustomerService } from '../../services/customer.service';
-
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',

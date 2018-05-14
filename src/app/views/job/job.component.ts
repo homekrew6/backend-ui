@@ -1,10 +1,11 @@
-import { Component, OnInit , ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { JobService } from '../../services/job.service';
 import { AuthService } from '../../services/auth.service';
 import { DatePipe } from '@angular/common';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { DomSanitizer } from '@angular/platform-browser';
 declare var jquery: any;
 declare var $: any;
 @Component({
@@ -18,27 +19,29 @@ export class JobComponent implements OnInit {
   availableWorkerList = [];
   selectedJobId: any;
   isAssigning = false;
-  errorMessage:any;
+  errorMessage: any;
+  input = '<input type="checkbox"></input>';
+  IsSelected: false;
   @ViewChild('largeModal') public largeModal: ModalDirective;
-  role='';
+  role = '';
   settings = {
     columns: {
       service: {
         title: 'Service',
-        valuePrepareFunction: (cell, row) => { return row.service?row.service.name:'' }
+        valuePrepareFunction: (cell, row) => { return row.service ? row.service.name : '' }
       },
       customer: {
         title: 'Customer',
-        valuePrepareFunction: (cell, row) => { return row.customer?row.customer.name:'' }
+        valuePrepareFunction: (cell, row) => { return row.customer ? row.customer.name : '' }
       },
       customerEmail: {
         title: 'Customer Email',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { return row.customer ? '<a href="mailto:' + row.customer.email+'">' + row.customer.email+'</a>':'' }
+        type: 'html',
+        valuePrepareFunction: (cell, row) => { return row.customer ? '<a href="mailto:' + row.customer.email + '">' + row.customer.email + '</a>' : '' }
       },
       worker: {
         title: 'Worker',
-        valuePrepareFunction: (cell, row) => { return row.worker?row.worker.name:'N/A' }
+        valuePrepareFunction: (cell, row) => { return row.worker ? row.worker.name : 'N/A' }
       },
       workerEmail: {
         title: 'Worker Email',
@@ -46,16 +49,25 @@ export class JobComponent implements OnInit {
         valuePrepareFunction: (cell, row) => { return row.worker ? '<a href="mailto:' + row.worker.email + '">' + row.worker.email + '</a>' : '' }
       },
       status1: {
-        title: 'Status'
+        title: 'Status',
+        width: '10px'
       },
-      price:{
-        title:'Price'
+      price: {
+        title: 'Price',
+        width: '20px'
       },
-      postedDate:{
-        title:'Posted Date',
+      postedDate: {
+        title: 'Posted Date',
         valuePrepareFunction: (cell, row) => { const raw = new Date(row.postedDate); const formatted = new DatePipe('en-EN').transform(raw, 'dd MMM yyyy HH:mm:ss'); return formatted; }
+      },
+      IsPaid: {
+        title: 'Is Paid?',
+        type: 'html',
+        valuePrepareFunction: (value, row) => { return this.prepareCheckBox(row); },
+        filter: false
       }
-      
+
+
     },
     actions: {
       add: false,
@@ -80,41 +92,76 @@ export class JobComponent implements OnInit {
       class: 'table table-bordered'
     },
   };
-  constructor(private router: Router, private jobService: JobService, private authSrvc:AuthService) { 
+  constructor(private router: Router, private jobService: JobService, private authSrvc: AuthService, private _sanitizer: DomSanitizer) {
 
-    if(localStorage.getItem("role"))
-    {
-      this.role=localStorage.getItem("role");
+    if (localStorage.getItem("role")) {
+      this.role = localStorage.getItem("role");
     }
   }
 
+
+
+  prepareCheckBox(row) {
+    if (row.status1 == "JC") {
+      if(row.IsPaid)
+      {
+        this.input = '<input type="checkbox" checked/>';
+      }
+      else
+      {
+        this.input = '<input type="checkbox"/>';
+      }
+      
+      return this._sanitizer.bypassSecurityTrustHtml(this.input)
+    }
+    else {
+      return '<p>N/A</p>'
+    }
+    //this.input = '<input type="checkbox"  [(ngModel)]=' + row.IsPaid +'  (ngModelChange)="onToggle($event)" name="IsSelected_'+row.id+'" ></input>';
+
+  }
+
+  changeSelection(event) {
+    let jobItem;
+    this.jobList.map((item) => {
+      if (item.id == event.data.id) {
+        item.IsPaid = !item.IsPaid;
+        jobItem = item;
+      }
+    });
+    if (jobItem) {
+      this.jobService.updateJobPaidStatus(jobItem).subscribe((res) => {
+        console.log(res);
+      }, (err)=>{
+        console.log(err);
+      })
+    }
+  }
   ngOnInit() {
     // $('#test').hide();
     this.getAllJobs();
   }
+
   onCustom(event) {
     if (event.action == "delete") {
       this.deleteJob(event.data.id);
     }
     else if (event.action == "info") {
       //this.router.navigate(['/worker/edit', { id: "SomeValue" }]);
-      if(event.data.price)
-      {
-        event.data.price=parseFloat(event.data.price).toFixed(2);
+      if (event.data.price) {
+        event.data.price = parseFloat(event.data.price).toFixed(2);
       }
-     this.goToDetails(event.data)
+      this.goToDetails(event.data)
     }
     else if (event.action == "assign") {
-      if(event.data.status1!='S')
-      {
-        window.scrollTo(0,0);
-        this.errorMessage='This job is alreay assigned.';
+      if (event.data.status1 != 'S') {
+        window.scrollTo(0, 0);
+        this.errorMessage = 'This job is alreay assigned.';
       }
-      else
-      {
+      else {
         this.openModal('', event.data)
       }
-   
+
     }
   }
   public getAllJobs() {
@@ -123,25 +170,21 @@ export class JobComponent implements OnInit {
       const filteredItems = res.response.message.sort(function (a, b) {
         return b.id - a.id;
       });
-      if (this.role.toLowerCase()=="admin")
-      {
+      if (this.role.toLowerCase() == "admin") {
         this.jobList = filteredItems;
         this.formatJobData();
       }
-      else
-      {
-        this.authSrvc.getIndividualAgent(localStorage.getItem('userId')).subscribe((agentDetails)=>{
-          if (agentDetails.response.type == "Success") 
-          {
+      else {
+        this.authSrvc.getIndividualAgent(localStorage.getItem('userId')).subscribe((agentDetails) => {
+          if (agentDetails.response.type == "Success") {
             // debugger;
-            let myZoneList=[];
-            agentDetails.response.message.zones.map((item)=>{
+            let myZoneList = [];
+            agentDetails.response.message.zones.map((item) => {
               myZoneList.push(item);
             });
 
-            filteredItems.map((item)=>{
-              if(myZoneList.includes(item.zoneId))
-              {
+            filteredItems.map((item) => {
+              if (myZoneList.includes(item.zoneId)) {
                 this.jobList.push(item);
               }
             });
@@ -150,8 +193,8 @@ export class JobComponent implements OnInit {
           }
         })
       }
-     
-    
+
+
       // setTimeout(function () {
 
       //   $('a[href*="mailto:"]').each(function () {
@@ -216,7 +259,7 @@ export class JobComponent implements OnInit {
   }
   public openModal(largeModal, job) {
     this.selectedJobId = job.id;
-    this.isAssigning=false;
+    this.isAssigning = false;
     this.is_disabled = true;
     const postedDateTime = new Date(job.postedDate);
     if (postedDateTime) {
@@ -264,15 +307,13 @@ export class JobComponent implements OnInit {
         this.jobService.getAvailableWorkerList(data).subscribe((res) => {
           this.is_disabled = false;
           this.availableWorkerList = res.response.message;
-          if(largeModal)
-          {
+          if (largeModal) {
             largeModal.show();
           }
-          else if(this.largeModal)
-          {
+          else if (this.largeModal) {
             this.largeModal.show();
           }
-          
+
           setTimeout(function () {
 
             $('a[href*="mailto:"]').each(function () {
@@ -343,7 +384,7 @@ export class JobComponent implements OnInit {
       this.isAssigning = false;
       alert('Please select a job to assign.');
     }
-   
+
 
   }
 

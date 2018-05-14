@@ -20,7 +20,7 @@
 
                                 <td>{{role.name}}</td>
                                 <td *ngIf="role.is_active==1">Active</td>
-                                <td *ngIf="role.is_active==0">In Active</td>
+                                <td *ngIf="role.is_active==0">InActive</td>
                                 <td>
                                     <a [routerLink]="['/role/edit',role.id]" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Edit</a>
                                     <button type="button" class="btn btn-danger" (click)="deleteRole(role.id)"><i class="fa fa-trash"></i>&nbsp; Delete</button>

@@ -12,7 +12,7 @@ import { EditComponent } from './edit/edit.component';
 import { DateTimePickerModule } from 'ngx-datetime-picker';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
+import { NumberDirectiveModule } from './../../filters/numberDirective.module.';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +22,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     ReactiveFormsModule,
     DateTimePickerModule,
     AngularMultiSelectModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    NumberDirectiveModule
     // ,
     // FroalaEditorModule.forRoot(),
     // FroalaViewModule.forRoot()

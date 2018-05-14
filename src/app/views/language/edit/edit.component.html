@@ -15,6 +15,11 @@
                             <div class="text-danger" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Please enter language</div>
                         </div>
                         <div class="form-group">
+                            <label for="name">Code <span>*</span></label>
+                            <input type="text" formControlName="Code" class="form-control" id="Code" placeholder="Enter Code" maxlength="2">
+                            <div class="text-danger" *ngIf="!rForm.controls['Code'].valid && rForm.controls['Code'].touched">Please enter code</div>
+                        </div>
+                        <div class="form-group">
                             <label for="direction">Direction <span>*</span></label>
                             <select id="direction" formControlName="direction" class="form-control">
               <option value="">Please select</option>

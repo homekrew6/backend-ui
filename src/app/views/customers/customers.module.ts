@@ -1,3 +1,4 @@
+import { NumberDirectiveModule } from './../../filters/numberDirective.module.';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomersRoutingModule } from "./coustomer-routing";
@@ -5,12 +6,11 @@ import { CustomersComponent } from './customers.component';
 import { CustomerService } from '../../services/customer.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-
+// import { NumberOnlyDirective } from './../../filters/numberOnly.directive';
 import { ListComponent } from "./list/list.component";
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
 
 @NgModule({
   imports: [
@@ -19,9 +19,10 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    NumberDirectiveModule
   ],
-  declarations: [CustomersComponent,ListComponent, AddComponent, EditComponent],
+  declarations: [CustomersComponent, ListComponent, AddComponent, EditComponent],
   providers:[
     CustomerService
   ],

@@ -7,6 +7,9 @@
                     <span style="float:right"><a [routerLink]="['/worker/add']" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; ADD</a></span>
                 </div>
                 <div class="card-body">
+                    <div class="alert alert-danger" *ngIf="errorMessage">
+                        {{errorMessage}}
+                    </div>
                     <!-- <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
@@ -40,7 +43,7 @@
                     <div style="overflow-x: scroll">
                         <ng2-smart-table [settings]="settings" (custom)="onCustom($event)" [source]="workerList"></ng2-smart-table>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
         <!--/.col-->

@@ -33,7 +33,6 @@ export class LoginComponent {
 
   handleLogin(): void {
     this.error = null;
-
     this.auth.login(this.data.email, this.data.password).subscribe(res => {
       console.log(res);
       // localStorage.setItem('authToken', res[].toString());

@@ -29,7 +29,13 @@ export class AddComponent implements OnInit {
       'question': [null, Validators.required],
       'answer': [null, Validators.required] ,
       'is_active': '',
-      'title': [null, Validators.required] 
+      'title': [null, Validators.required] ,
+      'fr_title': [null, Validators.required],
+      'ar_title': [null, Validators.required],
+      'fr_answer': [null, Validators.required]  ,
+      'ar_answer': [null, Validators.required]  ,
+      'fr_question': [null, Validators.required],
+      'ar_question': [null, Validators.required]
       
     });
    }

@@ -28,8 +28,14 @@ export class EditComponent implements OnInit {
     this.rForm = fb.group({      
       'question': [null, Validators.required],
       'answer': [null, Validators.required],
-      'is_active': ''  ,
-      'title': [null, Validators.required]   
+      'is_active': '',
+      'title': [null, Validators.required],
+      'fr_title': [null, Validators.required],
+      'ar_title': [null, Validators.required],
+      'fr_answer': [null, Validators.required],
+      'ar_answer': [null, Validators.required],
+      'fr_question': [null, Validators.required],
+      'ar_question': [null, Validators.required]
          
     });
 
@@ -61,12 +67,17 @@ export class EditComponent implements OnInit {
     this.faqService.getIndividualFaq(Id).subscribe(res=>{
       
       this.rForm.controls['question'].setValue(res.question);
+      this.rForm.controls['fr_question'].setValue(res.fr_question);
+      this.rForm.controls['ar_question'].setValue(res.ar_question);
       this.rForm.controls['answer'].setValue(res.answer); 
+      this.rForm.controls['fr_answer'].setValue(res.fr_answer); 
+      this.rForm.controls['ar_answer'].setValue(res.ar_answer); 
       this.content = res.answer;
       this.is_active = res.is_active;
       this.rForm.controls['is_active'].setValue(res.is_active);          
       this.rForm.controls['title'].setValue(res.title);             
-      
+      this.rForm.controls['ar_title'].setValue(res.ar_title);
+      this.rForm.controls['fr_title'].setValue(res.fr_title);
     },err=>{
       this.error = "Error Occured, please try again"
     })
