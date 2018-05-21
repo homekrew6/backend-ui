@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ZoneService } from '../../services/zone.service';
 import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-zone',
   templateUrl: './zone.component.html',
@@ -20,6 +21,7 @@ export class ZoneComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.getAllZones();
 
   }

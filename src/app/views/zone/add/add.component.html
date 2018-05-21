@@ -54,7 +54,7 @@
                         </div>
                         <div class="form-group">
                             <label for="level">Level <span>*</span></label>
-                            <input type="number" formControlName="level" class="form-control" id="level" placeholder="Enter zone level">
+                            <input type="number" myNumberOnly formControlName="level" class="form-control" id="level" placeholder="Enter zone level">
                             <div class="text-danger" *ngIf="!rForm.controls['level'].valid && rForm.controls['level'].touched">Please enter zone level</div>
                         </div>
                         <div class="form-group">
@@ -66,7 +66,7 @@
                         </div>
                         <div class="form-group" *ngIf="is_sec_pass">
                             <label for="security_pasword">Security Password</label>
-                            <input type="text" formControlName="security_pasword" class="form-control" id="security_pasword" placeholder="Enter Security Password">
+                            <input type="password" formControlName="security_pasword" class="form-control" id="security_pasword" placeholder="Enter Security Password">
                             <div class="text-danger" *ngIf="!rForm.controls['security_pasword'].valid && rForm.controls['security_pasword'].touched">Please enter security Password</div>
                         </div>
                         <div class="form-group">

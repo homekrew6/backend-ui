@@ -39,6 +39,17 @@ export class SettingsComponent implements OnInit {
   }
 
   public editSetting(setting) {
+    let regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (setting.site_email)
+    {
+      this.error="";
+      if (!regEmail.test(setting.site_email)) {
+      this.error="Please give a valid email";
+      window.scrollTo(0,0);
+      return;
+      }
+    }
+  
 
     this.settingService.editSetting(setting).subscribe(res => {
       window.scrollTo(0,0);

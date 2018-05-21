@@ -6,14 +6,15 @@ import { SettingService } from '../../services/setting.service';
 
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NumberDirectiveModule } from './../../filters/numberDirective.module.';
 @NgModule({
   imports: [
     CommonModule,
     SettingRoutingModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NumberDirectiveModule
   ],
   declarations: [SettingsComponent],
   providers: [

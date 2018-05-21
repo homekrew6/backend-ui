@@ -9,6 +9,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { NumberDirectiveModule } from './../../filters/numberDirective.module.';
 
 // import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
@@ -19,7 +20,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    NumberDirectiveModule
   ],
   declarations: [MaterialsComponent, AddComponent, EditComponent],
   providers:[

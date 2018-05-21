@@ -192,7 +192,7 @@ export class WorkerComponent implements OnInit {
   }
   public changeType(worker) {
     let worker_type
-    if (worker.isDedicated) {
+    if (worker.isDedicated =="Dedicated") {
       worker_type = {
         isDedicated: 0
       }
