@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { ZoneService } from '../../../services/zone.service';
+declare var jquery: any;
+declare var $: any;
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -100,6 +102,14 @@ export class AddComponent implements OnInit {
     this.router.navigate(['agent']);
   }
   ngOnInit() {
+    $('form').on('focus', 'input[type=number]', function (e) {
+      $(this).on('mousewheel.disableScroll', function (e) {
+        e.preventDefault()
+      });
+    });
+    $('form').on('blur', 'input[type=number]', function (e) {
+      $(this).off('mousewheel.disableScroll')
+    });
 
 
     this.zoneSrvc.getAllZones().subscribe((res) => {

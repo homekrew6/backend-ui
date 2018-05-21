@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { SettingService } from '../../services/setting.service';
 
+declare var jquery: any;
+declare var $: any;
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -19,11 +21,20 @@ export class SettingsComponent implements OnInit {
       'site_email': [],
       'address': [],
       'phone': [],
-      'minimumPostingDiff': []
+      'minimumPostingDiff': [],
+      'perHourFollowUpCharge':[]
     });
   }
 
   ngOnInit() {
+    $('form').on('focus', 'input[type=number]', function (e) {
+      $(this).on('mousewheel.disableScroll', function (e) {
+        e.preventDefault()
+      });
+    });
+    $('form').on('blur', 'input[type=number]', function (e) {
+      $(this).off('mousewheel.disableScroll')
+    });
     this.getSeting();
   }
 
@@ -46,6 +57,7 @@ export class SettingsComponent implements OnInit {
       this.rForm.controls['address'].setValue(res.address);
       this.rForm.controls['phone'].setValue(res.phone);
       this.rForm.controls['minimumPostingDiff'].setValue(res.minimumPostingDiff);
+      this.rForm.controls['perHourFollowUpCharge'].setValue(res.perHourFollowUpCharge);
     }, err => {
       this.error = 'Error Occured, please try again'
     })

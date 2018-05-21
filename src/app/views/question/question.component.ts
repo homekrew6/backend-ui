@@ -18,23 +18,27 @@ export class QuestionComponent implements OnInit {
       type: {
         title: 'Type',
         valuePrepareFunction: (cell, row) => {
-          if (row.type == 1) {
-            return 'Number'
-          } else if (row.type == 2) {
-            return 'Boolean'
-          } else if (row.type == 3) {
-            return 'Radio'
-          } else if (row.type == 4) {
-            return 'Range'
-          } else if (row.type == 5) {
-            return 'Photo'
+          if(row.type)
+          {
+            if (row.type == 1) {
+              return 'Number'
+            } else if (row.type == 2) {
+              return 'Boolean'
+            } else if (row.type == 3) {
+              return 'Radio'
+            } else if (row.type == 4) {
+              return 'Range'
+            } else if (row.type == 5) {
+              return 'Photo'
+            }
           }
+        
         }
       },
       'service.name': {
         title: 'Service',
         valuePrepareFunction: (cell, row) => {
-          return row.service.name;
+          return row.service?row.service.name:'';
         }
       }
     },

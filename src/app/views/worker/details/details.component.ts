@@ -19,7 +19,7 @@ export class DetailsComponent implements OnInit {
     columns: {
       service: {
         title: 'Service',
-        valuePrepareFunction: (cell, row) => { return  row.service.name }
+        valuePrepareFunction: (cell, row) => { return  row.service?row.service.name:'' }
       },
       customer: {
         title: 'Customer',

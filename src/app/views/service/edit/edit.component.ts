@@ -5,7 +5,8 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ServiceService } from '../../../services/service.service';
 import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
 import { DrawingManager } from '@ngui/map';
-
+declare var jquery: any;
+declare var $: any;
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -73,6 +74,14 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
+    $('form').on('focus', 'input[type=number]', function (e) {
+      $(this).on('mousewheel.disableScroll', function (e) {
+        e.preventDefault()
+      });
+    });
+    $('form').on('blur', 'input[type=number]', function (e) {
+      $(this).off('mousewheel.disableScroll')
+    });
     this.activatedRoute.params.subscribe((params: Params) => {
       this.serviceId = params['id'];
       this.getIndividualService(this.serviceId);

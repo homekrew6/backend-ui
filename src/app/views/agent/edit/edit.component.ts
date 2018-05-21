@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ZoneService } from '../../../services/zone.service';
 import { RoleService } from './../../../services/role.service';
+declare var jquery: any;
+declare var $: any;
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -51,6 +53,14 @@ export class EditComponent implements OnInit {
     }
   }
   ngOnInit() {
+    $('form').on('focus', 'input[type=number]', function (e) {
+      $(this).on('mousewheel.disableScroll', function (e) {
+        e.preventDefault()
+      });
+    });
+    $('form').on('blur', 'input[type=number]', function (e) {
+      $(this).off('mousewheel.disableScroll')
+    });
     this.zoneSrvc.getAllZones().subscribe((res) => {
       this.allZoneList = res;
     })
