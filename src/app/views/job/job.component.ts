@@ -154,7 +154,7 @@ export class JobComponent implements OnInit {
       this.goToDetails(event.data)
     }
     else if (event.action == "assign") {
-      if (event.data.status1 != 'S') {
+      if (event.data.status1 != 'P') {
         window.scrollTo(0, 0);
         this.errorMessage = 'This job is alreay assigned.';
       }
