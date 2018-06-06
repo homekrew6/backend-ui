@@ -49,7 +49,7 @@ export class EditComponent implements OnInit {
   content: string;
   constructor(private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute,  private srvc: PromoService) {
     this.rForm = fb.group({      
-      'promo_code': [null, Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(6)])],
+      'promo_code': [null, Validators.compose([Validators.required])],
       'start_date': [null, Validators.required],
       'end_date': [null, Validators.required],
       'jobEstimatedHours': [null, Validators.required],

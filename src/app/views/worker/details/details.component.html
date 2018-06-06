@@ -9,11 +9,15 @@
                 <div class="card-body">
                     <accordion [closeOthers]="true">
                         <accordion-group heading=" Skill Set">
-                            <div *ngIf="skillsList.length>0">
+                            <div *ngIf="skillsList.length>0 && !IsEditSkills">
+                                <div class="clearfix"> <button class="btn btn-success" (click)="editSkills()"><i class="fa fa-pencil"></i></button></div>
                                 <ul class="list-group" *ngFor="let item of skillsList">
                                     <li class="list-group-item">
-                                        <p>{{item.service.name}}</p>
-                                        <div><img [src]="item.service.cover_image" [height]="100" [width]="100" /></div>
+                                        <p>
+                                            {{item.service?item.service.name:''}}
+
+                                        </p>
+                                        <div *ngIf="item.service && item.service.cover_image"><img [src]="item.service.cover_image" class="img-thumbnail" style='max-width:100%; width: 200px' /></div>
                                     </li>
                                 </ul>
                             </div>
@@ -21,11 +25,189 @@
                             <div *ngIf="skillsList.length==0">
                                 <div>No Skills </div>
                             </div>
+                            <div *ngIf="IsEditSkills && serviceList.length>0">
+                                <ul class="list-group" *ngFor="let item of serviceList;let i =index">
+                                    <li class="list-group-item" style='display: flex; align-items: center'>
+                                        <input type="checkbox" [(ngModel)]="item.IsSelected" (ngModelChange)="checkUncheckSkills(item)" />
+                                        <div *ngIf="item.cover_image" style="margin-left: 15px; margin-right: 15px; "><img [src]="item.cover_image" class="img-thumbnail" [height]="100" [width]="100" /></div>
+                                        <p>{{item.name}}</p>
+                                    </li>
+                                </ul>
+                                <button class="btn btn-info" *ngIf="IsShowSkillBUtton" (click)="saveSkills()">Save</button>
+                                <button class="btn btn-danger" *ngIf="IsShowSkillBUtton" (click)="cancelSkills()">Cancel</button>
+                            </div>
+                        </accordion-group>
+                        <accordion-group heading=" Zone">
+                            <div *ngIf="workerZonesList.length>0 && !IsEditZone">
+                                <div class="clearfix"> <button class="btn btn-success" (click)="editZone()"><i class="fa fa-pencil"></i></button></div>
+                                <ul class="list-group" *ngFor="let item of workerZonesList">
+                                    <li class="list-group-item">
+                                        <p>{{item.zone?item.zone.name:''}}</p>
+                                        <div *ngIf="item.zone && item.zone.banner_image"><img [src]="item.zone.banner_image" class="img-thumbnail" style='max-width:100%; width: 200px' /></div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div *ngIf="workerZonesList.length==0">
+                                <div>No zone </div>
+                            </div>
+                            <div *ngIf="IsEditZone && zoneList.length>0">
+                                <ul class="list-group" *ngFor="let item of zoneList;let i =index">
+                                    <li class="list-group-item">
+                                        <p>{{item.name}}</p>
+                                        <div style="margin-left: 15px; margin-right: 15px; " *ngIf="item.banner_image"><img [src]="item.banner_image" class="img-thumbnail" [height]="100" [width]="100" /></div>
+                                        <input type="checkbox" [(ngModel)]="item.IsSelected" (ngModelChange)="checkUncheckZone(item)" />
+                                    </li>
+                                </ul>
+                                <button class="btn btn-info" *ngIf="IsShowZoneButton" (click)="saveZone()">Save</button>
+                                <button class="btn btn-danger" *ngIf="IsShowZoneButton" (click)="cancelZone()">Cancel</button>
+                            </div>
                         </accordion-group>
                         <accordion-group heading="Job History">
                             <ng2-smart-table [settings]="settings" [source]="jobList"></ng2-smart-table>
                         </accordion-group>
+                        <accordion-group heading="Available Timing">
 
+                            <div *ngIf="!IsEditTiming">
+                                <button class="btn btn-success" style="float:right" (click)="editTiming()"><i class="fa fa-pencil"></i></button>
+                                <ul>
+                                    <li *ngFor="let item of finalTimingData" style="display: flex; align-items: center; border-bottom: 1px solid #ddd; padding: 10px 0 10px 0 ">
+                                        <div style="width:100px;">{{item.dayName}}</div>
+                                        <div style="flex: 1">
+                                            <div *ngIf="item.timing">{{item.timing}}</div>
+                                            <div *ngIf="!item.timing">DAY OFF</div>
+                                        </div>
+                                    </li>
+                                    <li *ngIf="finalTimingData.length==0">No timing available</li>
+                                </ul>
+                            </div>
+
+                            <div *ngIf="IsEditTiming">
+                                <div style="display: flex">
+                                    <ul class="cst-ul">
+                                        <li> </li>
+                                        <li *ngFor="let item of editTimingData[0].daysName">{{item.name}}</li>
+                                    </ul>
+                                    <ul class="cst-ul2">
+                                        <li>
+                                            <span class="inner-Inage-icon" *ngFor="let item1 of editTimingData[1].timingArray">{{item1.name}}</span>
+                                        </li>
+                                        <li>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check1" (change)="getCheckBoxValue('check1','sun', '8 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check2" (change)="getCheckBoxValue('check2','sun', '9 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check3" (change)="getCheckBoxValue('check3','sun', '10 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check4" (change)="getCheckBoxValue('check4','sun', '11 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check5" (change)="getCheckBoxValue('check5','sun', '12 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check6" (change)="getCheckBoxValue('check6','sun', '1 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check7" (change)="getCheckBoxValue('check7','sun', '2 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check8" (change)="getCheckBoxValue('check8','sun', '3 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check9" (change)="getCheckBoxValue('check9','sun', '4 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check10" (change)="getCheckBoxValue('check10','sun', '5 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"  id="check11" (change)="getCheckBoxValue('check11','sun', '6 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check12" (change)="getCheckBoxValue('check12','sun', '7 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check13" (change)="getCheckBoxValue('check13','sun', '8 pm')"></span> </li>
+                                        <li>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check14" (change)="getCheckBoxValue('check14','mon', '8 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check15" (change)="getCheckBoxValue('check15','mon', '9 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check16" (change)="getCheckBoxValue('check16','mon', '10 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check17" (change)="getCheckBoxValue('check17','mon', '11 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check18" (change)="getCheckBoxValue('check18','mon', '12 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check19" (change)="getCheckBoxValue('check19','mon', '1 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check20" (change)="getCheckBoxValue('check20','mon', '2 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check21" (change)="getCheckBoxValue('check21','mon', '3 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check22" (change)="getCheckBoxValue('check22','mon', '4 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check23" (change)="getCheckBoxValue('check23','mon', '5 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check24" (change)="getCheckBoxValue('check24','mon', '6 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check25" (change)="getCheckBoxValue('check25','mon', '7 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check26" (change)="getCheckBoxValue('check26','mon', '8 pm')"></span>
+                                        </li>
+                                        <li>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check27" (change)="getCheckBoxValue('check27','tue', '8 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check28" (change)="getCheckBoxValue('check28','tue', '9 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check29" (change)="getCheckBoxValue('check29','tue', '10 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check30" (change)="getCheckBoxValue('check30','tue', '11 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check31" (change)="getCheckBoxValue('check31','tue', '12 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check32" (change)="getCheckBoxValue('check32','tue', '1 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check33" (change)="getCheckBoxValue('check33','tue', '2 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check34" (change)="getCheckBoxValue('check34', 'tue', '3 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check35" (change)="getCheckBoxValue('check35','tue', '4 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check36" (change)="getCheckBoxValue('check36','tue', '5 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"id="check37" (change)="getCheckBoxValue('check37','tue', '6 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"id="check38" (change)="getCheckBoxValue('check38','tue', '7 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check39"(change)="getCheckBoxValue('check39','tue', '8 pm')"></span>
+                                        </li>
+
+                                        <li>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check40" (change)="getCheckBoxValue('check40','wed', '8 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check41" (change)="getCheckBoxValue('check41','wed', '9 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check42" (change)="getCheckBoxValue('check42','wed', '10 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check43" (change)="getCheckBoxValue('check43','wed', '11 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check44" (change)="getCheckBoxValue('check44','wed', '12 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"  id="check45"(change)="getCheckBoxValue('check45','wed', '1 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check46"(change)="getCheckBoxValue('check46','wed', '2 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check47"(change)="getCheckBoxValue('check47','wed', '3 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check48"(change)="getCheckBoxValue('check48','wed', '4 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check49" (change)="getCheckBoxValue('check49','wed', '5 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check50" (change)="getCheckBoxValue('check50','wed', '6 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check51" (change)="getCheckBoxValue('check51','wed', '7 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check52" (change)="getCheckBoxValue('check52','wed', '8 pm')"></span>
+                                        </li>
+                                        <li>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check53" (change)="getCheckBoxValue('check53','thu', '8 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"  id="check54"(change)="getCheckBoxValue('check54','thu', '9 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check55" (change)="getCheckBoxValue('check55','thu', '10 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check56" (change)="getCheckBoxValue('check56','thu', '11 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check57" (change)="getCheckBoxValue('check57','thu', '12 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check58" (change)="getCheckBoxValue('check58','thu', '1 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check59" (change)="getCheckBoxValue('check59','thu', '2 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check60" (change)="getCheckBoxValue('check60','thu', '3 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check61" (change)="getCheckBoxValue('check61','thu', '4 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check62" (change)="getCheckBoxValue('check62','thu', '5 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check63" (change)="getCheckBoxValue('check63','thu', '6 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check64" (change)="getCheckBoxValue('check64','thu', '7 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check65" (change)="getCheckBoxValue('check65','thu', '8 pm')"></span>
+                                        </li>
+                                        <li>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check66" (change)="getCheckBoxValue('check66','fri', '8 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check67" (change)="getCheckBoxValue('check67','fri', '9 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check68" (change)="getCheckBoxValue('check68','fri', '10 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check69" (change)="getCheckBoxValue('check69','fri', '11 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check70" (change)="getCheckBoxValue('check70','fri', '12 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check71" (change)="getCheckBoxValue('check71','fri', '1 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check72" (change)="getCheckBoxValue('check72','fri', '2 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check73" (change)="getCheckBoxValue('check73','fri', '3 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check74" (change)="getCheckBoxValue('check74','fri', '4 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check75" (change)="getCheckBoxValue('check75','fri', '5 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check76" (change)="getCheckBoxValue('check76','fri', '6 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check77" (change)="getCheckBoxValue('check77','fri', '7 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check78" (change)="getCheckBoxValue('check78','fri', '8 pm')"></span>
+                                        </li>
+                                        <li>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check79" (change)="getCheckBoxValue('check79','sat', '8 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check80"(change)="getCheckBoxValue('check80','sat', '9 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check81" (change)="getCheckBoxValue('check81','sat', '10 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"id="check82" (change)="getCheckBoxValue('check82','sat', '11 am')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check83" (change)="getCheckBoxValue('check83','sat', '12 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"id="check84" (change)="getCheckBoxValue('check84','sat', '1 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check85" (change)="getCheckBoxValue('check85','sat', '2 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check86"(change)="getCheckBoxValue('check86','sat', '3 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox" id="check87" (change)="getCheckBoxValue('check87','sat', '4 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"id="check88" (change)="getCheckBoxValue('check88','sat', '5 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"id="check89" (change)="getCheckBoxValue('check89','sat', '6 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"id="check90" (change)="getCheckBoxValue('check90','sat', '7 pm')"></span>
+                                            <span class="inner-Inage-icon"><input type="checkbox"id="check91" (change)="getCheckBoxValue('check91','sat', '8 pm')"></span>
+                                        </li>
+                                    </ul>
+
+
+                                </div>
+                                <button class="btn btn-info" *ngIf="IsShowTimingButton" (click)="saveTime()">Save</button>
+                                <button class="btn btn-danger" *ngIf="IsShowTimingButton" (click)="cancelTime()">Cancel</button>
+                            </div>
+
+
+
+                        </accordion-group>
                     </accordion>
                 </div>
             </div>

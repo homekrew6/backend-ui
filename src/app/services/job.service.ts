@@ -26,6 +26,16 @@ export class JobService {
     }
 
 
+    public getJobCancelReason(id)
+    {
+        const filter ='{"where":{"jobId":"'+id+'"}}';
+        return this.http.get(environment.baseurl + 'declinedJobs?filter=' + filter + '&access_token=' + localStorage
+            .getItem('authToken')).map((res: Response) => {
+                return res.json();
+            });
+    }
+
+
     public assignJob(data) {
         return this.http.post(environment.baseurl + 'Jobs/assignJobManually?access_token=' + localStorage
             .getItem('authToken'), data).map((res: Response) => {

@@ -12,6 +12,9 @@
                         <div class="alert alert-danger" *ngIf="error">
                             {{error}}
                         </div>
+                        <div class="alert alert-success" *ngIf="success">
+                            {{success}}
+                        </div>
                         <div class="form-group">
                             <label for="company">Name <span>*</span></label>
                             <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter worker name">
@@ -21,6 +24,13 @@
                             <label for="vat">Email <span>*</span></label>
                             <input type="email" [readonly]="true" formControlName="email" class="form-control" id="email" placeholder="Enter worker email">
                             <div class="text-danger" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">Please enter email</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="vat">Password <span>*</span></label>
+                            <input type="password" id="newPassword" class="form-control" placeholder="Enter new Password" *ngIf="IsChangePassShow">
+                            <button type="button" class="btn btn-sm btn-primary" (click)="changePassword()" *ngIf="!IsChangeDisabled && !IsChangePassShow"><i class="fa fa-dot-circle-o"></i> Change Password</button>
+                            <button type="button" class="btn btn-sm btn-primary" (click)="resetPassword()" *ngIf="IsResetPassword"><i class="fa fa-dot-circle-o"></i> Change Password</button>
+                            <button type="button" class="btn btn-sm btn-primary" *ngIf="IsShowSpinner"><i class="fa fa-fw fa-spin fa-spinner"></i></button>
                         </div>
                         <!-- <div class="form-group">
                             <label for="street">Username <span>*</span></label>

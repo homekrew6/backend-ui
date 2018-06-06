@@ -9,6 +9,7 @@ import { JobService } from '../../services/job.service';
 })
 export class JobDetailsComponent implements OnInit {
   jobDetails:any;
+  cancelReason:any;
   constructor(private router: Router, private jobService: JobService, private route:ActivatedRoute) {
    }
 
@@ -16,6 +17,15 @@ export class JobDetailsComponent implements OnInit {
     if(localStorage.getItem("jobDetails"))
     {
       this.jobDetails=JSON.parse(localStorage.getItem("jobDetails"));
+      if (this.jobDetails.status)
+      {
+        this.jobService.getJobCancelReason(this.jobDetails.id).subscribe((res)=>{
+          if(res.length && res.length>0)
+          {
+            this.cancelReason = res[0].reason;
+          }
+        })
+      }
     
       
     }

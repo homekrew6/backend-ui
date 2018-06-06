@@ -1,4 +1,9 @@
-:host /deep/ ng2-smart-table .table { width: auto; max-width: auto;  min-width: 100%; }
+:host /deep/ ng2-smart-table .table {
+    width: auto;
+    max-width: auto;
+    min-width: 100%;
+}
+
 :host /deep/ ng2-smart-table tr td {
     vertical-align: middle;
     padding-top: 0.75rem;
@@ -38,4 +43,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.cst-ul {
+    width: 100px;
+    list-style-type: none;
+}
+
+.cst-ul li,
+.cst-ul2 li {
+    min-height: 25px;
+}
+
+.cst-ul2 {
+    flex: 1;
+    overflow-x: scroll;
+    list-style-type: none
+}
+
+.cst-ul2 li {
+    min-width: 650px;
+}
+
+.cst-ul2 li::after {
+    min-width: 650px;
+    clear: both;
+    content: '';
+    display: block;
+}
+
+.inner-Inage-icon {
+    text-align: center;
+    width: 50px;
+    float: left;
 }

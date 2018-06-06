@@ -16,6 +16,11 @@ export class EditComponent implements OnInit {
   workerId: any;
   is_active = true;
   workerList = [];
+  IsChangeDisabled=false;
+  IsChangePassShow = false;
+  IsShowSpinner = false;
+  IsResetPassword = false;
+  success: any;
   constructor(private fb: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute, private workerService: WorkerService) {
     this.rForm = fb.group({
       'name': [null, Validators.required],
@@ -45,6 +50,48 @@ export class EditComponent implements OnInit {
 
       this.getIndividualWorker(this.workerId);
     });
+  }
+
+  resetPassword() {
+    const newPassword = document.getElementById('newPassword')['value'];
+
+    if (newPassword) {
+      this.IsShowSpinner = true;
+      this.IsResetPassword = false;
+      this.workerService.workerReset({ email: this.rForm.value.email, IsFromAdmin: true }).subscribe((res) => {
+        this.workerService.getAdminTempByEmail({ email: this.rForm.value.email }).subscribe((token) => {
+          if (token.length > 0) {
+            debugger;
+            const access_token = token[0].access_token;
+            const deleteId = token[0].id;
+            const html = 'Hi,<br>Your new password set by Admin is : ' + newPassword + '<br><br>Regards,<br>Krew Team';
+            this.workerService.workerResetPassword({ newPassword: newPassword, token: access_token }).subscribe((success) => {
+              this.IsChangePassShow = false;
+              this.IsChangeDisabled = false;
+              this.IsShowSpinner = false;
+              this.success = 'Successfully saved.';
+              this.workerService.deleteAdminTemp(deleteId).subscribe((res1) => {
+
+              })
+              this.workerService.sendEmail({ to: this.rForm.value.email, subject: 'Password changed by Admin', html: html }).subscribe((res3) => {
+
+              })
+            })
+          }
+        })
+      }, (error) => {
+        this.error = 'Email not found';
+        window.scrollTo(0, 0);
+      })
+    }
+    else {
+      this.error = "Please type new password.";
+      window.scrollTo(0, 0);
+    }
+  }
+  changePassword() {
+    this.IsChangePassShow = true;
+    this.IsResetPassword = true;
   }
   goToList() {
     this.router.navigate(['worker']);

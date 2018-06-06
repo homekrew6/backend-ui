@@ -47,6 +47,10 @@
                             <label for="company">Price</label>
                             <input type="text" class="form-control" placeholder="Price" name="price" [readOnly]="true" [(ngModel)]="jobDetails.price">
                         </div>
+                        <div class="form-group" *ngIf="cancelReason">
+                            <label for="company">Cancel Reason</label>
+                            <input type="text" class="form-control" placeholder="Cancel Reason" name="cancelReason" [readOnly]="true" [(ngModel)]="cancelReason">
+                        </div>
 
 
                     </div>
